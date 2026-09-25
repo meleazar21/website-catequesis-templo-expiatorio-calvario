@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "curso": "Primera Comunión", "dia": "Sábado", "hora": "9:00 a. m.", "lugar": "Salón 1" },
+    { "curso": "Confirmación", "dia": "Sábado", "hora": "2:00 p. m.", "lugar": "Salón 2" },
+    { "curso": "Pre-Bautismo", "dia": "Domingo", "hora": "5:00 p. m.", "lugar": "Salón parroquial" },
+    { "curso": "CICA — Adultos", "dia": "[CONTENIDO POR DEFINIR]", "hora": "[CONTENIDO POR DEFINIR]", "lugar": "[CONTENIDO POR DEFINIR]" }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "orden": 3,
+  "nombre": "Confirmación",
+  "descripcion": "Completa la iniciación cristiana y fortalece al creyente con el Espíritu Santo.",
+  "requisitos": [
+    {
+      "texto": "Estar bautizado y haber recibido la Primera Comunión."
+    },
+    {
+      "texto": "Un padrino o una madrina confirmado."
+    },
+    {
+      "texto": "[CONTENIDO POR DEFINIR]"
+    }
+  ],
+  "fechas": "[CONTENIDO POR DEFINIR]",
+  "aviso": ""
+}

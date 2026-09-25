@@ -1,0 +1,19 @@
+{
+  "orden": 4,
+  "nombre": "CICA — Catequesis para adultos",
+  "edad": "Mayores de 18 años",
+  "horario": "[CONTENIDO POR DEFINIR]",
+  "duracion": "[CONTENIDO POR DEFINIR]",
+  "descripcion": "Para adultos que no han recibido uno o varios sacramentos de iniciación cristiana.",
+  "detalle": [
+    {
+      "texto": "Bautismo, Primera Comunión y Confirmación según lo que cada persona necesite."
+    },
+    {
+      "texto": "Acompañamiento personal a lo largo del proceso."
+    },
+    {
+      "texto": "[CONTENIDO POR DEFINIR]"
+    }
+  ]
+}

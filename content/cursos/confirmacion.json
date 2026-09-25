@@ -1,0 +1,22 @@
+{
+  "orden": 2,
+  "nombre": "Confirmación",
+  "edad": "12 – 15 años",
+  "horario": "Sábados · 2:00 p. m.",
+  "duracion": "2 años",
+  "descripcion": "Formación de adolescentes y jóvenes para recibir el Espíritu Santo.",
+  "detalle": [
+    {
+      "texto": "Profundización en la fe y en la Sagrada Escritura."
+    },
+    {
+      "texto": "Retiro de preparación antes de la celebración."
+    },
+    {
+      "texto": "Servicio y compromiso dentro de la comunidad."
+    },
+    {
+      "texto": "[CONTENIDO POR DEFINIR]"
+    }
+  ]
+}

@@ -29,17 +29,17 @@ export function Gallery() {
       <Reveal delay={90}>
         <div className="mt-14 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
           {galeria.map((f) =>
-            f.src ? (
+            f.foto ? (
               <img
-                key={f.id}
-                src={f.src}
+                key={f.titulo}
+                src={f.foto}
                 alt={f.titulo}
                 loading="lazy"
                 className={`w-full break-inside-avoid rounded-2xl object-cover shadow-card ${ALTO[f.alto]}`}
               />
             ) : (
               <PhotoPlaceholder
-                key={f.id}
+                key={f.titulo}
                 label={f.titulo}
                 className={`w-full break-inside-avoid rounded-2xl shadow-card ${ALTO[f.alto]}`}
               />

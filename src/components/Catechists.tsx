@@ -24,10 +24,11 @@ export function Catechists() {
         {catequistas.map((c, i) => (
           <Reveal key={c.nombre} delay={i * 80} className="h-full">
             <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-navy/8 bg-white shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">
-              <PhotoPlaceholder
-                label={c.nombre}
-                className="aspect-[4/5] w-full"
-              />
+              {c.foto ? (
+                <img src={c.foto} alt={c.nombre} loading="lazy" className="aspect-[4/5] w-full object-cover" />
+              ) : (
+                <PhotoPlaceholder label={c.nombre} className="aspect-[4/5] w-full" />
+              )}
               <div className="flex flex-1 flex-col p-6">
                 <h3 className="text-[1.2rem] leading-tight text-navy-deep">{c.nombre}</h3>
                 <p className="mt-1.5 text-[0.72rem] font-extrabold uppercase tracking-[0.13em] text-gold">

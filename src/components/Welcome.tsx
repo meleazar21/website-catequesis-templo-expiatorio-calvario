@@ -23,10 +23,13 @@ export function Welcome() {
 
           <Reveal delay={120}>
             <div className="relative">
-              <PhotoPlaceholder
-                label="La comunidad reunida en el templo"
-                className="aspect-[4/3] w-full rounded-2xl shadow-card"
-              />
+              {bienvenida.foto ? (
+                <img src={bienvenida.foto} alt="" loading="lazy"
+                  className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card" />
+              ) : (
+                <PhotoPlaceholder label="La comunidad reunida en el templo"
+                  className="aspect-[4/3] w-full rounded-2xl shadow-card" />
+              )}
               {/* Filete dorado en la esquina: detalle discreto, sin iconografía recargada. */}
               <div className="pointer-events-none absolute -bottom-3 -right-3 hidden h-24 w-24 rounded-br-2xl border-b-2 border-r-2 border-gold/60 sm:block" />
             </div>

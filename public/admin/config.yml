@@ -1,0 +1,230 @@
+####################################################################################
+#  Panel de administración — Decap CMS
+#
+#  Define qué puede editar la persona que mantiene el sitio. Cada "collection" de
+#  abajo aparece como una sección del panel en /admin.
+#
+#  BACKEND: viene configurado para **Netlify** (git-gateway), que trae el inicio de
+#  sesión incluido y no requiere configuración extra. Si el sitio se publica en
+#  Vercel, cambia el bloque `backend` por el que está comentado más abajo.
+####################################################################################
+
+backend:
+  name: git-gateway
+  branch: master
+
+# --- Alternativa para Vercel (requiere una app OAuth de GitHub + un proxy) --------
+# backend:
+#   name: github
+#   repo: meleazar21/NOMBRE-DEL-REPO
+#   branch: master
+#   base_url: https://TU-PROXY-OAUTH.vercel.app
+# ---------------------------------------------------------------------------------
+
+# Los cambios se guardan como borrador y se publican con un botón. Así nadie
+# publica algo a medio escribir por accidente.
+publish_mode: editorial_workflow
+
+locale: es
+
+# Dónde caen las fotos y videos que se suban desde el panel.
+media_folder: "public/fotos"
+public_folder: "/fotos"
+
+collections:
+  # ------------------------------------------------------------------ Inscripciones
+  - name: inscripciones
+    label: "Inscripciones"
+    files:
+      - name: inscripciones
+        label: "Datos de inscripción"
+        file: "content/inscripciones.json"
+        description: "Lo más consultado del sitio. Recuerda cerrar las inscripciones cuando termine el periodo."
+        fields:
+          - { name: abiertas, label: "¿Inscripciones abiertas?", widget: boolean, default: true, hint: "Apagado muestra 'Inscripciones cerradas' y desactiva el botón." }
+          - { name: inicio, label: "Fecha de inicio", widget: string }
+          - { name: cierre, label: "Fecha de cierre", widget: string }
+          - { name: horarioAtencion, label: "Horario de atención", widget: string }
+          - { name: lugar, label: "Lugar", widget: string }
+          - { name: enlace, label: "Enlace del botón INSCRIBIRME", widget: string, required: false, hint: "Google Forms, formulario propio o https://wa.me/505... Si se deja vacío, el botón lleva a la sección de contacto." }
+          - { name: nota, label: "Nota al pie", widget: text }
+          - name: requisitos
+            label: "Requisitos"
+            widget: list
+            fields: [{ name: texto, label: "Requisito", widget: string }]
+
+  # ------------------------------------------------------------------ Cursos
+  - name: cursos
+    label: "Cursos de catequesis"
+    label_singular: "Curso"
+    folder: "content/cursos"
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    summary: "{{orden}} · {{nombre}}"
+    sortable_fields: [orden, nombre]
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: nombre, label: "Nombre del curso", widget: string }
+      - { name: edad, label: "Edad", widget: string, hint: "Ej.: 7 – 10 años" }
+      - { name: horario, label: "Horario", widget: string, hint: "Ej.: Sábados · 9:00 a. m." }
+      - { name: duracion, label: "Duración", widget: string, hint: "Ej.: 2 años" }
+      - { name: descripcion, label: "Descripción breve", widget: text }
+      - name: detalle
+        label: "Qué se vive en el curso"
+        widget: list
+        fields: [{ name: texto, label: "Punto", widget: string }]
+
+  # ------------------------------------------------------------------ Horarios
+  - name: horarios
+    label: "Horarios"
+    files:
+      - name: horarios
+        label: "Tabla de horarios"
+        file: "content/horarios.json"
+        fields:
+          - name: items
+            label: "Horarios"
+            widget: list
+            summary: "{{curso}} · {{dia}} {{hora}}"
+            fields:
+              - { name: curso, label: "Curso", widget: string }
+              - { name: dia, label: "Día", widget: string }
+              - { name: hora, label: "Hora", widget: string }
+              - { name: lugar, label: "Lugar", widget: string }
+
+  # ------------------------------------------------------------------ Avisos
+  - name: avisos
+    label: "Avisos"
+    label_singular: "Aviso"
+    folder: "content/avisos"
+    extension: json
+    format: json
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    summary: "{{orden}} · {{titulo}}"
+    sortable_fields: [orden, titulo]
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: titulo, label: "Título", widget: string }
+      - { name: categoria, label: "Categoría", widget: select, options: [INSCRIPCIONES, SACRAMENTOS, REUNIONES, ACTIVIDADES, AVISOS] }
+      - { name: fecha, label: "Fecha", widget: string }
+      - { name: descripcion, label: "Descripción", widget: text }
+      - { name: destacado, label: "Destacar", widget: boolean, default: false, hint: "Lo resalta con borde dorado." }
+
+  # ------------------------------------------------------------------ Actividades
+  - name: eventos
+    label: "Próximas actividades"
+    label_singular: "Actividad"
+    folder: "content/eventos"
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    summary: "{{dia}} {{mes}} · {{titulo}}"
+    sortable_fields: [orden, titulo]
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: dia, label: "Día", widget: string, hint: "Solo el número. Ej.: 28" }
+      - { name: mes, label: "Mes", widget: string, hint: "Ej.: Marzo" }
+      - { name: titulo, label: "Título", widget: string }
+      - { name: hora, label: "Hora", widget: string }
+      - { name: lugar, label: "Lugar", widget: string }
+
+  # ------------------------------------------------------------------ Sacramentos
+  - name: sacramentos
+    label: "Sacramentos"
+    label_singular: "Sacramento"
+    folder: "content/sacramentos"
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    summary: "{{orden}} · {{nombre}}"
+    sortable_fields: [orden, nombre]
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: nombre, label: "Sacramento", widget: string }
+      - { name: descripcion, label: "Información general", widget: text }
+      - name: requisitos
+        label: "Requisitos"
+        widget: list
+        fields: [{ name: texto, label: "Requisito", widget: string }]
+      - { name: fechas, label: "Fechas importantes", widget: string }
+      - { name: aviso, label: "Aviso", widget: string, required: false, hint: "Opcional. Aparece en un recuadro dorado." }
+
+  # ------------------------------------------------------------------ Catequistas
+  - name: catequistas
+    label: "Catequistas"
+    label_singular: "Catequista"
+    folder: "content/catequistas"
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    summary: "{{orden}} · {{nombre}}"
+    sortable_fields: [orden, nombre]
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: nombre, label: "Nombre", widget: string }
+      - { name: grupo, label: "Curso o grupo", widget: string, hint: "Ej.: Catequista de Primera Comunión" }
+      - { name: frase, label: "Frase", widget: text }
+      - { name: foto, label: "Fotografía", widget: image, required: false, hint: "Si se deja vacío se muestra un marcador." }
+
+  # ------------------------------------------------------------------ Galería
+  - name: galeria
+    label: "Galería"
+    label_singular: "Fotografía"
+    folder: "content/galeria"
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    summary: "{{orden}} · {{titulo}}"
+    sortable_fields: [orden, titulo]
+    fields:
+      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: titulo, label: "Título", widget: string }
+      - { name: foto, label: "Fotografía", widget: image, required: false }
+      - { name: alto, label: "Tamaño en el mosaico", widget: select, options: [corto, medio, alto], default: medio }
+
+  # ------------------------------------------------------------------ Sitio
+  - name: sitio
+    label: "Configuración del sitio"
+    files:
+      - name: general
+        label: "Portada, textos y contacto"
+        file: "content/site.json"
+        fields:
+          - { name: marca, label: "Nombre completo", widget: string }
+          - { name: marcaLinea1, label: "Nombre — primera línea del logotipo", widget: string }
+          - { name: marcaLinea2, label: "Nombre — segunda línea del logotipo", widget: string }
+          - { name: parroquia, label: "Parroquia", widget: string }
+          - { name: parroquiaLinea2, label: "Parroquia — segunda línea", widget: string }
+          - { name: ciudad, label: "Ciudad", widget: string }
+          - { name: lema, label: "Lema", widget: string }
+          - { name: versiculoTexto, label: "Versículo de la portada", widget: string }
+          - { name: versiculoCita, label: "Cita del versículo", widget: string }
+
+          - { name: portadaVideo, label: "Video de fondo de la portada", widget: file, required: false, hint: "MP4 sin audio, en bucle, MENOS DE 5 MB. No se reproduce en teléfonos: ahí se ve el póster." }
+          - { name: portadaPoster, label: "Póster del video", widget: image, required: false, hint: "Primer fotograma. Es lo que ven los teléfonos." }
+          - { name: portadaFoto, label: "Foto de portada", widget: image, required: false, hint: "Alternativa si no hay video." }
+
+          - { name: bienvenidaTitulo, label: "Bienvenida — título", widget: string }
+          - { name: bienvenidaTexto, label: "Bienvenida — texto", widget: text, hint: "Deja una línea en blanco entre párrafos." }
+          - { name: bienvenidaFoto, label: "Bienvenida — fotografía", widget: image, required: false }
+
+          - { name: misionTitulo, label: "Misión — título", widget: string }
+          - { name: misionTexto, label: "Misión — texto", widget: text }
+          - { name: visionTitulo, label: "Visión — título", widget: string }
+          - { name: visionTexto, label: "Visión — texto", widget: text }
+
+          - { name: telefono, label: "Teléfono", widget: string }
+          - { name: whatsapp, label: "WhatsApp", widget: string, required: false, hint: "Solo dígitos con código de país. Ej.: 50588887777" }
+          - { name: correo, label: "Correo electrónico", widget: string }
+          - { name: direccion, label: "Dirección", widget: string }
+          - { name: horarioAtencion, label: "Horario de atención", widget: string }
+          - { name: mapaEmbedUrl, label: "Mapa de Google (enlace para incrustar)", widget: string, required: false }
+          - { name: facebook, label: "Facebook", widget: string, required: false }
+          - { name: instagram, label: "Instagram", widget: string, required: false }

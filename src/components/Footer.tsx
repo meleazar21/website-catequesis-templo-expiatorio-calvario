@@ -13,9 +13,9 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <img src="/logo.png" alt="" className="h-14 w-14 object-contain" />
               <div className="leading-tight">
-                <p className="font-serif text-[1.25rem]">{site.grupo}</p>
+                <p className="font-serif text-[1.25rem]">{site.marcaLinea1}</p>
                 <p className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-gold-light">
-                  Parroquia El Calvario
+                  {site.marcaLinea2}
                 </p>
               </div>
             </div>
@@ -86,7 +86,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 border-t border-white/12 pt-7 text-center text-[0.8rem] text-white/45">
-          © {anio} {site.grupo} · {site.parroquiaLinea2}
+          © {anio} {site.marca}
         </div>
       </div>
     </footer>

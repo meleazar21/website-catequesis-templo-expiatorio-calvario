@@ -1,0 +1,18 @@
+{
+  "orden": 2,
+  "nombre": "Primera Comunión",
+  "descripcion": "Se celebra al concluir el proceso de preparación, normalmente de dos años.",
+  "requisitos": [
+    {
+      "texto": "Estar bautizado."
+    },
+    {
+      "texto": "Haber completado la preparación."
+    },
+    {
+      "texto": "[CONTENIDO POR DEFINIR]"
+    }
+  ],
+  "fechas": "[CONTENIDO POR DEFINIR]",
+  "aviso": ""
+}

@@ -31,15 +31,25 @@ export function Navbar() {
         solido ? "bg-ivory/95 shadow-[0_1px_0_rgba(30,58,138,0.08)] backdrop-blur" : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-content items-center gap-3 px-5 py-3 sm:px-8">
-        <a href="#inicio" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <img src="/logo.png" alt="" className="h-11 w-11 object-contain" />
-          <span className="leading-tight">
-            <span className={`block font-serif text-[1.05rem] font-semibold ${solido ? "text-navy-deep" : "text-white"}`}>
-              {site.grupo}
+      <nav className="mx-auto flex max-w-content items-center gap-3 px-5 py-2 sm:px-8">
+        <a href="#inicio" className="flex shrink-0 items-center gap-3" onClick={() => setOpen(false)}>
+          {/* El escudo es el protagonista: crece con el ancho de pantalla y al bajar
+              se encoge un poco para que la barra no ocupe media pantalla. */}
+          <img
+            src="/logo.png"
+            alt={site.marca}
+            className={`w-auto object-contain transition-all duration-300 ${
+              solido ? "h-14 sm:h-16" : "h-16 sm:h-20"
+            }`}
+          />
+          {/* El escudo ya lleva el nombre grabado, así que en pantallas pequeñas el
+              texto sobra: repetirlo solo apretaba la barra contra el menú. */}
+          <span className="hidden leading-tight md:block">
+            <span className={`block font-serif text-[1.15rem] font-semibold ${solido ? "text-navy-deep" : "text-white"}`}>
+              {site.marcaLinea1}
             </span>
-            <span className={`block text-[0.68rem] font-bold uppercase tracking-[0.16em] ${solido ? "text-gold" : "text-gold-light"}`}>
-              Parroquia El Calvario
+            <span className={`block whitespace-nowrap text-[0.64rem] font-bold uppercase tracking-[0.14em] ${solido ? "text-gold" : "text-gold-light"}`}>
+              {site.marcaLinea2}
             </span>
           </span>
         </a>

@@ -1,0 +1,22 @@
+{
+  "orden": 1,
+  "nombre": "Primera Comunión",
+  "edad": "7 – 10 años",
+  "horario": "Sábados · 9:00 a. m.",
+  "duracion": "2 años",
+  "descripcion": "Preparación de los niños para recibir por primera vez la Eucaristía.",
+  "detalle": [
+    {
+      "texto": "Iniciación a la oración y a la vida sacramental."
+    },
+    {
+      "texto": "Preparación para la Primera Confesión."
+    },
+    {
+      "texto": "Acompañamiento a las familias durante los dos años."
+    },
+    {
+      "texto": "[CONTENIDO POR DEFINIR]"
+    }
+  ]
+}

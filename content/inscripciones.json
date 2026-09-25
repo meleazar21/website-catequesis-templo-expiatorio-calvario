@@ -1,0 +1,16 @@
+{
+  "abiertas": true,
+  "inicio": "[CONTENIDO POR DEFINIR]",
+  "cierre": "[CONTENIDO POR DEFINIR]",
+  "horarioAtencion": "[CONTENIDO POR DEFINIR]",
+  "lugar": "[CONTENIDO POR DEFINIR]",
+  "enlace": "",
+  "nota": "Las fechas y los horarios de inscripción se confirman cada año en el templo y en nuestras redes sociales.",
+  "requisitos": [
+    { "texto": "Partida de nacimiento del niño o niña." },
+    { "texto": "Partida de bautismo (si ya fue bautizado)." },
+    { "texto": "Documento de identidad del padre, madre o tutor." },
+    { "texto": "Dos fotografías tamaño carné." },
+    { "texto": "[CONTENIDO POR DEFINIR]" }
+  ]
+}

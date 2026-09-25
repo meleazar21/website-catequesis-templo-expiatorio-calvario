@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Administrar el sitio · Catequesis El Calvario</title>
+    <link rel="icon" href="/logo.png" />
+  </head>
+  <body>
+    <!--
+      Panel de administración (Decap CMS). Lo que se puede editar está definido
+      en `config.yml`, no aquí. Este archivo solo carga el panel.
+
+      Se carga desde un CDN a propósito: así el panel no entra en el `build` del
+      sitio ni le suma peso a quien solo viene a leer la página.
+    -->
+    <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+
+    <!-- Invitación por correo de Netlify Identity: al abrir el enlace, pide la contraseña. -->
+    <script>
+      window.netlifyIdentity &&
+        window.netlifyIdentity.on("init", function (user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function () {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+    </script>
+  </body>
+</html>

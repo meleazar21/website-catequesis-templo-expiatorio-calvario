@@ -1,0 +1,27 @@
+# Publicación en Netlify.
+#
+# Se incluye porque el panel de administración (/admin) viene configurado con
+# `git-gateway`, que es el inicio de sesión que Netlify trae incluido: publicando
+# aquí, el panel funciona sin montar nada más.
+#
+# Para usarlo:
+#   1. Netlify → Add new site → Import from Git → este repositorio.
+#   2. Site configuration → Identity → Enable Identity.
+#   3. Identity → Registration → Invite only  (que no se registre cualquiera).
+#   4. Identity → Services → Git Gateway → Enable.
+#   5. Identity → Invite users → el correo de quien va a mantener el sitio.
+#
+# El sitio también funciona en Vercel (vercel.json), pero ahí el panel necesita
+# una app OAuth de GitHub aparte; ver el bloque comentado en public/admin/config.yml.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# El sitio es de una sola página: cualquier ruta devuelve index.html. Sin `force`,
+# los archivos que existen de verdad (/admin/index.html, /admin/config.yml, las fotos)
+# se sirven tal cual y no pasan por aquí.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

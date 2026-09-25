@@ -1,21 +1,51 @@
-import { site } from "../data/site";
+import { useEffect, useState } from "react";
+import { portada, site } from "../data/site";
 import { Icon } from "./ui";
 
 /**
- * Portada. El fondo está preparado para una fotografía grande del templo o de la
- * comunidad: basta con poner la ruta en `FOTO_HERO`. Mientras no la haya, se usa un
- * fondo compuesto (degradado azul + textura muy tenue) en vez de una foto de archivo,
- * porque el sitio no debe mostrar imágenes ajenas como si fueran de esta parroquia.
+ * Portada. El fondo se configura en `portada` (src/data/site.ts): video, foto fija o,
+ * si no hay ninguno, un degradado azul compuesto.
+ *
+ * El video **no se reproduce en el teléfono**: un fondo en bucle puede costarle varios
+ * megas de datos móviles a quien solo venía a consultar un horario. En pantalla pequeña
+ * se muestra el póster, que es una sola imagen. Tampoco se reproduce si el sistema del
+ * visitante pide menos movimiento.
  */
-const FOTO_HERO = ""; // p. ej. "/fotos/templo.jpg"
-
 export function Hero() {
+  const [reproducir, setReproducir] = useState(false);
+
+  useEffect(() => {
+    if (!portada.video) return;
+    const mq = window.matchMedia("(min-width: 640px) and (prefers-reduced-motion: no-preference)");
+    const sync = () => setReproducir(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  const hayVideo = Boolean(portada.video) && reproducir;
+  const imagenFija = portada.poster || portada.foto;
+  // Con video o foto detrás hace falta más velo para que el texto siga legible.
+  const conMedio = hayVideo || Boolean(imagenFija);
+
   return (
     <section id="inicio" className="relative flex min-h-[92vh] items-center overflow-hidden">
       {/* Fondo */}
       <div className="absolute inset-0 bg-navy-deep">
-        {FOTO_HERO ? (
-          <img src={FOTO_HERO} alt="" className="h-full w-full object-cover" />
+        {hayVideo ? (
+          <video
+            className="h-full w-full object-cover"
+            src={portada.video}
+            poster={portada.poster || undefined}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          />
+        ) : imagenFija ? (
+          <img src={imagenFija} alt="" className="h-full w-full object-cover" />
         ) : (
           <div
             className="absolute inset-0"
@@ -27,26 +57,41 @@ export function Hero() {
             }}
           />
         )}
-        {/* Trama de arcos: evoca los del templo sin caer en iconografía recargada. */}
+
+        {/* Trama de arcos: evoca los del templo sin caer en iconografía recargada.
+            Con foto o video detrás estorba, así que solo sale sobre el degradado. */}
+        {!conMedio && (
+          <div
+            className="absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 50% 100%, transparent 26px, #ffffff 26px, #ffffff 27px, transparent 27px)",
+              backgroundSize: "64px 64px",
+            }}
+          />
+        )}
+
+        {/* Velo de legibilidad. */}
         <div
-          className="absolute inset-0 opacity-[0.07]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 50% 100%, transparent 26px, #ffffff 26px, #ffffff 27px, transparent 27px)",
-            backgroundSize: "64px 64px",
-          }}
+          className={`absolute inset-0 ${
+            conMedio
+              ? "bg-gradient-to-t from-navy-deep via-navy-deep/85 to-navy-deep/65"
+              : "bg-gradient-to-t from-navy-deep via-navy-deep/70 to-navy-deep/45"
+          }`}
         />
-        {/* Degradado de legibilidad. */}
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/70 to-navy-deep/45" />
       </div>
 
       {/* Contenido */}
       <div className="relative mx-auto w-full max-w-content px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-36">
         <div className="max-w-3xl animate-reveal">
-          <img src="/logo.png" alt="" className="mb-8 h-20 w-20 object-contain sm:h-24 sm:w-24" />
+          <img
+            src="/logo.png"
+            alt={site.marca}
+            className="mb-8 h-28 w-auto object-contain sm:h-36"
+          />
 
           <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.3em] text-gold-light">
-            {site.grupo}
+            {site.marcaLinea1}
           </p>
 
           <h1 className="mt-5 text-[2.5rem] leading-[1.08] text-white sm:text-[3.6rem] lg:text-[4.2rem]">

@@ -9,7 +9,7 @@ import { Eyebrow, Icon, Lead, Provisional, Reveal, Section, Title } from "./ui";
  * El primero arranca desplegado para que se vea de qué va sin tener que tocar nada.
  */
 export function Sacraments() {
-  const [abierto, setAbierto] = useState<string | null>(sacramentos[0]?.id ?? null);
+  const [abierto, setAbierto] = useState<string | null>(sacramentos[0]?.nombre ?? null);
 
   return (
     <Section id="sacramentos" className="bg-ivory-deep">
@@ -26,16 +26,16 @@ export function Sacraments() {
 
       <div className="mx-auto mt-14 max-w-3xl space-y-4">
         {sacramentos.map((s, i) => {
-          const open = abierto === s.id;
+          const open = abierto === s.nombre;
           return (
-            <Reveal key={s.id} delay={i * 70}>
+            <Reveal key={s.nombre} delay={i * 70}>
               <article className={`overflow-hidden rounded-2xl border bg-white shadow-card transition-colors ${
                 open ? "border-gold/50" : "border-navy/8"
               }`}>
                 <h3>
                   <button
                     type="button"
-                    onClick={() => setAbierto(open ? null : s.id)}
+                    onClick={() => setAbierto(open ? null : s.nombre)}
                     aria-expanded={open}
                     className="flex w-full items-center gap-4 px-6 py-5 text-left sm:px-8"
                   >

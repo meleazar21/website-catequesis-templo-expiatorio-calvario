@@ -1,0 +1,19 @@
+{
+  "orden": 3,
+  "nombre": "Pre-Bautismo",
+  "edad": "Padres y padrinos",
+  "horario": "Domingos · 5:00 p. m.",
+  "duracion": "Ciclo corto de sesiones",
+  "descripcion": "Preparación de padres y padrinos antes del bautizo del niño o niña.",
+  "detalle": [
+    {
+      "texto": "Sentido del sacramento del Bautismo."
+    },
+    {
+      "texto": "Responsabilidad de padres y padrinos en la educación en la fe."
+    },
+    {
+      "texto": "[CONTENIDO POR DEFINIR]"
+    }
+  ]
+}

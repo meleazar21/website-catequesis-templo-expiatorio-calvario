@@ -24,9 +24,9 @@ export function Courses() {
 
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {cursos.map((c, i) => {
-          const desplegado = abierto === c.id;
+          const desplegado = abierto === c.nombre;
           return (
-            <Reveal key={c.id} delay={i * 90} className="h-full">
+            <Reveal key={c.nombre} delay={i * 90} className="h-full">
               <article className="flex h-full flex-col rounded-2xl border border-navy/8 bg-white p-7 shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gold-soft text-[#8a6d22]">
                   <Icon name="book" size={22} />
@@ -55,7 +55,7 @@ export function Courses() {
                 <div className="mt-auto pt-6">
                   <button
                     type="button"
-                    onClick={() => setAbierto(desplegado ? null : c.id)}
+                    onClick={() => setAbierto(desplegado ? null : c.nombre)}
                     aria-expanded={desplegado}
                     className="inline-flex items-center gap-1.5 text-[0.78rem] font-extrabold uppercase tracking-[0.13em] text-navy transition-colors hover:text-gold"
                   >
