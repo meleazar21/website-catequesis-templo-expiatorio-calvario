@@ -3,7 +3,7 @@
   "marcaLinea2": "Templo Expiatorio El Calvario",
   "versiculoCita": "Prov 22, 6",
   "visionTitulo": "Nuestra visión",
-  "portadaFoto": "",
+  "portadaFoto": "/fotos/cover.jpg",
   "horarioAtencion": "Domingos 8:00 AM a 12:00 PM",
   "facebook": "https://www.facebook.com/profile.php?id=61560166110205",
   "portadaPoster": "",
@@ -22,8 +22,8 @@
   "parroquia": "Templo Expiatorio Arquidiocesano",
   "visionTexto": "Ser una comunidad de catequesis viva y cercana, donde cada persona encuentre a Cristo, se sienta acogida y descubra su lugar en la Iglesia y en el servicio a los demás. [CONTENIDO POR DEFINIR]",
   "mapaEmbedUrl": "https://maps.app.goo.gl/sgfDg8vn1szGgop17",
-  "bienvenidaFoto": "",
+  "bienvenidaFoto": "/fotos/comunidad.jpg",
   "marca": "Catequesis Templo Expiatorio El Calvario",
-  "portadaVideo": "/fotos/cover.jpg",
+  "portadaVideo": "",
   "parroquiaLinea2": "Parroquia El Calvario — Masaya"
 }

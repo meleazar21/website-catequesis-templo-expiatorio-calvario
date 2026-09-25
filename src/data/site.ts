@@ -34,6 +34,45 @@ export const portada = {
   video: raw.portadaVideo,
 };
 
+/**
+ * Convierte lo que se pegue en el campo del mapa en un enlace que se pueda incrustar.
+ *
+ * Google ofrece de primeras el enlace de **compartir**, y ese no se puede incrustar: lo
+ * rechaza dentro de un iframe ("refused to connect"). El enlace de incrustar está más
+ * escondido (Compartir → Insertar un mapa). Pedirle a quien mantiene el sitio que
+ * distinga los dos es pedirle que se acuerde de algo que no tiene por qué saber, así que
+ * aquí se acepta cualquiera de las formas habituales y se traduce:
+ *
+ *  - un enlace de incrustar, tal cual;
+ *  - la URL larga de la barra de direcciones, de la que se sacan las coordenadas;
+ *  - unas coordenadas sueltas, "11.977989, -86.0876864";
+ *  - cualquier otra cosa se trata como dirección y se busca.
+ *
+ * La excepción son los enlaces cortos (maps.app.goo.gl): solo el servidor de Google sabe
+ * a dónde apuntan y el navegador no puede resolverlos, así que se descartan y sale el
+ * marcador, que explica qué pegar. Es preferible a un mapa roto sin explicación.
+ */
+function mapaEmbed(valor: string): string {
+  const v = valor.trim();
+  if (!v) return "";
+
+  const mapa = (consulta: string) =>
+    `https://maps.google.com/maps?q=${encodeURIComponent(consulta)}&z=17&hl=es&output=embed`;
+
+  if (v.includes("/maps/embed") || v.includes("output=embed")) return v;
+  if (/(maps\.app\.goo\.gl|goo\.gl\/maps)/i.test(v)) return "";
+
+  if (/^https?:\/\//i.test(v)) {
+    // !3d/!4d son las del lugar; @lat,lng es el centro del mapa, que sirve de respaldo.
+    const lugar = v.match(/!3d(-?\d+\.?\d*)!4d(-?\d+\.?\d*)/);
+    const centro = v.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+    const c = lugar ?? centro;
+    return c ? mapa(`${c[1]},${c[2]}`) : "";
+  }
+
+  return mapa(v);
+}
+
 export const contacto = {
   telefono: raw.telefono,
   /** Solo dígitos con código de país, para el enlace wa.me. Ej.: "50588887777". */
@@ -41,8 +80,8 @@ export const contacto = {
   correo: raw.correo,
   direccion: raw.direccion,
   horarioAtencion: raw.horarioAtencion,
-  /** Enlace para incrustar Google Maps. Vacío = no se muestra el mapa. */
-  mapaEmbedUrl: raw.mapaEmbedUrl,
+  /** Ya convertido a un enlace incrustable. Vacío = se muestra el marcador. */
+  mapaEmbedUrl: mapaEmbed(raw.mapaEmbedUrl),
   redes: [
     { nombre: "Facebook", url: raw.facebook },
     { nombre: "Instagram", url: raw.instagram },

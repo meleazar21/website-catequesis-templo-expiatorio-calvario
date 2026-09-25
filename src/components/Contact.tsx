@@ -88,8 +88,9 @@ export function Contact() {
               </span>
               <p className="font-serif text-[1.25rem] text-navy-deep">Ubicación del templo</p>
               <p className="max-w-xs text-[0.88rem] leading-relaxed text-ink-soft">
-                Aquí se mostrará el mapa. Para activarlo, pega el enlace de Google Maps
-                en <code className="rounded bg-navy-soft px-1.5 py-0.5 text-[0.85em]">contacto.mapaEmbedUrl</code>.
+                Aquí se mostrará el mapa. Para activarlo, busca el templo en Google Maps y
+                pega en el panel la dirección que aparece en la barra del navegador. Los
+                enlaces cortos de “Compartir” no sirven: Google no permite incrustarlos.
               </p>
             </div>
           )}

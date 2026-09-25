@@ -242,6 +242,9 @@ collections:
           - { name: correo, label: "Correo electrónico", widget: string }
           - { name: direccion, label: "Dirección", widget: string }
           - { name: horarioAtencion, label: "Horario de atención", widget: string }
-          - { name: mapaEmbedUrl, label: "Mapa de Google (enlace para incrustar)", widget: string, required: false }
+          # Acepta la URL larga del navegador, unas coordenadas o una dirección; el
+          # sitio las traduce. Lo único que NO sirve es el enlace corto de "Compartir"
+          # (maps.app.goo.gl): solo Google sabe a dónde apunta y no se puede incrustar.
+          - { name: mapaEmbedUrl, label: "Mapa — ubicación del templo", widget: string, required: false, hint: "Busca el templo en Google Maps y copia la dirección de la barra del navegador (la larga, que empieza por https://www.google.com/maps/place/...). NO uses el enlace corto del botón Compartir. Vacío = no se muestra el mapa." }
           - { name: facebook, label: "Facebook", widget: string, required: false }
           - { name: instagram, label: "Instagram", widget: string, required: false }
