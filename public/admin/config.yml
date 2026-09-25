@@ -16,7 +16,7 @@ backend:
 # --- Alternativa para Vercel (requiere una app OAuth de GitHub + un proxy) --------
 # backend:
 #   name: github
-#   repo: meleazar21/NOMBRE-DEL-REPO
+#   repo: meleazar21/website-catequesis-templo-expiatorio-calvario
 #   branch: master
 #   base_url: https://TU-PROXY-OAUTH.vercel.app
 # ---------------------------------------------------------------------------------
