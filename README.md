@@ -34,7 +34,24 @@ Lo que puede editar quien mantiene el sitio:
 Los cambios quedan como **borrador** hasta que se pulsa *Publicar* (`editorial_workflow`),
 así nada se publica a medio escribir.
 
-### Dejar el panel funcionando
+### Abrir el panel en esta computadora (sin publicar nada)
+
+Para probarlo o para cargar contenido antes de publicar el sitio. Hacen falta
+**dos terminales**, ambas en la carpeta del proyecto:
+
+```bash
+npm run admin     # terminal 1 — el backend del panel (deja esto corriendo)
+npm run dev       # terminal 2 — el sitio
+```
+
+Y luego se abre **http://localhost:5173/admin/**. No pide usuario ni contraseña.
+
+Lo que se guarda desde ahí **escribe directo en `content/`** de esta computadora: no
+toca GitHub ni publica nada. Los cambios se revisan con `git diff` y se suben con un
+commit normal. Es el modo `local_backend` de `config.yml`; si `npm run admin` no está
+corriendo, el panel intenta iniciar sesión con Netlify y no podrá entrar.
+
+### Dejar el panel funcionando para quien mantiene el sitio
 
 El panel usa **Decap CMS**, que guarda los cambios en este mismo repositorio. Necesita
 un servicio de inicio de sesión, y viene configurado para el de **Netlify**, que es el
@@ -123,11 +140,11 @@ Los colores se definen en `tailwind.config.js`; no hay colores sueltos en los co
 ```bash
 npm install
 npm run dev       # http://localhost:5173
+npm run admin     # backend del panel en local (otra terminal)
 npm run build     # comprueba tipos y genera dist/
 ```
 
-El panel `/admin` **no** funciona en `npm run dev` con esta configuración: necesita el
-inicio de sesión del sitio publicado.
+Para abrir el panel en local hay que levantar además `npm run admin` (ver más arriba).
 
 > Este repositorio es **independiente** del sistema de gestión a propósito: Render
 > redespliega el backend en cada push a su repo, y corregir un párrafo de esta web no

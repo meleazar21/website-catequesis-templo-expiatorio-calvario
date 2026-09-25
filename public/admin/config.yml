@@ -21,6 +21,12 @@ backend:
 #   base_url: https://TU-PROXY-OAUTH.vercel.app
 # ---------------------------------------------------------------------------------
 
+# Editar el contenido EN ESTA COMPUTADORA, sin publicar nada y sin iniciar sesión.
+# Requiere tener corriendo `npm run admin` en otra terminal; si no está corriendo,
+# el panel vuelve solo al backend de arriba. Guardar escribe directo en content/,
+# así que los cambios se revisan con `git diff` y se suben con un commit normal.
+local_backend: true
+
 # Los cambios se guardan como borrador y se publican con un botón. Así nadie
 # publica algo a medio escribir por accidente.
 publish_mode: editorial_workflow
