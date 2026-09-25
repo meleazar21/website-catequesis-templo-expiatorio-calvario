@@ -32,6 +32,8 @@ function coleccion<T extends { orden?: number }>(mods: Record<string, unknown>):
 export interface Curso {
   orden?: number;
   nombre: string;
+  /** Cartel del curso. Vacío = la tarjeta muestra el icono de siempre. */
+  imagen?: string;
   edad: string;
   horario: string;
   duracion: string;

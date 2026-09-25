@@ -1,10 +1,11 @@
 {
   "orden": 4,
   "nombre": "CICA — Catequesis para adultos",
+  "imagen": "/fotos/cica.jpg",
   "edad": "Mayores de 18 años",
-  "horario": "[CONTENIDO POR DEFINIR]",
-  "duracion": "[CONTENIDO POR DEFINIR]",
-  "descripcion": "Para adultos que no han recibido uno o varios sacramentos de iniciación cristiana.",
+  "horario": "Domingo 8:30 am - 11:00 am",
+  "duracion": "8 semanas",
+  "descripcion": "Este curso está dirigido a personas adultas que aún no han recibido uno o varios de los Sacramentos de Iniciación Cristiana: Bautismo, Eucaristía y Confirmación. A través de ocho encuentros  buscamos conocer a Jesucristo, descubrir la riqueza de la fe católica y prepararnos con responsabilidad para vivir los sacramentos",
   "detalle": [
     {
       "texto": "Bautismo, Primera Comunión y Confirmación según lo que cada persona necesite."

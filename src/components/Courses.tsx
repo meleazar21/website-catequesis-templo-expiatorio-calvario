@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { cursos } from "../data/catequesis";
-import { Eyebrow, Icon, Lead, Provisional, Reveal, Section, Title } from "./ui";
+import { Eyebrow, Icon, Lead, Lightbox, Provisional, Reveal, Section, Title } from "./ui";
 
 /**
  * Cursos de catequesis. "Ver información" despliega el detalle en la misma tarjeta:
  * en móvil evita mandar a la persona a otra pantalla para leer cuatro líneas.
+ *
+ * Si el curso tiene cartel, encabeza la tarjeta. Se muestra **entero** (`object-contain`)
+ * y no recortado: son carteles con texto y un recorte se come justo lo que explica el
+ * curso. Y como a este tamaño la letra pequeña no se lee, al tocarlo se abre en grande.
  */
 export function Courses() {
   const [abierto, setAbierto] = useState<string | null>(null);
+  const [cartel, setCartel] = useState<{ src: string; alt: string } | null>(null);
 
   return (
     <Section id="catequesis">
@@ -27,12 +32,35 @@ export function Courses() {
           const desplegado = abierto === c.nombre;
           return (
             <Reveal key={c.nombre} delay={i * 90} className="h-full">
-              <article className="flex h-full flex-col rounded-2xl border border-navy/8 bg-white p-7 shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gold-soft text-[#8a6d22]">
-                  <Icon name="book" size={22} />
-                </span>
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-navy/8 bg-white shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">
+                {c.imagen && (
+                  <button
+                    type="button"
+                    onClick={() => setCartel({ src: c.imagen!, alt: `Cartel del curso ${c.nombre}` })}
+                    title="Ver el cartel en grande"
+                    className="group relative block w-full bg-ivory-deep"
+                  >
+                    <img
+                      src={c.imagen} alt={`Cartel del curso ${c.nombre}`} loading="lazy"
+                      /* Sin proporción fija: el cartel toma la suya. Forzar 4:3 le dejaba
+                         franjas a los lados a uno cuadrado, que parecen un error. El tope
+                         de altura evita que un cartel muy vertical empuje el texto fuera. */
+                      className="max-h-64 w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+                    />
+                    <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-full bg-navy-deep/75 px-2.5 py-1 text-[0.62rem] font-extrabold uppercase tracking-[0.1em] text-white opacity-0 transition-opacity group-hover:opacity-100">
+                      <Icon name="image" size={12} /> Ampliar
+                    </span>
+                  </button>
+                )}
 
-                <h3 className="mt-5 text-[1.35rem] leading-tight text-navy-deep">{c.nombre}</h3>
+                <div className="flex flex-1 flex-col p-7">
+                {!c.imagen && (
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gold-soft text-[#8a6d22]">
+                    <Icon name="book" size={22} />
+                  </span>
+                )}
+
+                <h3 className={`${c.imagen ? "" : "mt-5 "}text-[1.35rem] leading-tight text-navy-deep`}>{c.nombre}</h3>
                 <p className="mt-3 text-[0.92rem] leading-relaxed text-ink-soft">{c.descripcion}</p>
 
                 <dl className="mt-6 space-y-2.5 border-t border-navy/8 pt-5 text-[0.88rem]">
@@ -77,11 +105,16 @@ export function Courses() {
                     </ul>
                   )}
                 </div>
+                </div>
               </article>
             </Reveal>
           );
         })}
       </div>
+
+      {cartel && (
+        <Lightbox src={cartel.src} alt={cartel.alt} onClose={() => setCartel(null)} />
+      )}
     </Section>
   );
 }

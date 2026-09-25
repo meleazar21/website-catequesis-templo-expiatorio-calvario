@@ -73,6 +73,7 @@ collections:
     fields:
       - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
       - { name: nombre, label: "Nombre del curso", widget: string }
+      - { name: imagen, label: "Cartel del curso", widget: image, required: false, hint: "Opcional. El cartel que explica el curso; se ve entero (no se recorta) y al tocarlo se abre en grande para poder leerlo. Sin cartel, la tarjeta muestra el icono de siempre." }
       - { name: edad, label: "Edad", widget: string, hint: "Ej.: 7 – 10 años" }
       - { name: horario, label: "Horario", widget: string, hint: "Ej.: Sábados · 9:00 a. m." }
       - { name: duracion, label: "Duración", widget: string, hint: "Ej.: 2 años" }

@@ -153,6 +153,49 @@ export function PhotoPlaceholder({ label, className = "", compact = false }: {
 }
 
 /* ------------------------------------------------------------------ Varios */
+/**
+ * Visor para ver una imagen en grande. Los carteles de curso llevan texto pequeño que
+ * en la tarjeta no se lee; sin esto, la imagen estaría de adorno.
+ *
+ * Cierra con Escape y tocando el fondo, y mientras está abierto se bloquea el scroll de
+ * la página: en el teléfono, si no, se desplaza lo de detrás en vez de la imagen.
+ */
+export function Lightbox({ src, alt, onClose }: {
+  src: string; alt: string; onClose: () => void;
+}) {
+  useEffect(() => {
+    const tecla = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const previo = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", tecla);
+    return () => {
+      document.body.style.overflow = previo;
+      window.removeEventListener("keydown", tecla);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      role="dialog" aria-modal="true" aria-label={alt}
+      onClick={onClose}
+      className="fixed inset-0 z-[70] flex items-center justify-center bg-navy-deep/92 p-4 animate-reveal sm:p-8"
+    >
+      <button
+        type="button" onClick={onClose} aria-label="Cerrar"
+        className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-6 sm:top-6"
+      >
+        <Icon name="close" size={22} />
+      </button>
+      {/* El clic sobre la imagen no debe cerrar: se puede querer ampliarla con los dedos. */}
+      <img
+        src={src} alt={alt}
+        onClick={(e) => e.stopPropagation()}
+        className="max-h-full max-w-full rounded-xl object-contain shadow-lift"
+      />
+    </div>
+  );
+}
+
 export function Pill({ children, tone = "navy" }: {
   children: ReactNode; tone?: "navy" | "gold" | "sage" | "red";
 }) {
