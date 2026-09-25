@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Manrope autoalojada: el mismo archivo que usa el sistema de gestión, para que la
+   tipografía de la web y la de la aplicación sean idénticas y no dependa de la red. */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/manrope-variable.woff2") format("woff2");
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* El encabezado es fijo: sin esto, al saltar a una sección el título queda debajo. */
+    scroll-padding-top: 5.5rem;
+  }
+  body {
+    @apply bg-ivory text-ink font-sans antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-serif;
+  }
+  ::selection {
+    @apply bg-gold-light text-navy-deep;
+  }
+}
+
+@layer components {
+  /* Filete dorado corto que acompaña a los títulos de sección. */
+  .rule-gold::after {
+    content: "";
+    @apply mt-4 block h-px w-14 bg-gold;
+  }
+  .rule-gold-center::after {
+    content: "";
+    @apply mx-auto mt-4 block h-px w-14 bg-gold;
+  }
+}
+
+/* Quien prefiera menos movimiento no ve ninguna animación. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
