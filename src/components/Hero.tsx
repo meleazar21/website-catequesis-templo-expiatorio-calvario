@@ -3,30 +3,38 @@ import { portada, site } from "../data/site";
 import { Icon } from "./ui";
 
 /**
- * Portada. El fondo se configura en `portada` (src/data/site.ts): video, foto fija o,
- * si no hay ninguno, un degradado azul compuesto.
+ * Portada. El fondo se configura desde el panel (/admin → Configuración del sitio) y
+ * admite **foto, video o ninguno de los dos**; sin nada, sale un degradado azul
+ * compuesto, que es un fondo digno por sí mismo y no un hueco a la espera de imagen.
  *
- * El video **no se reproduce en el teléfono**: un fondo en bucle puede costarle varios
- * megas de datos móviles a quien solo venía a consultar un horario. En pantalla pequeña
- * se muestra el póster, que es una sola imagen. Tampoco se reproduce si el sistema del
- * visitante pide menos movimiento.
+ * Si hay las dos cosas, el video manda en pantalla grande y la foto es lo que se ve en
+ * el teléfono: un fondo en bucle puede costarle varios megas de datos móviles a quien
+ * solo venía a consultar un horario. Tampoco se reproduce si el sistema del visitante
+ * pide menos movimiento.
  */
+/**
+ * Que el archivo del video sea realmente un video. El panel ya lo valida, pero una
+ * fotografía puesta en ese campo deja la portada en negro sin explicar por qué —ya
+ * pasó—, y aquí cuesta una línea descartarla.
+ */
+const esVideo = (src: string) => /\.(mp4|webm|ogv)(\?.*)?$/i.test(src);
+
 export function Hero() {
   const [reproducir, setReproducir] = useState(false);
+  const video = portada.video && esVideo(portada.video) ? portada.video : "";
 
   useEffect(() => {
-    if (!portada.video) return;
+    if (!video) return;
     const mq = window.matchMedia("(min-width: 640px) and (prefers-reduced-motion: no-preference)");
     const sync = () => setReproducir(mq.matches);
     sync();
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
-  }, []);
+  }, [video]);
 
-  const hayVideo = Boolean(portada.video) && reproducir;
-  const imagenFija = portada.poster || portada.foto;
+  const hayVideo = Boolean(video) && reproducir;
   // Con video o foto detrás hace falta más velo para que el texto siga legible.
-  const conMedio = hayVideo || Boolean(imagenFija);
+  const conMedio = hayVideo || Boolean(portada.foto);
 
   return (
     <section id="inicio" className="relative flex min-h-[92vh] items-center overflow-hidden">
@@ -35,8 +43,8 @@ export function Hero() {
         {hayVideo ? (
           <video
             className="h-full w-full object-cover"
-            src={portada.video}
-            poster={portada.poster || undefined}
+            src={video}
+            poster={portada.foto || undefined}
             autoPlay
             muted
             loop
@@ -44,8 +52,8 @@ export function Hero() {
             preload="metadata"
             aria-hidden="true"
           />
-        ) : imagenFija ? (
-          <img src={imagenFija} alt="" className="h-full w-full object-cover" />
+        ) : portada.foto ? (
+          <img src={portada.foto} alt="" className="h-full w-full object-cover" />
         ) : (
           <div
             className="absolute inset-0"

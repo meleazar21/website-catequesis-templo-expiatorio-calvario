@@ -24,14 +24,14 @@ export const site = {
 };
 
 /**
- * Fondo de la portada. Se usa lo primero que esté disponible: video, foto o, si no hay
- * ninguno, un degradado azul. El video solo se reproduce en pantallas grandes (en el
- * teléfono se ve el póster, para no gastar los datos del visitante).
+ * Fondo de la portada: una foto, un video, o ninguno de los dos (entonces sale un
+ * degradado azul compuesto). Pueden convivir — el video solo se reproduce en pantallas
+ * grandes, y la foto es lo que se ve en el teléfono, para no gastarle los datos a quien
+ * solo venía a consultar un horario.
  */
 export const portada = {
-  video: raw.portadaVideo,
-  poster: raw.portadaPoster,
   foto: raw.portadaFoto,
+  video: raw.portadaVideo,
 };
 
 export const contacto = {

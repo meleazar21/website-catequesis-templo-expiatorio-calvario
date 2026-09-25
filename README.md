@@ -75,9 +75,11 @@ que no requiere montar nada aparte:
 Se suben desde el panel; caen en `public/fotos/`. Antes de subirlas, **comprímelas**
 (idealmente menos de 300 KB cada una) — el visitante las descarga con sus datos.
 
-El video de la portada es opcional. Debe ir **sin audio, en bucle y pesar menos de 5 MB**;
-no se reproduce en teléfonos (ahí se ve el póster), a propósito. Detalles en
-`public/video/LEEME.txt`.
+**La portada admite foto, video o ninguno de los dos** — sin nada sale un degradado azul
+que también se ve bien. Con la fotografía basta; el video es un extra. Si subes video,
+debe ir **sin audio, en bucle y pesar menos de 5 MB**, y conviene subir también la
+fotografía: en teléfonos el video no se reproduce a propósito, y es la foto lo que se ve.
+Detalles en `public/video/LEEME.txt`.
 
 ### Contenido provisional
 

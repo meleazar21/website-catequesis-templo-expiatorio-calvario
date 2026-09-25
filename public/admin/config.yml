@@ -213,9 +213,20 @@ collections:
           - { name: versiculoTexto, label: "Versículo de la portada", widget: string }
           - { name: versiculoCita, label: "Cita del versículo", widget: string }
 
-          - { name: portadaVideo, label: "Video de fondo de la portada", widget: file, required: false, hint: "MP4 sin audio, en bucle, MENOS DE 5 MB. No se reproduce en teléfonos: ahí se ve el póster." }
-          - { name: portadaPoster, label: "Póster del video", widget: image, required: false, hint: "Primer fotograma. Es lo que ven los teléfonos." }
-          - { name: portadaFoto, label: "Foto de portada", widget: image, required: false, hint: "Alternativa si no hay video." }
+          # Fondo de la portada: se puede dejar una foto, un video, los dos o ninguno.
+          # Sin nada sale un degradado azul, que también se ve bien.
+          - { name: portadaFoto, label: "Portada — fotografía de fondo", widget: image, required: false, hint: "Opcional. Con esto basta para tener una portada con imagen. Apaisada y de buena resolución; comprímela a menos de 400 KB." }
+          # El `pattern` está para que una fotografía no termine en este campo: pasó, y
+          # el navegador intenta reproducir un JPG como video, así que la portada se
+          # queda en negro sin decir por qué.
+          - name: portadaVideo
+            label: "Portada — video de fondo (opcional)"
+            widget: file
+            required: false
+            hint: "Solo si quieres que la portada se mueva. MP4 SIN AUDIO, en bucle y de MENOS DE 5 MB. En teléfonos no se reproduce: ahí se ve la fotografía de arriba, así que conviene subir las dos."
+            # Comillas SIMPLES: en YAML, "\." entre comillas dobles es un escape inválido
+            # y tumba el archivo entero, con lo que el panel deja de cargar.
+            pattern: ['\.(mp4|webm)$|^$', 'Aquí solo va un video .mp4 o .webm. Si es una fotografía, va en el campo de arriba.']
 
           - { name: bienvenidaTitulo, label: "Bienvenida — título", widget: string }
           - { name: bienvenidaTexto, label: "Bienvenida — texto", widget: text, hint: "Deja una línea en blanco entre párrafos." }

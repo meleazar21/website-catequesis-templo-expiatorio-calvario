@@ -7,8 +7,8 @@ solo; esta carpeta es solo para ponerlo a mano.
 A mano:
   1. Coloca el archivo en esta carpeta, por ejemplo: templo.mp4
   2. Abre content/site.json y pon:
-         "portadaVideo":  "/video/templo.mp4",
-         "portadaPoster": "/fotos/portada.jpg",   <- primer fotograma
+         "portadaVideo": "/video/templo.mp4",
+         "portadaFoto":  "/fotos/portada.jpg",   <- lo que ven los teléfonos
 
 Recomendaciones antes de subirlo:
   - 10 a 20 segundos, en bucle (que el final empalme con el inicio).
@@ -16,5 +16,6 @@ Recomendaciones antes de subirlo:
   - Formato MP4 (H.264), 1920x1080 como máximo.
   - Menos de 5 MB. Un video de celular sin comprimir pesa 50-200 MB.
 
-El poster es obligatorio en la práctica: es lo que ven los teléfonos, donde el
-video no se reproduce para no gastar los datos del visitante.
+El video es OPCIONAL: con solo la fotografía la portada ya se ve bien. Si subes
+video, sube también la fotografía — es lo que ven los teléfonos, donde el video
+no se reproduce para no gastar los datos del visitante.
