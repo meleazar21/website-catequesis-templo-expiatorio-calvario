@@ -3,8 +3,11 @@ import { cursos } from "../data/catequesis";
 import { Eyebrow, Icon, Lead, Lightbox, Provisional, Reveal, Section, Title } from "./ui";
 
 /**
- * Cursos de catequesis. "Ver información" despliega el detalle en la misma tarjeta:
- * en móvil evita mandar a la persona a otra pantalla para leer cuatro líneas.
+ * Cursos de catequesis. En la tarjeta va solo el cartel y la descripción; la edad, el
+ * horario, la duración y el detalle viven dentro de "Ver información". Las
+ * descripciones son de largos muy distintos, así que tenerlo todo a la vista dejaba la
+ * ficha de datos a distinta altura en cada tarjeta y la rejilla se veía descuadrada.
+ * Se despliega en la misma tarjeta: en móvil evita mandar a la persona a otra pantalla.
  *
  * Si el curso tiene cartel, encabeza la tarjeta. Se muestra **entero** (`object-contain`)
  * y no recortado: son carteles con texto y un recorte se come justo lo que explica el
@@ -63,23 +66,6 @@ export function Courses() {
                 <h3 className={`${c.imagen ? "" : "mt-5 "}text-[1.35rem] leading-tight text-navy-deep`}>{c.nombre}</h3>
                 <p className="mt-3 text-[0.92rem] leading-relaxed text-ink-soft">{c.descripcion}</p>
 
-                <dl className="mt-6 space-y-2.5 border-t border-navy/8 pt-5 text-[0.88rem]">
-                  {[
-                    { k: "Edad", v: c.edad },
-                    { k: "Horario", v: c.horario },
-                    { k: "Duración", v: c.duracion },
-                  ].map((f) => (
-                    <div key={f.k} className="flex gap-2">
-                      <dt className="w-20 shrink-0 text-[0.7rem] font-extrabold uppercase tracking-[0.12em] text-ink-faint">
-                        {f.k}
-                      </dt>
-                      <dd className="font-semibold text-navy">
-                        <Provisional text={f.v} />
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-
                 <div className="mt-auto pt-6">
                   <button
                     type="button"
@@ -95,14 +81,35 @@ export function Courses() {
                   </button>
 
                   {desplegado && (
-                    <ul className="mt-4 space-y-2 border-t border-navy/8 pt-4 text-[0.88rem] text-ink-soft">
-                      {c.detalle.map((d, k) => (
-                        <li key={k} className="flex gap-2">
-                          <Icon name="check" size={15} className="mt-1 shrink-0 text-sage" />
-                          <span><Provisional text={d} /></span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="mt-4 border-t border-navy/8 pt-4">
+                      <dl className="space-y-2.5 text-[0.88rem]">
+                        {[
+                          { k: "Edad", v: c.edad },
+                          { k: "Horario", v: c.horario },
+                          { k: "Duración", v: c.duracion },
+                        ].map((f) => (
+                          <div key={f.k} className="flex gap-2">
+                            <dt className="w-20 shrink-0 text-[0.7rem] font-extrabold uppercase tracking-[0.12em] text-ink-faint">
+                              {f.k}
+                            </dt>
+                            <dd className="font-semibold text-navy">
+                              <Provisional text={f.v} />
+                            </dd>
+                          </div>
+                        ))}
+                      </dl>
+
+                      {c.detalle.length > 0 && (
+                        <ul className="mt-5 space-y-2 border-t border-navy/8 pt-4 text-[0.88rem] text-ink-soft">
+                          {c.detalle.map((d, k) => (
+                            <li key={k} className="flex gap-2">
+                              <Icon name="check" size={15} className="mt-1 shrink-0 text-sage" />
+                              <span><Provisional text={d} /></span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   )}
                 </div>
                 </div>
