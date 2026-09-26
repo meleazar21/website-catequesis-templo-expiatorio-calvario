@@ -7,7 +7,18 @@
  *
  * Si editas a mano, hazlo en `content/site.json`.
  */
-import raw from "../../content/site.json";
+import bruto from "../../content/site.json";
+
+/**
+ * Si alguien tiene el panel abierto con una versión anterior de la configuración y
+ * guarda, el archivo sale SIN las claves añadidas después: el panel escribe los campos
+ * que su pestaña conoce, no los que hay en disco. Eso no debe tumbar la compilación por
+ * un campo opcional, así que las claves que pueden faltar se declaran opcionales y se
+ * leen como cadena vacía, que es justo lo que significan.
+ */
+const raw = bruto as typeof bruto & {
+  portadaFotoMovil?: string;
+};
 
 /** Marca visible para cualquier dato que todavía no es oficial. */
 export const POR_DEFINIR = "[CONTENIDO POR DEFINIR]";
@@ -32,7 +43,7 @@ export const site = {
 export const portada = {
   foto: raw.portadaFoto,
   /** Versión vertical, solo para el teléfono. Vacío = se usa la de arriba. */
-  fotoMovil: raw.portadaFotoMovil,
+  fotoMovil: raw.portadaFotoMovil ?? "",
   video: raw.portadaVideo,
 };
 

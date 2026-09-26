@@ -47,8 +47,10 @@ export function Welcome() {
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {[
-            { icon: "dove" as const, ...mision },
-            { icon: "flame" as const, ...vision },
+            // El Ojo de la Providencia para la misión: el triángulo de la Trinidad y el
+            // ojo de Dios que ve y cuida. La estrella para la visión: hacia dónde vamos.
+            { icon: "providencia" as const, ...mision },
+            { icon: "estrella" as const, ...vision },
           ].map((c, i) => (
             <Reveal key={c.titulo} delay={i * 110}>
               <article className="h-full rounded-2xl border border-navy/8 bg-white p-8 shadow-card transition-shadow hover:shadow-lift sm:p-10">

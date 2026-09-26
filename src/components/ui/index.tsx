@@ -4,12 +4,18 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
  * Trazos SVG propios: sin librería de iconos y sin emojis (el diseño los excluye).
  */
 export type IconName =
-  | "dove" | "flame" | "book" | "calendar" | "clock" | "pin" | "phone"
-  | "mail" | "chat" | "check" | "arrow" | "menu" | "close" | "chevron" | "image";
+  | "flame" | "book" | "calendar" | "clock" | "pin" | "phone"
+  | "mail" | "chat" | "check" | "arrow" | "menu" | "close" | "chevron" | "image"
+  // Misión y visión
+  | "providencia" | "estrella"
+  // Sacramentos
+  | "agua" | "caliz" | "anillos" | "corazon" | "oleo" | "cruz";
 
 const PATHS: Record<IconName, ReactNode> = {
-  dove: <><path d="M4 13c3.5 0 6-2 7.5-4.5C13 6 15 5 17 5c2 0 3 1 3 2.5S19 10 17 10c3 0 3 3 1.5 5S14 18 11 18c-4 0-7-2-7-5z" /><circle cx="17.4" cy="7.2" r="0.6" fill="currentColor" /></>,
-  flame: <path d="M12 3s4 3.5 4 7a4 4 0 1 1-8 0c0-1.2.5-2.2 1-3 .3 1 1 1.6 1.7 1.6C11 8.6 10 6 12 3z" />,
+  /* Paloma de perfil, en vuelo y descendiendo: cabeza y pico arriba a la derecha,
+     el ala abierta sobre el cuerpo y la cola hacia abajo a la izquierda. La versión
+     anterior, de un solo trazo, se leía como una alubia. */
+  flame: <><path d="M12 2.6s4.6 4 4.6 8a4.6 4.6 0 1 1-9.2 0c0-1.4.6-2.5 1.2-3.4.3 1.1 1.1 1.8 1.9 1.8C10.7 9 9.6 6 12 2.6z" /><path d="M12 17.2v4.2M8.2 17.4l-1.4 3.4M15.8 17.4l1.4 3.4" /></>,
   book: <><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 0 4 20.5z" /><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 1 1.5 1.5z" /></>,
   calendar: <><rect x="3.5" y="5" width="17" height="15" rx="2" /><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3" /></>,
   clock: <><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></>,
@@ -23,6 +29,48 @@ const PATHS: Record<IconName, ReactNode> = {
   close: <path d="M6 6l12 12M18 6L6 18" />,
   chevron: <path d="m8 10 4 4 4-4" />,
   image: <><rect x="3.5" y="5" width="17" height="14" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="m4.5 17 4.5-4 3.5 3 3-2.5 4 3.5" /></>,
+
+  /* Ojo de la Providencia: el triángulo es la Trinidad y el ojo, que Dios ve y
+     cuida. Los rayos no son adorno — son lo que distingue la versión cristiana,
+     que representa la gloria divina, del ojo a secas. */
+  providencia: <>
+    <path d="M12 6.6 21 20.2H3z" />
+    <path d="M7.7 15.4c1.4-2 2.9-3 4.3-3s2.9 1 4.3 3c-1.4 2-2.9 3-4.3 3s-2.9-1-4.3-3z" />
+    <circle cx="12" cy="15.4" r="1.25" fill="currentColor" stroke="none" />
+    <path d="M12 4.4V1.3M8.1 5.3 6.2 2.4M15.9 5.3 17.8 2.4" />
+  </>,
+  estrella: <path d="M12.0 2.9 14.2 8.9 20.7 9.2 15.6 13.2 17.3 19.4 12.0 15.8 6.7 19.4 8.4 13.2 3.3 9.2 9.8 8.9z" />,
+
+  /* Bautismo: el agua cayendo sobre la pila. */
+  agua: <>
+    <path d="M12 3.2c2.3 2.7 3.5 4.6 3.5 6a3.5 3.5 0 0 1-7 0c0-1.4 1.2-3.3 3.5-6z" />
+    <path d="M3.6 16.4q2.1-1.7 4.2 0t4.2 0 4.2 0 4.2 0" />
+    <path d="M3.6 19.8q2.1-1.7 4.2 0t4.2 0 4.2 0 4.2 0" />
+  </>,
+  /* Eucaristía: el cáliz y la hostia. */
+  caliz: <>
+    <circle cx="12" cy="3.9" r="2.1" />
+    <path d="M12 3.2v1.4M11.3 3.9h1.4" />
+    <path d="M5.9 8.9h12.2c0 3.6-2.7 6.2-6.1 6.2S5.9 12.5 5.9 8.9z" />
+    <path d="M12 15.1v3.6M7.9 20.6h8.2" />
+  </>,
+  /* Matrimonio: las dos alianzas enlazadas. */
+  anillos: <>
+    <circle cx="9" cy="14.4" r="5.1" />
+    <circle cx="15" cy="14.4" r="5.1" />
+    <path d="M12 2.4v3.4M10.3 4.1h3.4" />
+  </>,
+  /* Reconciliación: la misericordia, no el pecado — un corazón con la cruz. */
+  corazon: <>
+    <path d="M12 20.6s-7.4-4.6-7.4-9.6a4.2 4.2 0 0 1 7.4-2.7 4.2 4.2 0 0 1 7.4 2.7c0 5-7.4 9.6-7.4 9.6z" />
+    <path d="M12 9.8v5.4M9.5 12.1h5" />
+  </>,
+  /* Unción de los enfermos: la ampolla del óleo. */
+  oleo: <>
+    <path d="M9.8 2.8h4.4v2.4l1.6 2.2v11a2 2 0 0 1-2 2h-3.6a2 2 0 0 1-2-2v-11l1.6-2.2z" />
+    <path d="M8.2 11.6h7.6M12 14.2v3.4M10.3 15.9h3.4" />
+  </>,
+  cruz: <path d="M12 2.8v18.4M6.6 8.2h10.8" />,
 };
 
 export function Icon({ name, size = 20, className = "" }: { name: IconName; size?: number; className?: string }) {
