@@ -6,15 +6,5 @@
   "horario": "Domingo 8:30 am - 11:00 am",
   "duracion": "8 semanas",
   "descripcion": "Este curso está dirigido a personas adultas que aún no han recibido uno o varios de los Sacramentos de Iniciación Cristiana: Bautismo, Eucaristía y Confirmación. A través de ocho encuentros  buscamos conocer a Jesucristo, descubrir la riqueza de la fe católica y prepararnos con responsabilidad para vivir los sacramentos",
-  "detalle": [
-    {
-      "texto": "Bautismo, Primera Comunión y Confirmación según lo que cada persona necesite."
-    },
-    {
-      "texto": "Acompañamiento personal a lo largo del proceso."
-    },
-    {
-      "texto": "[CONTENIDO POR DEFINIR]"
-    }
-  ]
+  "detalle": []
 }

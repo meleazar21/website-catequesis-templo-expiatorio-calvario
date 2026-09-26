@@ -160,9 +160,13 @@ export function PhotoPlaceholder({ label, className = "", compact = false }: {
  * Cierra con Escape y tocando el fondo, y mientras está abierto se bloquea el scroll de
  * la página: en el teléfono, si no, se desplaza lo de detrás en vez de la imagen.
  */
-export function Lightbox({ src, alt, onClose }: {
-  src: string; alt: string; onClose: () => void;
-}) {
+/**
+ * Lo común a todo lo que se abre encima de la página: cierra con Escape y bloquea el
+ * scroll del fondo mientras está abierto (en el teléfono, si no, se desplaza lo de
+ * detrás en vez del contenido). Va en un hook porque lo necesitan el visor de imagen y
+ * el perfil del catequista, y repetirlo es asegurarse de que a uno se le olvide.
+ */
+export function useCapaModal(onClose: () => void) {
   useEffect(() => {
     const tecla = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     const previo = document.body.style.overflow;
@@ -173,12 +177,18 @@ export function Lightbox({ src, alt, onClose }: {
       window.removeEventListener("keydown", tecla);
     };
   }, [onClose]);
+}
+
+export function Lightbox({ src, alt, onClose }: {
+  src: string; alt: string; onClose: () => void;
+}) {
+  useCapaModal(onClose);
 
   return (
     <div
       role="dialog" aria-modal="true" aria-label={alt}
       onClick={onClose}
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-navy-deep/92 p-4 animate-reveal sm:p-8"
+      className="fixed inset-0 z-[70] flex items-center justify-center bg-navy-deep/92 p-4 animate-fade sm:p-8"
     >
       <button
         type="button" onClick={onClose} aria-label="Cerrar"

@@ -49,8 +49,16 @@ export default {
           from: { opacity: "0", transform: "translateY(14px)" },
           to: { opacity: "1", transform: "none" },
         },
+        // Para las capas que se abren encima (visor, ficha del catequista): solo
+        // opacidad. `reveal` lleva un translateY y un `transform` sobre un elemento
+        // `position: fixed` lo desplaza y, mientras dura, pasa a ser el marco de
+        // referencia de lo que lleve dentro.
+        fade: { from: { opacity: "0" }, to: { opacity: "1" } },
       },
-      animation: { reveal: "reveal 0.6s cubic-bezier(0.22,1,0.36,1) both" },
+      animation: {
+        reveal: "reveal 0.6s cubic-bezier(0.22,1,0.36,1) both",
+        fade: "fade 0.25s ease-out both",
+      },
     },
   },
   plugins: [],

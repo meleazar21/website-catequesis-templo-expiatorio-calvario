@@ -6,15 +6,5 @@
   "horario": "Domingos 8:30 am - 11:00 am",
   "duracion": "1 sola sesion",
   "descripcion": "Las charlas prebautismales para adultos son un espacio de formación y preparación para quienes desean recibir el sacramento del Bautismo. En ellas se profundiza en el significado de la fe cristiana, la importancia del Bautismo y el desarrollo del rito bautismal, ayudando a los participantes a vivir este sacramento de manera consciente y comprometida.",
-  "detalle": [
-    {
-      "texto": "Sentido del sacramento del Bautismo."
-    },
-    {
-      "texto": "Responsabilidad de padres y padrinos en la educación en la fe."
-    },
-    {
-      "texto": "[CONTENIDO POR DEFINIR]"
-    }
-  ]
+  "detalle": []
 }
