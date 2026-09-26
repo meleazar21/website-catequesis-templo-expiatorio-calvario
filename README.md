@@ -10,65 +10,61 @@ esperaría casi un minuto. Aquí todo se sirve desde el CDN: carga instantánea.
 
 ---
 
-## Cómo editar el contenido (sin tocar código)
+## Cómo editar el contenido
 
-El sitio trae un **panel de administración** en **`/admin`**. Se entra con correo y
-contraseña, y desde ahí se edita todo el contenido y se suben fotos y videos. Cada
-cambio guardado en el panel se publica solo: el sitio se reconstruye en un par de
-minutos.
+El sitio trae un **panel de administración** que se usa **en esta computadora**, no en
+línea: se edita en local, se revisa y se publica con un `git push`. Cada push redespliega
+el sitio solo.
 
-Lo que puede editar quien mantiene el sitio:
+### Levantar el panel
+
+Dos terminales, ambas en la carpeta del proyecto:
+
+```bash
+npm run admin     # terminal 1 — el backend del panel (déjalo corriendo)
+npm run dev       # terminal 2 — el sitio
+```
+
+Y se abre **http://localhost:5173/admin/**. No pide usuario ni contraseña. Lo que se
+guarda **escribe directo en `content/`**: no toca GitHub hasta que tú lo subas. Si
+`npm run admin` no está corriendo, el panel intentará iniciar sesión y no podrá entrar —
+ese es el síntoma de que falta levantar el proxy.
+
+### Publicar los cambios
+
+```bash
+git add -A
+git commit -m "Actualiza los horarios de catequesis"
+git push
+```
+
+Conviene mirar antes `git status` o `git diff`, que es justo la ventaja de editar en
+local: nada se publica sin que lo veas.
+
+> **Por qué en local y no en línea.** Un panel en línea necesita un servicio de identidad.
+> El de Netlify (Git Gateway) está **deprecado** —sigue funcionando donde ya está activado,
+> pero Netlify solo le arregla fallos graves de seguridad— y las alternativas implican o un
+> tercero custodiando un token con escritura sobre el repositorio, o montar una app OAuth
+> propia. Editar en local no depende de nada de eso.
+>
+> **El build borra `/admin`**, así que el panel no llega al sitio publicado: allí solo
+> enseñaría un inicio de sesión que no puede funcionar. Para ponerlo en línea algún día,
+> hay que quitar el plugin `panelSoloEnLocal` de `vite.config.ts` y dar un `backend` de
+> verdad en `public/admin/config.yml`, donde están anotadas las opciones.
+
+### Qué se puede editar
 
 | Sección del panel | Qué controla |
 |---|---|
 | **Inscripciones** | Si están abiertas o cerradas, fechas, requisitos, enlace del botón |
-| **Cursos de catequesis** | Agregar, editar, quitar y reordenar cursos |
+| **Cursos de catequesis** | Agregar, editar, quitar y reordenar cursos, con su cartel |
 | **Horarios** | La tabla de días, horas y lugares |
 | **Avisos** | Publicar avisos, destacarlos, quitarlos |
 | **Próximas actividades** | Fechas del calendario de la comunidad |
 | **Sacramentos** | Información, requisitos y fechas de cada sacramento |
-| **Catequistas** | Nombres, grupo, frase y fotografía |
+| **Catequistas** | Nombre, cargo, reseña y fotografía |
 | **Galería** | Subir y ordenar fotografías |
-| **Configuración del sitio** | Nombre, lema, versículo, portada (video/foto), bienvenida, misión, visión, teléfono, correo, dirección, mapa y redes |
-
-Los cambios quedan como **borrador** hasta que se pulsa *Publicar* (`editorial_workflow`),
-así nada se publica a medio escribir.
-
-### Abrir el panel en esta computadora (sin publicar nada)
-
-Para probarlo o para cargar contenido antes de publicar el sitio. Hacen falta
-**dos terminales**, ambas en la carpeta del proyecto:
-
-```bash
-npm run admin     # terminal 1 — el backend del panel (deja esto corriendo)
-npm run dev       # terminal 2 — el sitio
-```
-
-Y luego se abre **http://localhost:5173/admin/**. No pide usuario ni contraseña.
-
-Lo que se guarda desde ahí **escribe directo en `content/`** de esta computadora: no
-toca GitHub ni publica nada. Los cambios se revisan con `git diff` y se suben con un
-commit normal. Es el modo `local_backend` de `config.yml`; si `npm run admin` no está
-corriendo, el panel intenta iniciar sesión con Netlify y no podrá entrar.
-
-### Dejar el panel funcionando para quien mantiene el sitio
-
-El panel usa **Decap CMS**, que guarda los cambios en este mismo repositorio. Necesita
-un servicio de inicio de sesión, y viene configurado para el de **Netlify**, que es el
-que no requiere montar nada aparte:
-
-1. Netlify → *Add new site* → *Import from Git* → este repositorio.
-   (`netlify.toml` ya trae el comando de build y la carpeta de publicación.)
-2. *Site configuration* → **Identity** → *Enable Identity*.
-3. *Identity* → *Registration* → **Invite only** — para que no se registre cualquiera.
-4. *Identity* → *Services* → **Git Gateway** → *Enable*.
-5. *Identity* → *Invite users* → el correo de quien va a mantener el sitio. Le llega una
-   invitación, elige su contraseña y ya entra a `https://…/admin`.
-
-> **Si el sitio se publica en Vercel** (`vercel.json` también está listo), el sitio se ve
-> igual pero el panel **no** inicia sesión: Vercel no tiene Identity. Habría que crear una
-> app OAuth de GitHub y un pequeño proxy; en `public/admin/config.yml` está el bloque
-> `backend` alternativo ya escrito, comentado. Lo más simple es publicar en Netlify.
+| **Configuración del sitio** | Nombre, lema, versículo, portada, bienvenida, misión, visión, contacto, mapa y redes |
 
 ### Fotografías y video
 
@@ -87,8 +83,6 @@ Nada en este repositorio es información oficial verificada. Todo lo pendiente d
 `[CONTENIDO POR DEFINIR]`, y en pantalla aparece como una etiqueta ámbar
 **CONTENIDO POR DEFINIR** — imposible que se publique por descuido sin notarlo. Basta
 con escribir el dato real encima desde el panel.
-
-Los **nombres de catequistas son ficticios** y así se advierte en la propia sección.
 
 ---
 
@@ -154,12 +148,25 @@ Para abrir el panel en local hay que levantar además `npm run admin` (ver más 
 
 ---
 
+## Publicación
+
+Sitio **estático**: sirve cualquier hosting que despliegue desde Git. Hay configuración
+lista para los dos habituales y en ambos basta importar el repositorio y desplegar, sin
+tocar ajustes:
+
+- **Vercel** — `vercel.json`
+- **Netlify** — `netlify.toml`
+
+Cada `git push` a `master` redespliega.
+
+---
+
 ## Estructura
 
 ```
 content/             ← todo el contenido editable (lo que edita /admin)
 public/
-├── admin/           ← panel de administración (Decap CMS)
+├── admin/           ← panel de administración (solo local; el build lo borra)
 ├── fotos/           ← imágenes subidas desde el panel
 └── video/           ← video de la portada
 src/

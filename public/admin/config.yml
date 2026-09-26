@@ -1,34 +1,34 @@
 ####################################################################################
 #  Panel de administración — Decap CMS
 #
-#  Define qué puede editar la persona que mantiene el sitio. Cada "collection" de
-#  abajo aparece como una sección del panel en /admin.
+#  Define qué se puede editar. Cada "collection" de abajo es una sección del panel.
 #
-#  BACKEND: viene configurado para **Netlify** (git-gateway), que trae el inicio de
-#  sesión incluido y no requiere configuración extra. Si el sitio se publica en
-#  Vercel, cambia el bloque `backend` por el que está comentado más abajo.
+#  SE USA SOLO EN LOCAL: `npm run admin` levanta el proxy que escribe en content/, y
+#  `npm run dev` sirve el panel en http://localhost:5173/admin/. No pide contraseña y
+#  no toca GitHub: los cambios quedan en el árbol de trabajo y se suben con un commit.
+#  El build BORRA /admin, así que el panel no llega al sitio publicado.
+#
+#  El bloque `backend` de abajo NO se usa en ese modo (manda `local_backend`), pero
+#  Decap exige que exista. Si algún día se quiere el panel en línea, hay que darle un
+#  backend de verdad y quitar el plugin `panelSoloEnLocal` de vite.config.ts:
+#
+#    - Git Gateway (Netlify) está DEPRECADO: funciona en los sitios que ya lo tienen,
+#      pero Netlify no arregla ya sus errores, solo fallos graves de seguridad.
+#    - Alternativas: DecapBridge (gratis, sin proxy propio, pero un tercero custodia un
+#      token con escritura sobre el repositorio) o una app OAuth de GitHub propia.
 ####################################################################################
 
 backend:
-  name: git-gateway
+  name: git-gateway      # marcador de posición: en local manda `local_backend`
   branch: master
 
-# --- Alternativa para Vercel (requiere una app OAuth de GitHub + un proxy) --------
-# backend:
-#   name: github
-#   repo: meleazar21/website-catequesis-templo-expiatorio-calvario
-#   branch: master
-#   base_url: https://TU-PROXY-OAUTH.vercel.app
-# ---------------------------------------------------------------------------------
-
 # Editar el contenido EN ESTA COMPUTADORA, sin publicar nada y sin iniciar sesión.
-# Requiere tener corriendo `npm run admin` en otra terminal; si no está corriendo,
-# el panel vuelve solo al backend de arriba. Guardar escribe directo en content/,
-# así que los cambios se revisan con `git diff` y se suben con un commit normal.
+# Si `npm run admin` no está corriendo, el panel intenta usar el `backend` de arriba
+# y no podrá entrar: ese es el síntoma de que falta levantar el proxy.
 local_backend: true
 
-# Los cambios se guardan como borrador y se publican con un botón. Así nadie
-# publica algo a medio escribir por accidente.
+# Los cambios se guardan como borrador y se publican con un botón... salvo en local,
+# donde el proxy solo admite guardado directo y el CMS baja solo a modo "simple".
 publish_mode: editorial_workflow
 
 locale: es
@@ -37,10 +37,6 @@ locale: es
 media_folder: "public/fotos"
 public_folder: "/fotos"
 
-# Decap nombra el archivo de cada ficha con {{slug}}, y para saber de dónde sacarlo
-# busca un campo llamado "title". Aquí se llaman "nombre" y "titulo", así que CADA
-# colección de carpeta lleva su `identifier_field`. Sin él, el archivo sale con la
-# ficha entera serializada en el nombre ("map-orden-1-nombre-...").
 collections:
   # ------------------------------------------------------------------ Inscripciones
   - name: inscripciones
