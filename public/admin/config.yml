@@ -227,6 +227,7 @@ collections:
           # Fondo de la portada: se puede dejar una foto, un video, los dos o ninguno.
           # Sin nada sale un degradado azul, que también se ve bien.
           - { name: portadaFoto, label: "Portada — fotografía de fondo", widget: image, required: false, hint: "Opcional. Con esto basta para tener una portada con imagen. Apaisada y de buena resolución; comprímela a menos de 400 KB." }
+          - { name: portadaFotoMovil, label: "Portada — fotografía para el teléfono", widget: image, required: false, hint: "Opcional pero MUY recomendable: una foto apaisada, en la pantalla vertical de un teléfono, se recorta por los lados y solo se ve un tercio. Sube aquí una vertical (9:16) o un recorte vertical de la misma escena. Si se deja vacío se usa la de arriba." }
           # El `pattern` está para que una fotografía no termine en este campo: pasó, y
           # el navegador intenta reproducir un JPG como video, así que la portada se
           # queda en negro sin decir por qué.

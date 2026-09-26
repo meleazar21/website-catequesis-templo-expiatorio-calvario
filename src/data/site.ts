@@ -31,6 +31,8 @@ export const site = {
  */
 export const portada = {
   foto: raw.portadaFoto,
+  /** Versión vertical, solo para el teléfono. Vacío = se usa la de arriba. */
+  fotoMovil: raw.portadaFotoMovil,
   video: raw.portadaVideo,
 };
 

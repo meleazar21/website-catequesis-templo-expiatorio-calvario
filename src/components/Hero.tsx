@@ -37,12 +37,12 @@ export function Hero() {
   const conMedio = hayVideo || Boolean(portada.foto);
 
   return (
-    <section id="inicio" className="relative flex min-h-[92vh] items-center overflow-hidden">
+    <section id="inicio" className="relative flex min-h-[78svh] items-center overflow-hidden sm:min-h-[100svh]">
       {/* Fondo */}
       <div className="absolute inset-0 bg-navy-deep">
         {hayVideo ? (
           <video
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-[center_38%]"
             src={video}
             poster={portada.foto || undefined}
             autoPlay
@@ -53,7 +53,16 @@ export function Hero() {
             aria-hidden="true"
           />
         ) : portada.foto ? (
-          <img src={portada.foto} alt="" className="h-full w-full object-cover" />
+          /* <picture> y no un `hidden sm:block`: así el teléfono descarga UNA sola
+             imagen, la suya, y no las dos. */
+          /* `block h-full w-full`: <picture> es inline por defecto y entonces el
+             h-full de la imagen no tendría contra qué medirse. */
+          <picture className="block h-full w-full">
+            {portada.fotoMovil && (
+              <source media="(max-width: 639px)" srcSet={portada.fotoMovil} />
+            )}
+            <img src={portada.foto} alt="" className="h-full w-full object-cover object-[center_38%]" />
+          </picture>
         ) : (
           <div
             className="absolute inset-0"
