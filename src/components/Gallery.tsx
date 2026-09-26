@@ -47,12 +47,6 @@ export function Gallery() {
           )}
         </div>
       </Reveal>
-
-      <Reveal>
-        <p className="mt-8 text-center text-[0.82rem] text-ink-faint">
-          Las fotografías reales de la parroquia sustituirán estos marcadores.
-        </p>
-      </Reveal>
     </Section>
   );
 }
