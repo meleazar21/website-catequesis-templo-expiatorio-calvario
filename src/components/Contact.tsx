@@ -63,9 +63,17 @@ export function Contact() {
                   href={r.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-navy/15 px-5 py-2.5 text-[0.78rem] font-extrabold uppercase tracking-[0.12em] text-navy transition-colors hover:border-gold hover:text-gold"
+                  /* Aquí el color va SOLO en el distintivo, no en toda la pastilla:
+                     sobre el marfil, cuatro botones enteros de color chillarían al
+                     lado de la paleta del sitio. */
+                  className="inline-flex items-center gap-2.5 rounded-full border border-navy/15 py-1.5 pl-1.5 pr-5 text-[0.78rem] font-extrabold uppercase tracking-[0.12em] text-navy transition-colors hover:border-gold hover:text-gold"
                 >
-                  <Icon name={r.icono} size={17} />
+                  <span
+                    style={{ background: r.fondo }}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white"
+                  >
+                    <Icon name={r.icono} size={16} />
+                  </span>
                   {r.nombre}
                 </a>
               ))}

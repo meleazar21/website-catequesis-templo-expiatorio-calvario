@@ -68,7 +68,10 @@ export function Footer() {
                       rel="noopener noreferrer"
                       aria-label={r.nombre}
                       title={r.nombre}
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/75 transition-colors hover:border-gold hover:bg-white/10 hover:text-gold-light"
+                      style={{ background: r.fondo }}
+                      /* El aro blanco tenue despega del azul del pie el círculo de
+                         TikTok, que es casi negro y si no se perdería. */
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white ring-1 ring-inset ring-white/25 transition-transform hover:-translate-y-0.5"
                     >
                       <Icon name={r.icono} size={19} />
                     </a>

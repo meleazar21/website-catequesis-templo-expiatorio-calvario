@@ -98,13 +98,22 @@ export const contacto = {
   horarioAtencion: raw.horarioAtencion,
   /** Ya convertido a un enlace incrustable. Vacío = se muestra el marcador. */
   mapaEmbedUrl: mapaEmbed(raw.mapaEmbedUrl),
-  /** Solo salen las que tienen enlace; el resto ni se muestran. */
+  /**
+   * Solo salen las que tienen enlace; el resto ni se muestran.
+   *
+   * `fondo` es el color oficial de cada red, y va como valor CSS y no como clase de
+   * Tailwind porque el de Instagram es un degradado de cinco paradas. El glifo
+   * siempre va en blanco encima, que es como cada marca pide que se use.
+   */
   redes: [
-    { nombre: "Facebook", icono: "facebook", url: raw.facebook },
-    { nombre: "Instagram", icono: "instagram", url: raw.instagram },
-    { nombre: "YouTube", icono: "youtube", url: raw.youtube ?? "" },
-    { nombre: "TikTok", icono: "tiktok", url: raw.tiktok ?? "" },
-  ] as { nombre: string; icono: IconName; url: string }[],
+    { nombre: "Facebook", icono: "facebook", url: raw.facebook, fondo: "#1877F2" },
+    {
+      nombre: "Instagram", icono: "instagram", url: raw.instagram,
+      fondo: "linear-gradient(45deg,#FEDA75 5%,#FA7E1E 28%,#D62976 55%,#962FBF 78%,#4F5BD5 100%)",
+    },
+    { nombre: "YouTube", icono: "youtube", url: raw.youtube ?? "", fondo: "#FF0000" },
+    { nombre: "TikTok", icono: "tiktok", url: raw.tiktok ?? "", fondo: "#010101" },
+  ] as { nombre: string; icono: IconName; url: string; fondo: string }[],
 };
 
 export const mision = { titulo: raw.misionTitulo, texto: raw.misionTexto };
