@@ -39,7 +39,7 @@ export function Navbar() {
             src="/logo.png"
             alt={site.marca}
             className={`w-auto object-contain transition-all duration-300 ${
-              solido ? "h-14 sm:h-16" : "h-16 sm:h-20"
+              solido ? "h-16 sm:h-[4.5rem]" : "h-[4.5rem] sm:h-24"
             }`}
           />
           {/* El escudo ya lleva el nombre grabado, así que en pantallas pequeñas el

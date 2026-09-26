@@ -92,12 +92,9 @@ export function Hero() {
       {/* Contenido */}
       <div className="relative mx-auto w-full max-w-content px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-36">
         <div className="max-w-3xl animate-reveal">
-          <img
-            src="/logo.png"
-            alt={site.marca}
-            className="mb-8 h-28 w-auto object-contain sm:h-36"
-          />
-
+          {/* Aquí iba el logo otra vez. Quedaba casi en la misma vertical que el de la
+              barra y a pocos centímetros: se leía como una repetición, no como
+              jerarquía. El logo vive en la barra, que además lo toma del panel. */}
           <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.3em] text-gold-light">
             {site.marcaLinea1}
           </p>
