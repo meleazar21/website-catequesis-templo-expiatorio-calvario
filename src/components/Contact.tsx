@@ -63,8 +63,9 @@ export function Contact() {
                   href={r.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-navy/15 px-5 py-2.5 text-[0.78rem] font-extrabold uppercase tracking-[0.12em] text-navy transition-colors hover:border-gold hover:text-gold"
+                  className="inline-flex items-center gap-2 rounded-full border border-navy/15 px-5 py-2.5 text-[0.78rem] font-extrabold uppercase tracking-[0.12em] text-navy transition-colors hover:border-gold hover:text-gold"
                 >
+                  <Icon name={r.icono} size={17} />
                   {r.nombre}
                 </a>
               ))}

@@ -1,4 +1,5 @@
 import { contacto, navegacion, site } from "../data/site";
+import { Icon } from "./ui";
 
 export function Footer() {
   const anio = new Date().getFullYear();
@@ -56,16 +57,20 @@ export function Footer() {
               Síguenos
             </p>
             {redes.length > 0 ? (
-              <ul className="mt-5 space-y-2.5">
+              /* Botones redondos en vez de una lista de nombres: un icono se reconoce
+                 de un vistazo y ocupa menos en un pie que ya va cargado. */
+              <ul className="mt-5 flex flex-wrap gap-3">
                 {redes.map((r) => (
                   <li key={r.nombre}>
                     <a
                       href={r.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[0.92rem] text-white/70 transition-colors hover:text-white"
+                      aria-label={r.nombre}
+                      title={r.nombre}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/75 transition-colors hover:border-gold hover:bg-white/10 hover:text-gold-light"
                     >
-                      {r.nombre}
+                      <Icon name={r.icono} size={19} />
                     </a>
                   </li>
                 ))}

@@ -1,18 +1,18 @@
 {
   "orden": 2,
   "nombre": "Primera Comunión",
-  "descripcion": "Se celebra al concluir el proceso de preparación, normalmente de dos años.",
+  "descripcion": "Se celebra al concluir el proceso de preparación de 1 año en catecismo de la iglesia catolica para niños",
   "requisitos": [
     {
-      "texto": "Estar bautizado."
+      "texto": "Cumplir con la edad de 8 a 13 años"
     },
     {
-      "texto": "Haber completado la preparación."
+      "texto": "Fe de bautismo del niño"
     },
     {
-      "texto": "[CONTENIDO POR DEFINIR]"
+      "texto": "Haber cursado y completado satisfactoriamente el curso de catequesis"
     }
   ],
-  "fechas": "[CONTENIDO POR DEFINIR]",
+  "fechas": "8 de Diciembre 2026",
   "aviso": ""
 }

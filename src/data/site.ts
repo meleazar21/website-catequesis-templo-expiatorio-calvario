@@ -7,6 +7,7 @@
  *
  * Si editas a mano, hazlo en `content/site.json`.
  */
+import type { IconName } from "../components/ui";
 import bruto from "../../content/site.json";
 
 /**
@@ -18,6 +19,8 @@ import bruto from "../../content/site.json";
  */
 const raw = bruto as typeof bruto & {
   portadaFotoMovil?: string;
+  youtube?: string;
+  tiktok?: string;
 };
 
 /** Marca visible para cualquier dato que todavía no es oficial. */
@@ -95,10 +98,13 @@ export const contacto = {
   horarioAtencion: raw.horarioAtencion,
   /** Ya convertido a un enlace incrustable. Vacío = se muestra el marcador. */
   mapaEmbedUrl: mapaEmbed(raw.mapaEmbedUrl),
+  /** Solo salen las que tienen enlace; el resto ni se muestran. */
   redes: [
-    { nombre: "Facebook", url: raw.facebook },
-    { nombre: "Instagram", url: raw.instagram },
-  ] as { nombre: string; url: string }[],
+    { nombre: "Facebook", icono: "facebook", url: raw.facebook },
+    { nombre: "Instagram", icono: "instagram", url: raw.instagram },
+    { nombre: "YouTube", icono: "youtube", url: raw.youtube ?? "" },
+    { nombre: "TikTok", icono: "tiktok", url: raw.tiktok ?? "" },
+  ] as { nombre: string; icono: IconName; url: string }[],
 };
 
 export const mision = { titulo: raw.misionTitulo, texto: raw.misionTexto };

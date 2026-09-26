@@ -9,7 +9,9 @@ export type IconName =
   // Misión y visión
   | "providencia" | "estrella"
   // Sacramentos
-  | "agua" | "caliz" | "anillos" | "corazon" | "oleo" | "cruz";
+  | "agua" | "caliz" | "anillos" | "corazon" | "oleo" | "cruz"
+  // Redes sociales
+  | "facebook" | "instagram" | "youtube" | "tiktok";
 
 const PATHS: Record<IconName, ReactNode> = {
   /* Paloma de perfil, en vuelo y descendiendo: cabeza y pico arriba a la derecha,
@@ -71,6 +73,19 @@ const PATHS: Record<IconName, ReactNode> = {
     <path d="M8.2 11.6h7.6M12 14.2v3.4M10.3 15.9h3.4" />
   </>,
   cruz: <path d="M12 2.8v18.4M6.6 8.2h10.8" />,
+
+  /* Marcas: se dibujan con su forma reconocible, no con una inicial. */
+  facebook: <path d="M13.9 21.4v-8.2h2.8l.5-3.3h-3.3V7.8c0-.9.3-1.6 1.7-1.6h1.7V3.2c-.8-.1-1.7-.2-2.6-.2-2.6 0-4.4 1.6-4.4 4.5v2.4H7.1v3.3h3.2v8.2z" />,
+  instagram: <>
+    <rect x="2.9" y="2.9" width="18.2" height="18.2" rx="5.2" />
+    <circle cx="12" cy="12" r="4.1" />
+    <circle cx="17.2" cy="6.8" r="1.05" fill="currentColor" stroke="none" />
+  </>,
+  youtube: <>
+    <rect x="2.4" y="5.4" width="19.2" height="13.2" rx="4" />
+    <path d="m10.3 9.2 5.1 2.8-5.1 2.8z" />
+  </>,
+  tiktok: <path d="M14.4 2.9v11.6a3.5 3.5 0 1 1-2.8-3.4V8.2a6.3 6.3 0 1 0 5.6 6.3V8.8a6 6 0 0 0 3.5 1.1V7a3.6 3.6 0 0 1-3.5-4.1z" />,
 };
 
 export function Icon({ name, size = 20, className = "" }: { name: IconName; size?: number; className?: string }) {

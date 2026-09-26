@@ -260,3 +260,5 @@ collections:
           - { name: mapaEmbedUrl, label: "Mapa — ubicación del templo", widget: string, required: false, hint: "Busca el templo en Google Maps y copia la dirección de la barra del navegador (la larga, que empieza por https://www.google.com/maps/place/...). NO uses el enlace corto del botón Compartir. Vacío = no se muestra el mapa." }
           - { name: facebook, label: "Facebook", widget: string, required: false }
           - { name: instagram, label: "Instagram", widget: string, required: false }
+          - { name: youtube, label: "YouTube", widget: string, required: false, hint: "Opcional. Si se deja vacío no aparece." }
+          - { name: tiktok, label: "TikTok", widget: string, required: false, hint: "Opcional. Si se deja vacío no aparece." }

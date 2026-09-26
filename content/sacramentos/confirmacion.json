@@ -1,18 +1,24 @@
 {
   "orden": 3,
   "nombre": "Confirmación",
-  "descripcion": "Completa la iniciación cristiana y fortalece al creyente con el Espíritu Santo.",
+  "descripcion": "Completa la iniciación cristiana y fortalece al creyente con el Espíritu Santo. Se celebra al concluir el proceso de preparación de 1 año en sagradas escrituras y espiritualidad.",
   "requisitos": [
     {
-      "texto": "Estar bautizado y haber recibido la Primera Comunión."
+      "texto": "cumplir con la edad minima de 14 años"
     },
     {
-      "texto": "Un padrino o una madrina confirmado."
+      "texto": "Fe de bautismo del confirmando"
     },
     {
-      "texto": "[CONTENIDO POR DEFINIR]"
+      "texto": "Certificado o constancia de comunion del confirmando"
+    },
+    {
+      "texto": "Fe de bautismo del padino o madrina (padrino para el varon y madrina para la mujer)"
+    },
+    {
+      "texto": "Fotocopia de cedula del padrino o de la madrina (padrino para el varon y madrina para la mujer)"
     }
   ],
   "fechas": "[CONTENIDO POR DEFINIR]",
-  "aviso": ""
+  "aviso": "Si la persona tiene el Bautismo, pero aún no ha recibido la Primera Comunión, podrá recibirla el mismo día de la Confirmación. Si no posee el Bautismo, deberá recibirlo antes de la celebración. Las personas de 18 años en adelante tambien tienen la opcion de realizar este proceso al inscribirse en las catequesis CICA"
 }
