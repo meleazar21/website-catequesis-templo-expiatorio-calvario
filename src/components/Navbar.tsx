@@ -39,16 +39,19 @@ export function Navbar() {
             src="/logo.png"
             alt={site.marca}
             className={`w-auto object-contain transition-all duration-300 ${
-              solido ? "h-16 sm:h-[4.5rem]" : "h-[4.5rem] sm:h-24"
+              /* En el teléfono el escudo cede algo de tamaño: ahora comparte la
+                 barra con el nombre, y antes la ocupaba él solo. */
+              solido ? "h-12 sm:h-[4.5rem]" : "h-14 sm:h-24"
             }`}
           />
-          {/* El escudo ya lleva el nombre grabado, así que en pantallas pequeñas el
-              texto sobra: repetirlo solo apretaba la barra contra el menú. */}
-          <span className="hidden leading-tight md:block">
-            <span className={`block font-serif text-[1.15rem] font-semibold ${solido ? "text-navy-deep" : "text-white"}`}>
+          {/* El nombre va también en el teléfono: con solo el escudo y el botón de
+              menú, la barra no decía de quién es el sitio. La segunda línea se parte
+              en dos renglones en pantalla chica en vez de encogerse hasta no leerse. */}
+          <span className="block leading-tight">
+            <span className={`block font-serif text-[0.98rem] font-semibold sm:text-[1.15rem] ${solido ? "text-navy-deep" : "text-white"}`}>
               {site.marcaLinea1}
             </span>
-            <span className={`block whitespace-nowrap text-[0.64rem] font-bold uppercase tracking-[0.14em] ${solido ? "text-gold" : "text-gold-light"}`}>
+            <span className={`block text-[0.58rem] font-bold uppercase leading-snug tracking-[0.1em] sm:whitespace-nowrap sm:text-[0.64rem] sm:tracking-[0.14em] ${solido ? "text-gold" : "text-gold-light"}`}>
               {site.marcaLinea2}
             </span>
           </span>

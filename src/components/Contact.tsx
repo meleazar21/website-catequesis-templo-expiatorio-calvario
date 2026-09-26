@@ -88,7 +88,7 @@ export function Contact() {
               title="Ubicación del templo"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="h-full min-h-[22rem] w-full rounded-2xl border border-navy/8 shadow-card"
+              className="h-full min-h-[22rem] w-full rounded-2xl border border-navy/[0.08] shadow-card"
             />
           ) : (
             <div className="flex h-full min-h-[22rem] flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-navy/20 bg-white/60 p-8 text-center">

@@ -53,7 +53,7 @@ export function Welcome() {
             { icon: "estrella" as const, ...vision },
           ].map((c, i) => (
             <Reveal key={c.titulo} delay={i * 110}>
-              <article className="h-full rounded-2xl border border-navy/8 bg-white p-8 shadow-card transition-shadow hover:shadow-lift sm:p-10">
+              <article className="h-full rounded-2xl border border-navy/[0.08] bg-white p-8 shadow-card transition-shadow hover:shadow-lift sm:p-10">
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy-soft text-navy">
                   <Icon name={c.icon} size={24} />
                 </span>

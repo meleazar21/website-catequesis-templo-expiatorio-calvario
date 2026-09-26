@@ -93,7 +93,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-white/12 pt-7 text-center text-[0.8rem] text-white/45">
+        <div className="mt-14 border-t border-white/[0.12] pt-7 text-center text-[0.8rem] text-white/45">
           © {anio} {site.marca}
         </div>
       </div>

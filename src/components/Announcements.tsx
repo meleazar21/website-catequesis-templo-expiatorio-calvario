@@ -34,7 +34,7 @@ export function Announcements() {
             {avisos.map((a, i) => (
               <Reveal key={a.titulo} delay={i * 80}>
                 <article className={`rounded-2xl border bg-white p-6 shadow-card transition-shadow hover:shadow-lift sm:p-7 ${
-                  a.destacado ? "border-gold/50" : "border-navy/8"
+                  a.destacado ? "border-gold/50" : "border-navy/[0.08]"
                 }`}>
                   <div className="flex flex-wrap items-center gap-3">
                     <Pill tone={TONO[a.categoria]}>{a.categoria}</Pill>
@@ -61,7 +61,7 @@ export function Announcements() {
           <div className="mt-6 space-y-4">
             {eventos.map((e, i) => (
               <Reveal key={e.titulo} delay={i * 80}>
-                <article className="flex gap-5 rounded-2xl border border-navy/8 bg-white p-5 shadow-card transition-shadow hover:shadow-lift">
+                <article className="flex gap-5 rounded-2xl border border-navy/[0.08] bg-white p-5 shadow-card transition-shadow hover:shadow-lift">
                   {/* Taco de calendario */}
                   <div className="flex h-[4.4rem] w-[4.4rem] shrink-0 flex-col items-center justify-center rounded-xl bg-navy text-white">
                     <span className="font-serif text-[1.7rem] leading-none">{e.dia}</span>

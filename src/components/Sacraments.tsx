@@ -50,7 +50,7 @@ export function Sacraments() {
           return (
             <Reveal key={s.nombre} delay={i * 70}>
               <article className={`overflow-hidden rounded-2xl border bg-white shadow-card transition-colors ${
-                open ? "border-gold/50" : "border-navy/8"
+                open ? "border-gold/50" : "border-navy/[0.08]"
               }`}>
                 <h3>
                   <button
@@ -73,7 +73,7 @@ export function Sacraments() {
                 </h3>
 
                 {open && (
-                  <div className="border-t border-navy/8 px-6 pb-8 pt-6 sm:px-8">
+                  <div className="border-t border-navy/[0.08] px-6 pb-8 pt-6 sm:px-8">
                     <p className="leading-relaxed text-ink-soft">{s.descripcion}</p>
 
                     <div className="mt-7 grid gap-7 sm:grid-cols-2">

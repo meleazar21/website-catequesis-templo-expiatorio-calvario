@@ -246,25 +246,38 @@ export function Lightbox({ src, alt, onClose }: {
   src: string; alt: string; onClose: () => void;
 }) {
   useCapaModal(onClose);
+  const [ampliada, setAmpliada] = useState(false);
 
   return (
     <div
       role="dialog" aria-modal="true" aria-label={alt}
       onClick={onClose}
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-navy-deep/92 p-4 animate-fade sm:p-8"
+      /* `overflow-auto` + `touch-pinch-zoom`: ampliada, la imagen se sale de la
+         pantalla y hay que poder recorrerla con el dedo y hacer pellizco. */
+      className="fixed inset-0 z-[70] flex touch-pinch-zoom items-center justify-center overflow-auto overscroll-contain bg-navy-deep/[0.92] p-4 animate-fade sm:p-8"
     >
       <button
         type="button" onClick={onClose} aria-label="Cerrar"
-        className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-6 sm:top-6"
+        className="fixed right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-6 sm:top-6"
       >
         <Icon name="close" size={22} />
       </button>
-      {/* El clic sobre la imagen no debe cerrar: se puede querer ampliarla con los dedos. */}
+
       <img
         src={src} alt={alt}
-        onClick={(e) => e.stopPropagation()}
-        className="max-h-full max-w-full rounded-xl object-contain shadow-lift"
+        onClick={(e) => { e.stopPropagation(); setAmpliada((v) => !v); }}
+        className={
+          ampliada
+            ? "max-w-none cursor-zoom-out rounded-xl shadow-lift [width:220vw] sm:[width:150vw]"
+            : "max-h-full max-w-full cursor-zoom-in rounded-xl object-contain shadow-lift"
+        }
       />
+
+      {/* En el teléfono, "ajustada" ocupa el ancho de la pantalla y se ve igual que en
+          la tarjeta: sin este aviso, tocar y que no pase nada parece que está rota. */}
+      <p className="pointer-events-none fixed inset-x-0 bottom-5 text-center text-[0.76rem] font-semibold uppercase tracking-[0.12em] text-white/70">
+        {ampliada ? "Toca la imagen para ajustarla" : "Toca la imagen para ampliarla"}
+      </p>
     </div>
   );
 }

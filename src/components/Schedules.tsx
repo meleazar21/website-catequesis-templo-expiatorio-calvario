@@ -18,7 +18,7 @@ export function Schedules() {
 
       {/* Escritorio */}
       <Reveal delay={80}>
-        <div className="mt-14 hidden overflow-hidden rounded-2xl border border-white/12 md:block">
+        <div className="mt-14 hidden overflow-hidden rounded-2xl border border-white/[0.12] md:block">
           <table className="w-full border-collapse text-left">
             <thead>
               <tr className="bg-white/[0.06]">
@@ -47,7 +47,7 @@ export function Schedules() {
       <div className="mt-12 grid gap-4 md:hidden">
         {horarios.map((h, i) => (
           <Reveal key={h.curso} delay={i * 70}>
-            <article className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
+            <article className="rounded-2xl border border-white/[0.12] bg-white/[0.04] p-5">
               <h3 className="text-[1.25rem] text-white">{h.curso}</h3>
               <dl className="mt-4 space-y-2.5 text-[0.9rem]">
                 {[

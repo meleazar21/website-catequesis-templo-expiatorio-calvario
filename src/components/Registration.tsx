@@ -38,7 +38,7 @@ export function Registration() {
       <div className="mt-14 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
         {/* Datos de la inscripción */}
         <Reveal>
-          <div className="h-full rounded-2xl border border-navy/8 bg-white p-8 shadow-card sm:p-10">
+          <div className="h-full rounded-2xl border border-navy/[0.08] bg-white p-8 shadow-card sm:p-10">
             <h3 className="text-[1.5rem] text-navy-deep">Cuándo y dónde</h3>
 
             <dl className="mt-7 grid gap-5 sm:grid-cols-2">
@@ -60,7 +60,7 @@ export function Registration() {
               ))}
             </dl>
 
-            <p className="mt-8 border-t border-navy/8 pt-6 text-[0.9rem] leading-relaxed text-ink-soft">
+            <p className="mt-8 border-t border-navy/[0.08] pt-6 text-[0.9rem] leading-relaxed text-ink-soft">
               {inscripciones.nota}
             </p>
 
@@ -88,7 +88,7 @@ export function Registration() {
 
         {/* Requisitos */}
         <Reveal delay={110}>
-          <div className="h-full rounded-2xl border border-navy/8 bg-navy p-8 text-white shadow-card sm:p-10">
+          <div className="h-full rounded-2xl border border-navy/[0.08] bg-navy p-8 text-white shadow-card sm:p-10">
             <h3 className="text-[1.5rem] text-white">Requisitos</h3>
             <p className="mt-3 text-[0.9rem] text-white/70">
               Documentos que se presentan al momento de inscribir.

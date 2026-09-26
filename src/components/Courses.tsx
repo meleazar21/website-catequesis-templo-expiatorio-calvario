@@ -35,7 +35,7 @@ export function Courses() {
           const desplegado = abierto === c.nombre;
           return (
             <Reveal key={c.nombre} delay={i * 90} className="h-full">
-              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-navy/8 bg-white shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-navy/[0.08] bg-white shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">
                 {c.imagen && (
                   <button
                     type="button"
@@ -81,7 +81,7 @@ export function Courses() {
                   </button>
 
                   {desplegado && (
-                    <div className="mt-4 border-t border-navy/8 pt-4">
+                    <div className="mt-4 border-t border-navy/[0.08] pt-4">
                       <dl className="space-y-2.5 text-[0.88rem]">
                         {[
                           { k: "Edad", v: c.edad },
@@ -100,7 +100,7 @@ export function Courses() {
                       </dl>
 
                       {c.detalle.length > 0 && (
-                        <ul className="mt-5 space-y-2 border-t border-navy/8 pt-4 text-[0.88rem] text-ink-soft">
+                        <ul className="mt-5 space-y-2 border-t border-navy/[0.08] pt-4 text-[0.88rem] text-ink-soft">
                           {c.detalle.map((d, k) => (
                             <li key={k} className="flex gap-2">
                               <Icon name="check" size={15} className="mt-1 shrink-0 text-sage" />

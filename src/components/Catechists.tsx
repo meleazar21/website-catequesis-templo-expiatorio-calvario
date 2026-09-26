@@ -34,7 +34,7 @@ export function Catechists() {
             <button
               type="button"
               onClick={() => setPerfil(c)}
-              className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-navy/8 bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift"
+              className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-navy/[0.08] bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift"
             >
               {c.foto ? (
                 <img src={c.foto} alt={c.nombre} loading="lazy" className="aspect-[4/5] w-full object-cover" />
@@ -86,12 +86,20 @@ function PerfilCatequista({ c, onClose }: { c: Catequista; onClose: () => void }
           <Icon name="close" size={20} />
         </button>
 
-        {/* En el teléfono la foto se limita en altura: si ocupa toda la pantalla, hay
-            que desplazarse para descubrir que debajo había texto. */}
+        {/* En el teléfono la foto va ENTERA (object-contain, sobre un fondo suave):
+            recortándola se perdía media cara, y estas son fotos de personas. Sigue
+            limitada en altura porque, si ocupa toda la pantalla, hay que desplazarse
+            para descubrir que debajo había texto. En escritorio la columna es
+            estrecha y vertical, como las fotos, así que ahí recortar apenas quita
+            nada y llenar la columna se ve mejor. */}
         {c.foto ? (
           <img
             src={c.foto} alt={c.nombre}
-            className="max-h-[38vh] w-full shrink-0 object-cover object-top sm:max-h-none sm:w-64 sm:self-stretch md:w-72"
+            /* La foto se ve ENTERA en los dos tamaños, sin recorte y sin franjas:
+               `w-auto` en el teléfono (con ancho completo, una vertical dejaba franjas
+               de medio ancho) y `self-start` en escritorio (estirándola para llenar la
+               columna se comía un tercio de los lados). El elemento ES la foto. */
+            className="mx-auto max-h-[42vh] w-auto shrink-0 object-contain sm:mx-0 sm:max-h-[80vh] sm:w-64 sm:self-start md:w-72"
           />
         ) : (
           <PhotoPlaceholder label={c.nombre} className="h-48 w-full shrink-0 sm:h-auto sm:w-64 md:w-72" />
