@@ -37,6 +37,10 @@ locale: es
 media_folder: "public/fotos"
 public_folder: "/fotos"
 
+# Decap nombra el archivo de cada ficha con {{slug}}, y para saber de dónde sacarlo
+# busca un campo llamado "title". Aquí se llaman "nombre" y "titulo", así que CADA
+# colección de carpeta lleva su `identifier_field`. Sin él, el archivo sale con la
+# ficha entera serializada en el nombre ("map-orden-1-nombre-...").
 collections:
   # ------------------------------------------------------------------ Inscripciones
   - name: inscripciones
@@ -67,6 +71,7 @@ collections:
     extension: json
     format: json
     create: true
+    identifier_field: nombre
     slug: "{{slug}}"
     summary: "{{orden}} · {{nombre}}"
     sortable_fields: [orden, nombre]
@@ -109,6 +114,7 @@ collections:
     extension: json
     format: json
     create: true
+    identifier_field: titulo
     slug: "{{year}}-{{month}}-{{slug}}"
     summary: "{{orden}} · {{titulo}}"
     sortable_fields: [orden, titulo]
@@ -128,6 +134,7 @@ collections:
     extension: json
     format: json
     create: true
+    identifier_field: titulo
     slug: "{{slug}}"
     summary: "{{dia}} {{mes}} · {{titulo}}"
     sortable_fields: [orden, titulo]
@@ -147,6 +154,7 @@ collections:
     extension: json
     format: json
     create: true
+    identifier_field: nombre
     slug: "{{slug}}"
     summary: "{{orden}} · {{nombre}}"
     sortable_fields: [orden, nombre]
@@ -169,6 +177,7 @@ collections:
     extension: json
     format: json
     create: true
+    identifier_field: nombre
     slug: "{{slug}}"
     summary: "{{orden}} · {{nombre}}"
     sortable_fields: [orden, nombre]
@@ -187,6 +196,7 @@ collections:
     extension: json
     format: json
     create: true
+    identifier_field: titulo
     slug: "{{slug}}"
     summary: "{{orden}} · {{titulo}}"
     sortable_fields: [orden, titulo]

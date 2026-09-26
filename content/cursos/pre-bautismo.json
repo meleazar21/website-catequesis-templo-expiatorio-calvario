@@ -1,11 +1,11 @@
 {
-  "orden": 3,
+  "orden": 5,
   "nombre": "Pre-Bautismo",
-  "imagen": "",
-  "edad": "Padres y padrinos",
-  "horario": "Domingos · 5:00 p. m.",
-  "duracion": "Ciclo corto de sesiones",
-  "descripcion": "Preparación de padres y padrinos antes del bautizo del niño o niña.",
+  "imagen": "/fotos/cartel-pre-bautismo.jpg",
+  "edad": "Padres y Padrinos",
+  "horario": "Domingos 8:30 am - 11:00 am",
+  "duracion": "1 sola sesion",
+  "descripcion": "Las charlas prebautismales para adultos son un espacio de formación y preparación para quienes desean recibir el sacramento del Bautismo. En ellas se profundiza en el significado de la fe cristiana, la importancia del Bautismo y el desarrollo del rito bautismal, ayudando a los participantes a vivir este sacramento de manera consciente y comprometida.",
   "detalle": [
     {
       "texto": "Sentido del sacramento del Bautismo."

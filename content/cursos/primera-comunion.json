@@ -1,11 +1,11 @@
 {
-  "orden": 1,
+  "orden": 2,
   "nombre": "Primera Comunión",
-  "imagen": "",
-  "edad": "7 – 10 años",
-  "horario": "Sábados · 9:00 a. m.",
-  "duracion": "2 años",
-  "descripcion": "Preparación de los niños para recibir por primera vez la Eucaristía.",
+  "imagen": "/fotos/cartel-primera-comunion.jpg",
+  "edad": "8 – 13 años",
+  "horario": "Domingos· 8:30 am - 11:00 am",
+  "duracion": "1 años",
+  "descripcion": "El curso de Primera Comunión es una preparación para que los niños reciban por primera vez la Eucaristía. Durante este tiempo, aprenden sobre Jesús, la misa, los sacramentos y la importancia de vivir con amor, fe y respeto.\n\nPara su formación, utilizan como guía el Catecismo de la Iglesia Católica, adaptado a su edad, lo que les ayuda a comprender mejor las enseñanzas de la fe.",
   "detalle": [
     {
       "texto": "Iniciación a la oración y a la vida sacramental."

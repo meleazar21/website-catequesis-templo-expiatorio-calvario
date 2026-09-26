@@ -1,11 +1,11 @@
 {
-  "orden": 2,
+  "orden": 4,
   "nombre": "Confirmación",
-  "imagen": "",
-  "edad": "12 – 15 años",
+  "imagen": "/fotos/cartel-confirmacion.jpg",
+  "edad": "apartir de los 14 años ",
   "horario": "Sábados · 2:00 p. m.",
-  "duracion": "2 años",
-  "descripcion": "Formación de adolescentes y jóvenes para recibir el Espíritu Santo.",
+  "duracion": "1 años",
+  "descripcion": "Este curso de catequesis de Confirmación ofrece un espacio de formación en la fe basado en las Sagradas Escrituras y la vivencia espiritual. A través de la reflexión, la oración y el compromiso cristiano, los participantes fortalecerán su relación con Dios y su sentido de pertenencia a la Iglesia, preparándose de manera consciente para recibir el sacramento de la Confirmación.",
   "detalle": [
     {
       "texto": "Profundización en la fe y en la Sagrada Escritura."
