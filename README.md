@@ -49,7 +49,7 @@ local: nada se publica sin que lo veas.
 >
 > **El build borra `/admin`**, así que el panel no llega al sitio publicado: allí solo
 > enseñaría un inicio de sesión que no puede funcionar. Para ponerlo en línea algún día,
-> hay que quitar el plugin `panelSoloEnLocal` de `vite.config.ts` y dar un `backend` de
+> hay que quitar el plugin `excludeAdminFromBuild` de `vite.config.ts` y dar un `backend` de
 > verdad en `public/admin/config.yml`, donde están anotadas las opciones.
 
 ### Qué se puede editar
@@ -105,7 +105,7 @@ content/
 ```
 
 En las carpetas, **agregar un archivo agrega la tarjeta** y el campo `orden` decide en
-qué posición sale. `src/data/site.ts` y `src/data/catequesis.ts` solo leen esos archivos
+qué posición sale. `src/data/site.ts` y `src/data/catechesis.ts` solo leen esos archivos
 y les ponen tipos; ahí no se escribe contenido.
 
 Si agregas o quitas un campo en el JSON, agrégalo o quítalo también en
@@ -170,7 +170,7 @@ public/
 ├── fotos/           ← imágenes subidas desde el panel
 └── video/           ← video de la portada
 src/
-├── data/            ← lectores tipados de content/ (site.ts, catequesis.ts)
+├── data/            ← lectores tipados de content/ (site.ts, catechesis.ts)
 ├── components/
 │   ├── ui/          ← iconos SVG, animación de entrada, marcadores de foto
 │   ├── Navbar.tsx      Hero.tsx        Welcome.tsx

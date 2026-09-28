@@ -1,50 +1,50 @@
 import { useEffect, useState } from "react";
-import { portada, site } from "../data/site";
+import { hero, site } from "../data/site";
 import { Icon } from "./ui";
 
 /**
- * Portada. El fondo se configura desde el panel (/admin → Configuración del sitio) y
- * admite **foto, video o ninguno de los dos**; sin nada, sale un degradado azul
- * compuesto, que es un fondo digno por sí mismo y no un hueco a la espera de imagen.
- *
- * Si hay las dos cosas, el video manda en pantalla grande y la foto es lo que se ve en
- * el teléfono: un fondo en bucle puede costarle varios megas de datos móviles a quien
- * solo venía a consultar un horario. Tampoco se reproduce si el sistema del visitante
- * pide menos movimiento.
+ * Checks that the video file really is a video. The panel already validates it, but a
+ * photo put in that field leaves the hero black with no explanation —it has happened—
+ * and here it takes one line to discard it.
  */
-/**
- * Que el archivo del video sea realmente un video. El panel ya lo valida, pero una
- * fotografía puesta en ese campo deja la portada en negro sin explicar por qué —ya
- * pasó—, y aquí cuesta una línea descartarla.
- */
-const esVideo = (src: string) => /\.(mp4|webm|ogv)(\?.*)?$/i.test(src);
+const isVideoFile = (src: string) => /\.(mp4|webm|ogv)(\?.*)?$/i.test(src);
 
+/**
+ * Hero. The background is set from the panel (/admin → Configuración del sitio) and
+ * accepts **a photo, a video, or neither**; with nothing set, a composed blue gradient
+ * is shown, which is a worthy background on its own and not a hole waiting for an image.
+ *
+ * If both are set, the video wins on large screens and the photo is what phones see: a
+ * looping background can cost several megabytes of mobile data to someone who only
+ * came to check a schedule. It also doesn't play if the visitor's system asks for
+ * reduced motion.
+ */
 export function Hero() {
-  const [reproducir, setReproducir] = useState(false);
-  const video = portada.video && esVideo(portada.video) ? portada.video : "";
+  const [canPlay, setCanPlay] = useState(false);
+  const video = hero.video && isVideoFile(hero.video) ? hero.video : "";
 
   useEffect(() => {
     if (!video) return;
     const mq = window.matchMedia("(min-width: 640px) and (prefers-reduced-motion: no-preference)");
-    const sync = () => setReproducir(mq.matches);
+    const sync = () => setCanPlay(mq.matches);
     sync();
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
   }, [video]);
 
-  const hayVideo = Boolean(video) && reproducir;
-  // Con video o foto detrás hace falta más velo para que el texto siga legible.
-  const conMedio = hayVideo || Boolean(portada.foto);
+  const showVideo = Boolean(video) && canPlay;
+  // With a video or photo behind it, the text needs a heavier overlay to stay readable.
+  const hasMedia = showVideo || Boolean(hero.photo);
 
   return (
     <section id="inicio" className="relative flex min-h-[78svh] items-center overflow-hidden sm:min-h-[100svh]">
-      {/* Fondo */}
+      {/* Background */}
       <div className="absolute inset-0 bg-navy-deep">
-        {hayVideo ? (
+        {showVideo ? (
           <video
             className="h-full w-full object-cover object-[center_38%]"
             src={video}
-            poster={portada.foto || undefined}
+            poster={hero.photo || undefined}
             autoPlay
             muted
             loop
@@ -52,16 +52,16 @@ export function Hero() {
             preload="metadata"
             aria-hidden="true"
           />
-        ) : portada.foto ? (
-          /* <picture> y no un `hidden sm:block`: así el teléfono descarga UNA sola
-             imagen, la suya, y no las dos. */
-          /* `block h-full w-full`: <picture> es inline por defecto y entonces el
-             h-full de la imagen no tendría contra qué medirse. */
+        ) : hero.photo ? (
+          /* <picture> rather than `hidden sm:block`: that way the phone downloads ONE
+             image, its own, and not both. */
+          /* `block h-full w-full`: <picture> is inline by default, and then the image's
+             h-full would have nothing to measure against. */
           <picture className="block h-full w-full">
-            {portada.fotoMovil && (
-              <source media="(max-width: 639px)" srcSet={portada.fotoMovil} />
+            {hero.mobilePhoto && (
+              <source media="(max-width: 639px)" srcSet={hero.mobilePhoto} />
             )}
-            <img src={portada.foto} alt="" className="h-full w-full object-cover object-[center_38%]" />
+            <img src={hero.photo} alt="" className="h-full w-full object-cover object-[center_38%]" />
           </picture>
         ) : (
           <div
@@ -75,9 +75,9 @@ export function Hero() {
           />
         )}
 
-        {/* Trama de arcos: evoca los del templo sin caer en iconografía recargada.
-            Con foto o video detrás estorba, así que solo sale sobre el degradado. */}
-        {!conMedio && (
+        {/* Arch pattern: evokes the temple's arches without heavy iconography. With a
+            photo or video behind it, it gets in the way, so it only shows on the gradient. */}
+        {!hasMedia && (
           <div
             className="absolute inset-0 opacity-[0.07]"
             style={{
@@ -88,39 +88,39 @@ export function Hero() {
           />
         )}
 
-        {/* Velo de legibilidad. */}
+        {/* Readability overlay. */}
         <div
           className={`absolute inset-0 ${
-            conMedio
+            hasMedia
               ? "bg-gradient-to-t from-navy-deep via-navy-deep/85 to-navy-deep/65"
               : "bg-gradient-to-t from-navy-deep via-navy-deep/70 to-navy-deep/45"
           }`}
         />
       </div>
 
-      {/* Contenido */}
+      {/* Content */}
       <div className="relative mx-auto w-full max-w-content px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-36">
         <div className="max-w-3xl animate-reveal">
-          {/* Aquí iba el logo otra vez. Quedaba casi en la misma vertical que el de la
-              barra y a pocos centímetros: se leía como una repetición, no como
-              jerarquía. El logo vive en la barra, que además lo toma del panel. */}
+          {/* The logo used to be here too. It sat almost on the same vertical as the
+              navbar's, a few centimeters away: it read as repetition, not hierarchy.
+              The logo lives in the navbar. */}
           <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.3em] text-gold-light">
-            {site.marcaLinea1}
+            {site.brandLine1}
           </p>
 
           <h1 className="mt-5 text-[2.5rem] leading-[1.08] text-white sm:text-[3.6rem] lg:text-[4.2rem]">
-            {site.parroquia}
+            {site.parish}
             <span className="mt-2 block text-[1.6rem] font-normal text-white/85 sm:text-[2.1rem]">
-              {site.parroquiaLinea2}
+              {site.parishLine2}
             </span>
           </h1>
 
           <figure className="mt-9 border-l-2 border-gold pl-5">
             <blockquote className="font-serif text-[1.35rem] italic leading-snug text-white/90 sm:text-[1.7rem]">
-              “{site.versiculo.texto}”
+              “{site.verse.text}”
             </blockquote>
             <figcaption className="mt-2 text-[0.78rem] font-bold uppercase tracking-[0.18em] text-gold-light">
-              {site.versiculo.cita}
+              {site.verse.reference}
             </figcaption>
           </figure>
 
@@ -141,7 +141,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Curva que enlaza con el marfil de la siguiente sección. */}
+      {/* Curve that blends into the ivory of the next section. */}
       <svg
         className="absolute inset-x-0 bottom-[-1px] h-10 w-full text-ivory sm:h-14"
         viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"

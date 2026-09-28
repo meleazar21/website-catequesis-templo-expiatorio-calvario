@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { catequistas, type Catequista } from "../data/catequesis";
-import { Eyebrow, Icon, Lead, PhotoPlaceholder, Reveal, Section, Title, useCapaModal } from "./ui";
+import { catechists, type Catechist } from "../data/catechesis";
+import { Eyebrow, Icon, Lead, PhotoPlaceholder, Reveal, Section, Title, useModalLayer } from "./ui";
 
 /**
- * Equipo de catequistas. Se administra desde /admin → Catequistas; el orden lo fija el
- * campo `orden` de cada ficha.
+ * Catechist team. Managed from /admin → Catequistas; the order is set by each entry's
+ * `orden` field.
  *
- * Las reseñas son biografías de varios párrafos. Desplegarlas dentro de la tarjeta
- * estiraba la columna y dejaba un texto largo en una caja de 270px, que es justo donde
- * peor se lee. Se abren en una ficha aparte, con la fotografía en grande al lado.
+ * The bios are multi-paragraph. Expanding them inside the card stretched the column
+ * and left a long text in a 270px box, which is exactly where it reads worst. They open
+ * in a separate profile instead, with the photo large beside them.
  */
 export function Catechists() {
-  const [perfil, setPerfil] = useState<Catequista | null>(null);
+  const [profile, setProfile] = useState<Catechist | null>(null);
 
   return (
     <Section>
@@ -27,13 +27,13 @@ export function Catechists() {
       </Reveal>
 
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {catequistas.map((c, i) => (
+        {catechists.map((c, i) => (
           <Reveal key={c.nombre} delay={i * 80} className="h-full">
-            {/* La tarjeta entera abre la ficha: en el teléfono, un botón pequeño al pie
-                es un blanco incómodo, y aquí no hay nada más dentro que pulsar. */}
+            {/* The whole card opens the profile: on the phone, a small button at the
+                bottom is an awkward target, and there's nothing else to tap in here. */}
             <button
               type="button"
-              onClick={() => setPerfil(c)}
+              onClick={() => setProfile(c)}
               className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-navy/[0.08] bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift"
             >
               {c.foto ? (
@@ -59,15 +59,15 @@ export function Catechists() {
         ))}
       </div>
 
-      {perfil && <PerfilCatequista c={perfil} onClose={() => setPerfil(null)} />}
+      {profile && <CatechistProfile c={profile} onClose={() => setProfile(null)} />}
     </Section>
   );
 }
 
-/** Ficha completa de un catequista: fotografía en grande y la reseña entera. */
-function PerfilCatequista({ c, onClose }: { c: Catequista; onClose: () => void }) {
-  useCapaModal(onClose);
-  const parrafos = c.frase.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+/** A catechist's full profile: the photo large and the whole bio. */
+function CatechistProfile({ c, onClose }: { c: Catechist; onClose: () => void }) {
+  useModalLayer(onClose);
+  const paragraphs = c.frase.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
 
   return (
     <div
@@ -86,19 +86,19 @@ function PerfilCatequista({ c, onClose }: { c: Catequista; onClose: () => void }
           <Icon name="close" size={20} />
         </button>
 
-        {/* En el teléfono la foto va ENTERA (object-contain, sobre un fondo suave):
-            recortándola se perdía media cara, y estas son fotos de personas. Sigue
-            limitada en altura porque, si ocupa toda la pantalla, hay que desplazarse
-            para descubrir que debajo había texto. En escritorio la columna es
-            estrecha y vertical, como las fotos, así que ahí recortar apenas quita
-            nada y llenar la columna se ve mejor. */}
+        {/* On the phone the photo is shown WHOLE (object-contain, over a soft
+            background): cropping it cut off half a face, and these are photos of
+            people. It stays height-limited because, if it fills the whole screen, you
+            have to scroll to discover there was text below. On desktop the column is
+            narrow and vertical, like the photos, so cropping there removes almost
+            nothing and filling the column looks better. */}
         {c.foto ? (
           <img
             src={c.foto} alt={c.nombre}
-            /* La foto se ve ENTERA en los dos tamaños, sin recorte y sin franjas:
-               `w-auto` en el teléfono (con ancho completo, una vertical dejaba franjas
-               de medio ancho) y `self-start` en escritorio (estirándola para llenar la
-               columna se comía un tercio de los lados). El elemento ES la foto. */
+            /* The photo is shown WHOLE at both sizes, uncropped and without bars:
+               `w-auto` on the phone (at full width, a portrait photo left half-width
+               bars) and `self-start` on desktop (stretching it to fill the column cut
+               off a third of the sides). The element IS the photo. */
             className="mx-auto max-h-[42vh] w-auto shrink-0 object-contain sm:mx-0 sm:max-h-[80vh] sm:w-64 sm:self-start md:w-72"
           />
         ) : (
@@ -111,7 +111,7 @@ function PerfilCatequista({ c, onClose }: { c: Catequista; onClose: () => void }
             {c.grupo}
           </p>
           <div className="mt-6 space-y-4 leading-relaxed text-ink-soft">
-            {parrafos.map((p, k) => (
+            {paragraphs.map((p, k) => (
               <p key={k}>{p}</p>
             ))}
           </div>

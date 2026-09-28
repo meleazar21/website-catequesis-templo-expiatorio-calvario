@@ -1,21 +1,22 @@
 import { useState } from "react";
-import { cursos } from "../data/catequesis";
+import { courses } from "../data/catechesis";
 import { Eyebrow, Icon, Lead, Lightbox, Provisional, Reveal, Section, Title } from "./ui";
 
 /**
- * Cursos de catequesis. En la tarjeta va solo el cartel y la descripción; la edad, el
- * horario, la duración y el detalle viven dentro de "Ver información". Las
- * descripciones son de largos muy distintos, así que tenerlo todo a la vista dejaba la
- * ficha de datos a distinta altura en cada tarjeta y la rejilla se veía descuadrada.
- * Se despliega en la misma tarjeta: en móvil evita mandar a la persona a otra pantalla.
+ * Catechesis courses. The card shows only the poster and the description; age,
+ * schedule, duration and details live inside "Ver información". Descriptions vary a
+ * lot in length, so showing everything at once left the details block at a different
+ * height on every card and the grid looked misaligned. It expands inside the same
+ * card: on mobile, that avoids sending the person to another screen.
  *
- * Si el curso tiene cartel, encabeza la tarjeta. Se muestra **entero** (`object-contain`)
- * y no recortado: son carteles con texto y un recorte se come justo lo que explica el
- * curso. Y como a este tamaño la letra pequeña no se lee, al tocarlo se abre en grande.
+ * If the course has a poster, it heads the card. It's shown **whole** (`object-contain`)
+ * rather than cropped: these are posters with text, and a crop eats exactly what
+ * explains the course. And since the small print can't be read at this size, tapping
+ * it opens it large.
  */
 export function Courses() {
-  const [abierto, setAbierto] = useState<string | null>(null);
-  const [cartel, setCartel] = useState<{ src: string; alt: string } | null>(null);
+  const [openCourse, setOpenCourse] = useState<string | null>(null);
+  const [poster, setPoster] = useState<{ src: string; alt: string } | null>(null);
 
   return (
     <Section id="catequesis">
@@ -31,23 +32,23 @@ export function Courses() {
       </Reveal>
 
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {cursos.map((c, i) => {
-          const desplegado = abierto === c.nombre;
+        {courses.map((c, i) => {
+          const expanded = openCourse === c.nombre;
           return (
             <Reveal key={c.nombre} delay={i * 90} className="h-full">
               <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-navy/[0.08] bg-white shadow-card transition-all hover:-translate-y-1 hover:shadow-lift">
                 {c.imagen && (
                   <button
                     type="button"
-                    onClick={() => setCartel({ src: c.imagen!, alt: `Cartel del curso ${c.nombre}` })}
+                    onClick={() => setPoster({ src: c.imagen!, alt: `Cartel del curso ${c.nombre}` })}
                     title="Ver el cartel en grande"
                     className="group relative block w-full bg-ivory-deep"
                   >
                     <img
                       src={c.imagen} alt={`Cartel del curso ${c.nombre}`} loading="lazy"
-                      /* Sin proporción fija: el cartel toma la suya. Forzar 4:3 le dejaba
-                         franjas a los lados a uno cuadrado, que parecen un error. El tope
-                         de altura evita que un cartel muy vertical empuje el texto fuera. */
+                      /* No fixed aspect ratio: the poster keeps its own. Forcing 4:3 left
+                         bars on the sides of a square one, which look like a bug. The
+                         height cap stops a very tall poster from pushing the text out. */
                       className="max-h-64 w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                     <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-full bg-navy-deep/75 px-2.5 py-1 text-[0.62rem] font-extrabold uppercase tracking-[0.1em] text-white opacity-0 transition-opacity group-hover:opacity-100">
@@ -69,18 +70,18 @@ export function Courses() {
                 <div className="mt-auto pt-6">
                   <button
                     type="button"
-                    onClick={() => setAbierto(desplegado ? null : c.nombre)}
-                    aria-expanded={desplegado}
+                    onClick={() => setOpenCourse(expanded ? null : c.nombre)}
+                    aria-expanded={expanded}
                     className="inline-flex items-center gap-1.5 text-[0.78rem] font-extrabold uppercase tracking-[0.13em] text-navy transition-colors hover:text-gold"
                   >
-                    {desplegado ? "Ocultar" : "Ver información"}
+                    {expanded ? "Ocultar" : "Ver información"}
                     <Icon
                       name="chevron" size={16}
-                      className={`transition-transform ${desplegado ? "rotate-180" : ""}`}
+                      className={`transition-transform ${expanded ? "rotate-180" : ""}`}
                     />
                   </button>
 
-                  {desplegado && (
+                  {expanded && (
                     <div className="mt-4 border-t border-navy/[0.08] pt-4">
                       <dl className="space-y-2.5 text-[0.88rem]">
                         {[
@@ -119,8 +120,8 @@ export function Courses() {
         })}
       </div>
 
-      {cartel && (
-        <Lightbox src={cartel.src} alt={cartel.alt} onClose={() => setCartel(null)} />
+      {poster && (
+        <Lightbox src={poster.src} alt={poster.alt} onClose={() => setPoster(null)} />
       )}
     </Section>
   );

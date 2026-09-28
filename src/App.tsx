@@ -12,10 +12,10 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 
 /**
- * Página única. El orden responde a la prioridad acordada: inscripciones y cursos
- * primero, y lo demás después. Los avisos y actividades van juntos en una sola
- * sección, y la de requisitos vive dentro de Inscripciones para no partir en dos lo
- * que la gente consulta de una sola vez.
+ * Single page. The order follows the agreed priority: registration and courses first,
+ * everything else after. Announcements and events share a single section, and the
+ * requirements live inside Registration so that what people look up in one go isn't
+ * split in two.
  */
 export default function App() {
   return (

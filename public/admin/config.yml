@@ -1,44 +1,46 @@
 ####################################################################################
-#  Panel de administración — Decap CMS
+#  Admin panel — Decap CMS
 #
-#  Define qué se puede editar. Cada "collection" de abajo es una sección del panel.
+#  Defines what can be edited. Each "collection" below is a section of the panel.
+#  Field `name`s are the JSON keys in content/; `label`s and `hint`s are what editors
+#  see in the panel, so they stay in Spanish.
 #
-#  SE USA SOLO EN LOCAL: `npm run admin` levanta el proxy que escribe en content/, y
-#  `npm run dev` sirve el panel en http://localhost:5173/admin/. No pide contraseña y
-#  no toca GitHub: los cambios quedan en el árbol de trabajo y se suben con un commit.
-#  El build BORRA /admin, así que el panel no llega al sitio publicado.
+#  USED LOCALLY ONLY: `npm run admin` starts the proxy that writes to content/, and
+#  `npm run dev` serves the panel at http://localhost:5173/admin/. It asks for no
+#  password and doesn't touch GitHub: changes stay in the working tree and are pushed
+#  with a commit. The build DELETES /admin, so the panel never reaches the published site.
 #
-#  El bloque `backend` de abajo NO se usa en ese modo (manda `local_backend`), pero
-#  Decap exige que exista. Si algún día se quiere el panel en línea, hay que darle un
-#  backend de verdad y quitar el plugin `panelSoloEnLocal` de vite.config.ts:
+#  The `backend` block below is NOT used in that mode (`local_backend` takes over), but
+#  Decap requires it to exist. If the panel is ever wanted online, give it a real
+#  backend and remove the `excludeAdminFromBuild` plugin from vite.config.ts:
 #
-#    - Git Gateway (Netlify) está DEPRECADO: funciona en los sitios que ya lo tienen,
-#      pero Netlify no arregla ya sus errores, solo fallos graves de seguridad.
-#    - Alternativas: DecapBridge (gratis, sin proxy propio, pero un tercero custodia un
-#      token con escritura sobre el repositorio) o una app OAuth de GitHub propia.
+#    - Git Gateway (Netlify) is DEPRECATED: it works on sites that already have it,
+#      but Netlify no longer fixes its bugs, only serious security issues.
+#    - Alternatives: DecapBridge (free, no proxy of your own, but a third party holds a
+#      token with write access to the repository) or your own GitHub OAuth app.
 ####################################################################################
 
 backend:
-  name: git-gateway      # marcador de posición: en local manda `local_backend`
+  name: git-gateway      # placeholder: locally, `local_backend` takes over
   branch: master
 
-# Editar el contenido EN ESTA COMPUTADORA, sin publicar nada y sin iniciar sesión.
-# Si `npm run admin` no está corriendo, el panel intenta usar el `backend` de arriba
-# y no podrá entrar: ese es el síntoma de que falta levantar el proxy.
+# Edit content ON THIS COMPUTER, without publishing anything and without logging in.
+# If `npm run admin` isn't running, the panel tries to use the `backend` above and
+# can't get in: that's the sign the proxy needs to be started.
 local_backend: true
 
-# Los cambios se guardan como borrador y se publican con un botón... salvo en local,
-# donde el proxy solo admite guardado directo y el CMS baja solo a modo "simple".
+# Changes are saved as drafts and published with a button... except locally, where
+# the proxy only supports direct saves and the CMS falls back to "simple" mode.
 publish_mode: editorial_workflow
 
 locale: es
 
-# Dónde caen las fotos y videos que se suban desde el panel.
+# Where photos and videos uploaded from the panel end up.
 media_folder: "public/fotos"
 public_folder: "/fotos"
 
 collections:
-  # ------------------------------------------------------------------ Inscripciones
+  # ------------------------------------------------------------------ Registration
   - name: inscripciones
     label: "Inscripciones"
     files:
@@ -59,7 +61,7 @@ collections:
             widget: list
             fields: [{ name: texto, label: "Requisito", widget: string }]
 
-  # ------------------------------------------------------------------ Cursos
+  # ------------------------------------------------------------------ Courses
   - name: cursos
     label: "Cursos de catequesis"
     label_singular: "Curso"
@@ -84,7 +86,7 @@ collections:
         widget: list
         fields: [{ name: texto, label: "Punto", widget: string }]
 
-  # ------------------------------------------------------------------ Horarios
+  # ------------------------------------------------------------------ Schedules
   - name: horarios
     label: "Horarios"
     files:
@@ -102,7 +104,7 @@ collections:
               - { name: hora, label: "Hora", widget: string }
               - { name: lugar, label: "Lugar", widget: string }
 
-  # ------------------------------------------------------------------ Avisos
+  # ------------------------------------------------------------------ Announcements
   - name: avisos
     label: "Avisos"
     label_singular: "Aviso"
@@ -122,7 +124,7 @@ collections:
       - { name: descripcion, label: "Descripción", widget: text }
       - { name: destacado, label: "Destacar", widget: boolean, default: false, hint: "Lo resalta con borde dorado." }
 
-  # ------------------------------------------------------------------ Actividades
+  # ------------------------------------------------------------------ Events
   - name: eventos
     label: "Próximas actividades"
     label_singular: "Actividad"
@@ -142,7 +144,7 @@ collections:
       - { name: hora, label: "Hora", widget: string }
       - { name: lugar, label: "Lugar", widget: string }
 
-  # ------------------------------------------------------------------ Sacramentos
+  # ------------------------------------------------------------------ Sacraments
   - name: sacramentos
     label: "Sacramentos"
     label_singular: "Sacramento"
@@ -165,7 +167,7 @@ collections:
       - { name: fechas, label: "Fechas importantes", widget: string }
       - { name: aviso, label: "Aviso", widget: string, required: false, hint: "Opcional. Aparece en un recuadro dorado." }
 
-  # ------------------------------------------------------------------ Catequistas
+  # ------------------------------------------------------------------ Catechists
   - name: catequistas
     label: "Catequistas"
     label_singular: "Catequista"
@@ -184,7 +186,7 @@ collections:
       - { name: frase, label: "Frase", widget: text }
       - { name: foto, label: "Fotografía", widget: image, required: false, hint: "Si se deja vacío se muestra un marcador." }
 
-  # ------------------------------------------------------------------ Galería
+  # ------------------------------------------------------------------ Gallery
   - name: galeria
     label: "Galería"
     label_singular: "Fotografía"
@@ -202,7 +204,7 @@ collections:
       - { name: foto, label: "Fotografía", widget: image, required: false }
       - { name: alto, label: "Tamaño en el mosaico", widget: select, options: [corto, medio, alto], default: medio }
 
-  # ------------------------------------------------------------------ Sitio
+  # ------------------------------------------------------------------ Site
   - name: sitio
     label: "Configuración del sitio"
     files:
@@ -220,20 +222,20 @@ collections:
           - { name: versiculoTexto, label: "Versículo de la portada", widget: string }
           - { name: versiculoCita, label: "Cita del versículo", widget: string }
 
-          # Fondo de la portada: se puede dejar una foto, un video, los dos o ninguno.
-          # Sin nada sale un degradado azul, que también se ve bien.
+          # Hero background: a photo, a video, both, or neither can be set.
+          # With nothing set, a blue gradient is shown, which also looks good.
           - { name: portadaFoto, label: "Portada — fotografía de fondo", widget: image, required: false, hint: "Opcional. Con esto basta para tener una portada con imagen. Apaisada y de buena resolución; comprímela a menos de 400 KB." }
           - { name: portadaFotoMovil, label: "Portada — fotografía para el teléfono", widget: image, required: false, hint: "Opcional pero MUY recomendable: una foto apaisada, en la pantalla vertical de un teléfono, se recorta por los lados y solo se ve un tercio. Sube aquí una vertical (9:16) o un recorte vertical de la misma escena. Si se deja vacío se usa la de arriba." }
-          # El `pattern` está para que una fotografía no termine en este campo: pasó, y
-          # el navegador intenta reproducir un JPG como video, así que la portada se
-          # queda en negro sin decir por qué.
+          # The `pattern` is there so a photo doesn't end up in this field: it happened,
+          # and the browser tries to play a JPG as a video, so the hero stays black
+          # without saying why.
           - name: portadaVideo
             label: "Portada — video de fondo (opcional)"
             widget: file
             required: false
             hint: "Solo si quieres que la portada se mueva. MP4 SIN AUDIO, en bucle y de MENOS DE 5 MB. En teléfonos no se reproduce: ahí se ve la fotografía de arriba, así que conviene subir las dos."
-            # Comillas SIMPLES: en YAML, "\." entre comillas dobles es un escape inválido
-            # y tumba el archivo entero, con lo que el panel deja de cargar.
+            # SINGLE quotes: in YAML, "\." inside double quotes is an invalid escape and
+            # breaks the whole file, so the panel stops loading.
             pattern: ['\.(mp4|webm)$|^$', 'Aquí solo va un video .mp4 o .webm. Si es una fotografía, va en el campo de arriba.']
 
           - { name: bienvenidaTitulo, label: "Bienvenida — título", widget: string }
@@ -250,9 +252,9 @@ collections:
           - { name: correo, label: "Correo electrónico", widget: string }
           - { name: direccion, label: "Dirección", widget: string }
           - { name: horarioAtencion, label: "Horario de atención", widget: string }
-          # Acepta la URL larga del navegador, unas coordenadas o una dirección; el
-          # sitio las traduce. Lo único que NO sirve es el enlace corto de "Compartir"
-          # (maps.app.goo.gl): solo Google sabe a dónde apunta y no se puede incrustar.
+          # Accepts the browser's long URL, coordinates or an address; the site
+          # translates them. The only thing that does NOT work is the short "Share"
+          # link (maps.app.goo.gl): only Google knows where it points, so it can't be embedded.
           - { name: mapaEmbedUrl, label: "Mapa — ubicación del templo", widget: string, required: false, hint: "Busca el templo en Google Maps y copia la dirección de la barra del navegador (la larga, que empieza por https://www.google.com/maps/place/...). NO uses el enlace corto del botón Compartir. Vacío = no se muestra el mapa." }
           - { name: facebook, label: "Facebook", widget: string, required: false }
           - { name: instagram, label: "Instagram", widget: string, required: false }

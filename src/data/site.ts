@@ -1,133 +1,137 @@
 /**
- * Datos generales de la parroquia y del grupo de catequesis.
+ * General information about the parish and the catechesis group.
  *
- * **El contenido no vive aquí**: vive en `content/*.json`, que es lo que edita el panel
- * de administración (Decap CMS, en `/admin`). Este archivo solo lo lee y le pone tipos,
- * para que los componentes sigan recibiendo objetos con la forma de siempre.
+ * **The content does not live here**: it lives in `content/*.json`, which is what the
+ * admin panel (Decap CMS, at `/admin`) edits. This file only reads it and gives it
+ * types, so the components receive objects with a stable shape.
  *
- * Si editas a mano, hazlo en `content/site.json`.
+ * If you edit by hand, do it in `content/site.json`.
  */
 import type { IconName } from "../components/ui";
-import bruto from "../../content/site.json";
+import siteJson from "../../content/site.json";
 
 /**
- * Si alguien tiene el panel abierto con una versión anterior de la configuración y
- * guarda, el archivo sale SIN las claves añadidas después: el panel escribe los campos
- * que su pestaña conoce, no los que hay en disco. Eso no debe tumbar la compilación por
- * un campo opcional, así que las claves que pueden faltar se declaran opcionales y se
- * leen como cadena vacía, que es justo lo que significan.
+ * If someone has the panel open with an older version of the config and saves, the
+ * file comes out WITHOUT the keys added later: the panel writes the fields its tab
+ * knows about, not the ones on disk. That must not break the build over an optional
+ * field, so keys that may be missing are declared optional and read as an empty
+ * string, which is exactly what they mean.
  */
-const raw = bruto as typeof bruto & {
+const raw = siteJson as typeof siteJson & {
   portadaFotoMovil?: string;
   youtube?: string;
   tiktok?: string;
 };
 
-/** Marca visible para cualquier dato que todavía no es oficial. */
-export const POR_DEFINIR = "[CONTENIDO POR DEFINIR]";
+/** Visible marker for any piece of data that is not official yet. */
+export const TO_BE_DEFINED = "[CONTENIDO POR DEFINIR]";
 
 export const site = {
-  marca: raw.marca,
-  marcaLinea1: raw.marcaLinea1,
-  marcaLinea2: raw.marcaLinea2,
-  parroquia: raw.parroquia,
-  parroquiaLinea2: raw.parroquiaLinea2,
-  ciudad: raw.ciudad,
-  lema: raw.lema,
-  versiculo: { texto: raw.versiculoTexto, cita: raw.versiculoCita },
+  brand: raw.marca,
+  brandLine1: raw.marcaLinea1,
+  brandLine2: raw.marcaLinea2,
+  parish: raw.parroquia,
+  parishLine2: raw.parroquiaLinea2,
+  city: raw.ciudad,
+  motto: raw.lema,
+  verse: { text: raw.versiculoTexto, reference: raw.versiculoCita },
 };
 
 /**
- * Fondo de la portada: una foto, un video, o ninguno de los dos (entonces sale un
- * degradado azul compuesto). Pueden convivir — el video solo se reproduce en pantallas
- * grandes, y la foto es lo que se ve en el teléfono, para no gastarle los datos a quien
- * solo venía a consultar un horario.
+ * Hero background: a photo, a video, or neither (then a composed blue gradient is
+ * shown). Both can be set — the video only plays on large screens, and the photo is
+ * what phones see, so we don't burn the data plan of someone who only came to check
+ * a schedule.
  */
-export const portada = {
-  foto: raw.portadaFoto,
-  /** Versión vertical, solo para el teléfono. Vacío = se usa la de arriba. */
-  fotoMovil: raw.portadaFotoMovil ?? "",
+export const hero = {
+  photo: raw.portadaFoto,
+  /** Portrait version, for phones only. Empty = the one above is used. */
+  mobilePhoto: raw.portadaFotoMovil ?? "",
   video: raw.portadaVideo,
 };
 
 /**
- * Convierte lo que se pegue en el campo del mapa en un enlace que se pueda incrustar.
+ * Turns whatever is pasted into the map field into a link that can be embedded.
  *
- * Google ofrece de primeras el enlace de **compartir**, y ese no se puede incrustar: lo
- * rechaza dentro de un iframe ("refused to connect"). El enlace de incrustar está más
- * escondido (Compartir → Insertar un mapa). Pedirle a quien mantiene el sitio que
- * distinga los dos es pedirle que se acuerde de algo que no tiene por qué saber, así que
- * aquí se acepta cualquiera de las formas habituales y se traduce:
+ * Google offers the **share** link first, and that one can't be embedded: it's refused
+ * inside an iframe ("refused to connect"). The embed link is more hidden (Share → Embed
+ * a map). Asking whoever maintains the site to tell the two apart means asking them to
+ * remember something they have no reason to know, so any of the usual forms is
+ * accepted here and translated:
  *
- *  - un enlace de incrustar, tal cual;
- *  - la URL larga de la barra de direcciones, de la que se sacan las coordenadas;
- *  - unas coordenadas sueltas, "11.977989, -86.0876864";
- *  - cualquier otra cosa se trata como dirección y se busca.
+ *  - an embed link, as is;
+ *  - the long URL from the address bar, from which the coordinates are extracted;
+ *  - bare coordinates, "11.977989, -86.0876864";
+ *  - anything else is treated as an address and searched for.
  *
- * La excepción son los enlaces cortos (maps.app.goo.gl): solo el servidor de Google sabe
- * a dónde apuntan y el navegador no puede resolverlos, así que se descartan y sale el
- * marcador, que explica qué pegar. Es preferible a un mapa roto sin explicación.
+ * The exception is short links (maps.app.goo.gl): only Google's server knows where
+ * they point and the browser can't resolve them, so they are discarded and the
+ * placeholder is shown, which explains what to paste. Better than a broken map with
+ * no explanation.
  */
-function mapaEmbed(valor: string): string {
-  const v = valor.trim();
+function toMapEmbedUrl(value: string): string {
+  const v = value.trim();
   if (!v) return "";
 
-  const mapa = (consulta: string) =>
-    `https://maps.google.com/maps?q=${encodeURIComponent(consulta)}&z=17&hl=es&output=embed`;
+  const embed = (query: string) =>
+    `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=17&hl=es&output=embed`;
 
   if (v.includes("/maps/embed") || v.includes("output=embed")) return v;
   if (/(maps\.app\.goo\.gl|goo\.gl\/maps)/i.test(v)) return "";
 
   if (/^https?:\/\//i.test(v)) {
-    // !3d/!4d son las del lugar; @lat,lng es el centro del mapa, que sirve de respaldo.
-    const lugar = v.match(/!3d(-?\d+\.?\d*)!4d(-?\d+\.?\d*)/);
-    const centro = v.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
-    const c = lugar ?? centro;
-    return c ? mapa(`${c[1]},${c[2]}`) : "";
+    // !3d/!4d are the place's coordinates; @lat,lng is the map center, used as a fallback.
+    const place = v.match(/!3d(-?\d+\.?\d*)!4d(-?\d+\.?\d*)/);
+    const center = v.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+    const c = place ?? center;
+    return c ? embed(`${c[1]},${c[2]}`) : "";
   }
 
-  return mapa(v);
+  return embed(v);
 }
 
-export const contacto = {
-  telefono: raw.telefono,
-  /** Solo dígitos con código de país, para el enlace wa.me. Ej.: "50588887777". */
+export const contact = {
+  phone: raw.telefono,
+  /** Digits only, with country code, for the wa.me link. E.g. "50588887777". */
   whatsapp: raw.whatsapp,
-  correo: raw.correo,
-  direccion: raw.direccion,
-  horarioAtencion: raw.horarioAtencion,
-  /** Ya convertido a un enlace incrustable. Vacío = se muestra el marcador. */
-  mapaEmbedUrl: mapaEmbed(raw.mapaEmbedUrl),
+  email: raw.correo,
+  address: raw.direccion,
+  officeHours: raw.horarioAtencion,
+  /** Already converted to an embeddable link. Empty = the placeholder is shown. */
+  mapEmbedUrl: toMapEmbedUrl(raw.mapaEmbedUrl),
   /**
-   * Solo salen las que tienen enlace; el resto ni se muestran.
+   * Only the ones with a link are shown; the rest are hidden entirely.
    *
-   * `fondo` es el color oficial de cada red, y va como valor CSS y no como clase de
-   * Tailwind porque el de Instagram es un degradado de cinco paradas. El glifo
-   * siempre va en blanco encima, que es como cada marca pide que se use.
+   * `background` is each network's official color, and it's a CSS value rather than a
+   * Tailwind class because Instagram's is a five-stop gradient. The glyph always goes
+   * in white on top, which is how each brand asks to be used.
    */
-  redes: [
-    { nombre: "Facebook", icono: "facebook", url: raw.facebook, fondo: "#1877F2" },
+  socials: [
+    { name: "Facebook", icon: "facebook", url: raw.facebook, background: "#1877F2" },
     {
-      nombre: "Instagram", icono: "instagram", url: raw.instagram,
-      fondo: "linear-gradient(45deg,#FEDA75 5%,#FA7E1E 28%,#D62976 55%,#962FBF 78%,#4F5BD5 100%)",
+      name: "Instagram", icon: "instagram", url: raw.instagram,
+      background: "linear-gradient(45deg,#FEDA75 5%,#FA7E1E 28%,#D62976 55%,#962FBF 78%,#4F5BD5 100%)",
     },
-    { nombre: "YouTube", icono: "youtube", url: raw.youtube ?? "", fondo: "#FF0000" },
-    { nombre: "TikTok", icono: "tiktok", url: raw.tiktok ?? "", fondo: "#010101" },
-  ] as { nombre: string; icono: IconName; url: string; fondo: string }[],
+    { name: "YouTube", icon: "youtube", url: raw.youtube ?? "", background: "#FF0000" },
+    { name: "TikTok", icon: "tiktok", url: raw.tiktok ?? "", background: "#010101" },
+  ] as { name: string; icon: IconName; url: string; background: string }[],
 };
 
-export const mision = { titulo: raw.misionTitulo, texto: raw.misionTexto };
-export const vision = { titulo: raw.visionTitulo, texto: raw.visionTexto };
+export const mission = { title: raw.misionTitulo, text: raw.misionTexto };
+export const vision = { title: raw.visionTitulo, text: raw.visionTexto };
 
-export const bienvenida = {
-  titulo: raw.bienvenidaTitulo,
-  /** El CMS guarda un solo texto; los saltos de línea dobles separan párrafos. */
-  parrafos: raw.bienvenidaTexto.split(/\n{2,}/).filter(Boolean),
-  foto: raw.bienvenidaFoto,
+export const welcome = {
+  title: raw.bienvenidaTitulo,
+  /** The CMS stores a single text; double line breaks separate paragraphs. */
+  paragraphs: raw.bienvenidaTexto.split(/\n{2,}/).filter(Boolean),
+  photo: raw.bienvenidaFoto,
 };
 
-/** Secciones de la barra de navegación (el id debe existir en la página). */
-export const navegacion = [
+/**
+ * Navigation bar sections (the id must exist on the page). The ids are the URL
+ * anchors visitors see, so they stay in Spanish.
+ */
+export const navigation = [
   { id: "inicio", label: "Inicio" },
   { id: "nosotros", label: "Nosotros" },
   { id: "catequesis", label: "Catequesis" },

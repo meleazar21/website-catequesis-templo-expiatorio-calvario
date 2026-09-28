@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Manrope autoalojada: el mismo archivo que usa el sistema de gestión, para que la
-   tipografía de la web y la de la aplicación sean idénticas y no dependa de la red. */
+/* Self-hosted Manrope: the same file the management system uses, so the website's and
+   the app's typography are identical and don't depend on the network. */
 @font-face {
   font-family: "Manrope";
   font-style: normal;
@@ -15,7 +15,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* El encabezado es fijo: sin esto, al saltar a una sección el título queda debajo. */
+    /* The header is fixed: without this, jumping to a section leaves its title underneath. */
     scroll-padding-top: 5.5rem;
   }
   body {
@@ -30,7 +30,7 @@
 }
 
 @layer components {
-  /* Filete dorado corto que acompaña a los títulos de sección. */
+  /* Short gold rule that accompanies section titles. */
   .rule-gold::after {
     content: "";
     @apply mt-4 block h-px w-14 bg-gold;
@@ -41,7 +41,7 @@
   }
 }
 
-/* Quien prefiera menos movimiento no ve ninguna animación. */
+/* Anyone who prefers reduced motion sees no animation at all. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
