@@ -1,21 +1,21 @@
-import { contacto } from "../data/site";
+import { contact } from "../data/site";
 import { Eyebrow, Icon, Lead, Provisional, Reveal, Section, Title, type IconName } from "./ui";
 
 /**
- * Contacto. Cada dato se vuelve enlace (tel:, mailto:, wa.me) **solo** cuando existe;
- * mientras sea provisional se muestra como texto, para no generar enlaces rotos.
+ * Contact. Each item becomes a link (tel:, mailto:, wa.me) **only** when it exists;
+ * while it's provisional it's shown as text, so no broken links are generated.
  */
 export function Contact() {
-  const hayTelefono = contacto.telefono && !contacto.telefono.startsWith("[");
-  const hayCorreo = contacto.correo && !contacto.correo.startsWith("[");
-  const redes = contacto.redes.filter((r) => r.url);
+  const hasPhone = contact.phone && !contact.phone.startsWith("[");
+  const hasEmail = contact.email && !contact.email.startsWith("[");
+  const socials = contact.socials.filter((r) => r.url);
 
-  const datos: { icon: IconName; k: string; v: string; href?: string }[] = [
-    { icon: "phone", k: "Teléfono", v: contacto.telefono, href: hayTelefono ? `tel:${contacto.telefono}` : undefined },
-    { icon: "chat", k: "WhatsApp", v: contacto.whatsapp || "[CONTENIDO POR DEFINIR]", href: contacto.whatsapp ? `https://wa.me/${contacto.whatsapp}` : undefined },
-    { icon: "mail", k: "Correo electrónico", v: contacto.correo, href: hayCorreo ? `mailto:${contacto.correo}` : undefined },
-    { icon: "pin", k: "Dirección", v: contacto.direccion },
-    { icon: "clock", k: "Horario de atención", v: contacto.horarioAtencion },
+  const details: { icon: IconName; k: string; v: string; href?: string }[] = [
+    { icon: "phone", k: "Teléfono", v: contact.phone, href: hasPhone ? `tel:${contact.phone}` : undefined },
+    { icon: "chat", k: "WhatsApp", v: contact.whatsapp || "[CONTENIDO POR DEFINIR]", href: contact.whatsapp ? `https://wa.me/${contact.whatsapp}` : undefined },
+    { icon: "mail", k: "Correo electrónico", v: contact.email, href: hasEmail ? `mailto:${contact.email}` : undefined },
+    { icon: "pin", k: "Dirección", v: contact.address },
+    { icon: "clock", k: "Horario de atención", v: contact.officeHours },
   ];
 
   return (
@@ -30,7 +30,7 @@ export function Contact() {
           </Lead>
 
           <dl className="mt-10 space-y-5">
-            {datos.map((d) => (
+            {details.map((d) => (
               <div key={d.k} className="flex gap-4">
                 <span className="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-soft text-navy">
                   <Icon name={d.icon} size={19} />
@@ -55,26 +55,26 @@ export function Contact() {
             ))}
           </dl>
 
-          {redes.length > 0 && (
+          {socials.length > 0 && (
             <div className="mt-10 flex flex-wrap gap-3">
-              {redes.map((r) => (
+              {socials.map((r) => (
                 <a
-                  key={r.nombre}
+                  key={r.name}
                   href={r.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  /* Aquí el color va SOLO en el distintivo, no en toda la pastilla:
-                     sobre el marfil, cuatro botones enteros de color chillarían al
-                     lado de la paleta del sitio. */
+                  /* Here the color goes ONLY on the badge, not the whole pill: on the
+                     ivory, four fully colored buttons would clash with the site's
+                     palette. */
                   className="inline-flex items-center gap-2.5 rounded-full border border-navy/15 py-1.5 pl-1.5 pr-5 text-[0.78rem] font-extrabold uppercase tracking-[0.12em] text-navy transition-colors hover:border-gold hover:text-gold"
                 >
                   <span
-                    style={{ background: r.fondo }}
+                    style={{ background: r.background }}
                     className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white"
                   >
-                    <Icon name={r.icono} size={16} />
+                    <Icon name={r.icon} size={16} />
                   </span>
-                  {r.nombre}
+                  {r.name}
                 </a>
               ))}
             </div>
@@ -82,9 +82,9 @@ export function Contact() {
         </Reveal>
 
         <Reveal delay={110}>
-          {contacto.mapaEmbedUrl ? (
+          {contact.mapEmbedUrl ? (
             <iframe
-              src={contacto.mapaEmbedUrl}
+              src={contact.mapEmbedUrl}
               title="Ubicación del templo"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

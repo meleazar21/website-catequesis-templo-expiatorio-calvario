@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { navegacion, site } from "../data/site";
+import { navigation, site } from "../data/site";
 import { Icon } from "./ui";
 
 /**
- * Barra fija. Sobre el hero va transparente y, al bajar, se vuelve sólida: así el
- * texto blanco del hero se lee y el resto de la página no pierde contraste.
+ * Fixed bar. Over the hero it's transparent and, once you scroll, it turns solid: that
+ * way the hero's white text stays readable and the rest of the page keeps its contrast.
  */
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -17,56 +17,56 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Con el menú abierto no debe poder desplazarse el fondo.
+  // With the menu open, the background must not scroll.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  const solido = scrolled || open;
+  const solid = scrolled || open;
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        solido ? "bg-ivory/95 shadow-[0_1px_0_rgba(30,58,138,0.08)] backdrop-blur" : "bg-transparent"
+        solid ? "bg-ivory/95 shadow-[0_1px_0_rgba(30,58,138,0.08)] backdrop-blur" : "bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-[1400px] items-center gap-3 px-5 py-2 sm:px-8">
         <a href="#inicio" className="flex shrink-0 items-center gap-3" onClick={() => setOpen(false)}>
-          {/* El escudo es el protagonista: crece con el ancho de pantalla y al bajar
-              se encoge un poco para que la barra no ocupe media pantalla. */}
+          {/* The crest is the star: it grows with the screen width and shrinks a bit on
+              scroll so the bar doesn't take up half the screen. */}
           <img
             src="/logo.png"
-            alt={site.marca}
+            alt={site.brand}
             className={`w-auto object-contain transition-all duration-300 ${
-              /* En el teléfono el escudo cede algo de tamaño: ahora comparte la
-                 barra con el nombre, y antes la ocupaba él solo. */
-              solido ? "h-12 sm:h-[4.5rem]" : "h-14 sm:h-24"
+              /* On the phone the crest gives up some size: it now shares the bar with
+                 the name, where before it had the bar to itself. */
+              solid ? "h-12 sm:h-[4.5rem]" : "h-14 sm:h-24"
             }`}
           />
-          {/* El nombre va también en el teléfono: con solo el escudo y el botón de
-              menú, la barra no decía de quién es el sitio. La segunda línea se parte
-              en dos renglones en pantalla chica en vez de encogerse hasta no leerse. */}
+          {/* The name shows on the phone too: with only the crest and the menu button,
+              the bar didn't say whose site this is. On small screens the second line
+              wraps onto two lines instead of shrinking until it's unreadable. */}
           <span className="block leading-tight">
-            <span className={`block font-serif text-[0.98rem] font-semibold sm:text-[1.15rem] ${solido ? "text-navy-deep" : "text-white"}`}>
-              {site.marcaLinea1}
+            <span className={`block font-serif text-[0.98rem] font-semibold sm:text-[1.15rem] ${solid ? "text-navy-deep" : "text-white"}`}>
+              {site.brandLine1}
             </span>
-            <span className={`block text-[0.58rem] font-bold uppercase leading-snug tracking-[0.1em] sm:whitespace-nowrap sm:text-[0.64rem] sm:tracking-[0.14em] ${solido ? "text-gold" : "text-gold-light"}`}>
-              {site.marcaLinea2}
+            <span className={`block text-[0.58rem] font-bold uppercase leading-snug tracking-[0.1em] sm:whitespace-nowrap sm:text-[0.64rem] sm:tracking-[0.14em] ${solid ? "text-gold" : "text-gold-light"}`}>
+              {site.brandLine2}
             </span>
           </span>
         </a>
 
         <span className="flex-1" />
 
-        {/* Escritorio */}
+        {/* Desktop */}
         <ul className="hidden items-center gap-0.5 xl:flex">
-          {navegacion.map((n) => (
+          {navigation.map((n) => (
             <li key={n.id}>
               <a
                 href={`#${n.id}`}
                 className={`rounded-lg px-2.5 py-2 text-[0.78rem] font-bold uppercase tracking-[0.06em] transition-colors ${
-                  solido ? "text-ink-soft hover:bg-navy-soft hover:text-navy" : "text-white/85 hover:bg-white/10 hover:text-white"
+                  solid ? "text-ink-soft hover:bg-navy-soft hover:text-navy" : "text-white/85 hover:bg-white/10 hover:text-white"
                 }`}
               >
                 {n.label}
@@ -81,10 +81,10 @@ export function Navbar() {
           Inscripciones
         </a>
 
-        {/* Móvil */}
+        {/* Mobile */}
         <button
           type="button"
-          className={`rounded-lg p-2 xl:hidden ${solido ? "text-navy" : "text-white"}`}
+          className={`rounded-lg p-2 xl:hidden ${solid ? "text-navy" : "text-white"}`}
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
@@ -96,7 +96,7 @@ export function Navbar() {
       {open && (
         <div className="border-t border-navy/10 bg-ivory xl:hidden">
           <ul className="mx-auto max-w-content px-5 py-3">
-            {navegacion.map((n) => (
+            {navigation.map((n) => (
               <li key={n.id}>
                 <a
                   href={`#${n.id}`}

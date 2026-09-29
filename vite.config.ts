@@ -4,16 +4,16 @@ import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 
 /**
- * En desarrollo, /admin y /admin/ caen en el "fallback" de una sola página y
- * devuelven el sitio público en vez del panel. Esto los reescribe a su archivo
- * real antes de que Vite llegue a ese fallback.
+ * In development, /admin and /admin/ fall into the single-page "fallback" and return
+ * the public site instead of the panel. This rewrites them to their real file before
+ * Vite reaches that fallback.
  *
- * Solo afecta a `npm run dev`: en el sitio publicado, /admin/ lo resuelve el
- * hosting, que sí sirve el index.html de la carpeta.
+ * Only affects `npm run dev`: on the published site, /admin/ is resolved by the
+ * hosting, which does serve the folder's index.html.
  */
-function paginaDeAdmin(): Plugin {
+function serveAdminPage(): Plugin {
   return {
-    name: "pagina-de-admin",
+    name: "serve-admin-page",
     apply: "serve",
     configureServer(server) {
       server.middlewares.use((req, _res, next) => {
@@ -27,27 +27,28 @@ function paginaDeAdmin(): Plugin {
 }
 
 /**
- * El panel se usa SOLO en esta computadora (`npm run admin`), así que no se publica:
- * en el sitio desplegado enseñaría un inicio de sesión que no puede funcionar, porque
- * no hay servicio de identidad detrás.
+ * The panel is used ONLY on this computer (`npm run admin`), so it isn't published: on
+ * the deployed site it would show a login that can't work, because there's no identity
+ * service behind it.
  *
- * Se borra al final del build en vez de sacar la carpeta de `public/`, para que en
- * desarrollo siga sirviéndose sola y no haya dos rutas distintas que mantener.
+ * It's deleted at the end of the build instead of moving the folder out of `public/`,
+ * so that in development it keeps being served on its own and there aren't two
+ * different paths to maintain.
  *
- * ¿Publicarlo algún día? Se quita este plugin de la lista y hay que darle un `backend`
- * de verdad en public/admin/config.yml (hoy solo vale para el modo local).
+ * Publish it someday? Remove this plugin from the list and give it a real `backend` in
+ * public/admin/config.yml (today it only works for local mode).
  */
-function panelSoloEnLocal(): Plugin {
+function excludeAdminFromBuild(): Plugin {
   return {
-    name: "panel-solo-en-local",
+    name: "exclude-admin-from-build",
     apply: "build",
     closeBundle() {
       fs.rmSync(path.resolve("dist/admin"), { recursive: true, force: true });
-      console.log("  el panel /admin no se publica (uso local)");
+      console.log("  /admin panel not published (local use only)");
     },
   };
 }
 
 export default defineConfig({
-  plugins: [react(), paginaDeAdmin(), panelSoloEnLocal()],
+  plugins: [react(), serveAdminPage(), excludeAdminFromBuild()],
 });

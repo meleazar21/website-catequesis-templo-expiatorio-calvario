@@ -1,17 +1,20 @@
-import { galeria } from "../data/catequesis";
+import { gallery } from "../data/catechesis";
 import { Eyebrow, Lead, PhotoPlaceholder, Reveal, Section, Title } from "./ui";
 
-/** Altura de cada pieza: el desnivel es lo que le da el aire de mosaico. */
-const ALTO = {
+/**
+ * Height of each tile: the uneven heights are what give it the mosaic look. The keys
+ * are the `alto` values stored in `content/galeria/`.
+ */
+const TILE_HEIGHT = {
   corto: "h-52 sm:h-60",
   medio: "h-64 sm:h-80",
   alto: "h-80 sm:h-[26rem]",
 } as const;
 
 /**
- * Galería en mosaico (columnas CSS). No se usan fotos de archivo: hasta que la
- * parroquia entregue las suyas, cada pieza es un marcador que dice qué va ahí.
- * Para publicar una foto real basta con poner su ruta en `src` dentro de `galeria`.
+ * Mosaic gallery (CSS columns). No stock photos: until the parish provides its own,
+ * each tile is a placeholder saying what goes there. To publish a real photo, set its
+ * `foto` path in the entry under `content/galeria/`.
  */
 export function Gallery() {
   return (
@@ -28,20 +31,20 @@ export function Gallery() {
 
       <Reveal delay={90}>
         <div className="mt-14 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-          {galeria.map((f) =>
+          {gallery.map((f) =>
             f.foto ? (
               <img
                 key={f.titulo}
                 src={f.foto}
                 alt={f.titulo}
                 loading="lazy"
-                className={`w-full break-inside-avoid rounded-2xl object-cover shadow-card ${ALTO[f.alto]}`}
+                className={`w-full break-inside-avoid rounded-2xl object-cover shadow-card ${TILE_HEIGHT[f.alto]}`}
               />
             ) : (
               <PhotoPlaceholder
                 key={f.titulo}
                 label={f.titulo}
-                className={`w-full break-inside-avoid rounded-2xl shadow-card ${ALTO[f.alto]}`}
+                className={`w-full break-inside-avoid rounded-2xl shadow-card ${TILE_HEIGHT[f.alto]}`}
               />
             )
           )}

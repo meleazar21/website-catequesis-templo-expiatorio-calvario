@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Azul mariano: el mismo del sistema de gestión, para que la identidad
-        // visual de la catequesis sea una sola en la web y en la aplicación.
+        // Marian blue: the same as the management system, so the catechesis has a
+        // single visual identity across the website and the app.
         navy: {
           DEFAULT: "#1e3a8a",
           dark: "#152a63",
@@ -13,18 +13,18 @@ export default {
           light: "#2f4fb0",
           soft: "#eaf0f7",
         },
-        // Dorado suave, solo como acento (filetes, cifras, detalles).
+        // Soft gold, only as an accent (rules, numbers, details).
         gold: {
           DEFAULT: "#c8a04a",
           light: "#e2c68a",
           soft: "#f7f0de",
         },
-        // Verde muy sutil, reservado para estados positivos.
+        // Very subtle green, reserved for positive states.
         sage: {
           DEFAULT: "#4f7d63",
           soft: "#eaf2ed",
         },
-        // Marfil / blanco cálido de fondo.
+        // Ivory / warm white background.
         ivory: {
           DEFAULT: "#faf8f3",
           deep: "#f3efe6",
@@ -49,10 +49,10 @@ export default {
           from: { opacity: "0", transform: "translateY(14px)" },
           to: { opacity: "1", transform: "none" },
         },
-        // Para las capas que se abren encima (visor, ficha del catequista): solo
-        // opacidad. `reveal` lleva un translateY y un `transform` sobre un elemento
-        // `position: fixed` lo desplaza y, mientras dura, pasa a ser el marco de
-        // referencia de lo que lleve dentro.
+        // For layers that open on top (viewer, catechist profile): opacity only.
+        // `reveal` has a translateY, and a `transform` on a `position: fixed` element
+        // shifts it and, while it lasts, becomes the containing block for whatever
+        // is inside it.
         fade: { from: { opacity: "0" }, to: { opacity: "1" } },
       },
       animation: {

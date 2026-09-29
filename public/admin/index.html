@@ -6,18 +6,20 @@
     <meta name="robots" content="noindex" />
     <title>Administrar el sitio · Catequesis El Calvario</title>
     <link rel="icon" href="/logo.png" />
+    <!-- Absolute path, so /admin (no trailing slash) doesn't look for /config.yml. -->
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   </head>
   <body>
     <!--
-      Panel de administración (Decap CMS). Lo que se puede editar está definido
-      en `config.yml`, no aquí. Este archivo solo carga el panel.
+      Admin panel (Decap CMS). What can be edited is defined in `config.yml`,
+      not here. This file only loads the panel.
 
-      Se carga desde un CDN a propósito: así el panel no entra en el `build` del
-      sitio ni le suma peso a quien solo viene a leer la página.
+      It loads from a CDN on purpose: that way the panel stays out of the site's
+      `build` and adds no weight for someone who only comes to read the page.
     -->
     <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
 
-    <!-- Invitación por correo de Netlify Identity: al abrir el enlace, pide la contraseña. -->
+    <!-- Netlify Identity email invite: opening the link asks for the password. -->
     <script>
       window.netlifyIdentity &&
         window.netlifyIdentity.on("init", function (user) {

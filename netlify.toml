@@ -1,26 +1,26 @@
-# Publicación en Netlify.
+# Netlify deployment.
 #
-# Se incluye porque el panel de administración (/admin) viene configurado con
-# `git-gateway`, que es el inicio de sesión que Netlify trae incluido: publicando
-# aquí, el panel funciona sin montar nada más.
+# Included because the admin panel (/admin) comes configured with `git-gateway`, the
+# login that Netlify ships built in: publishing here, the panel works with nothing
+# else to set up.
 #
-# Para usarlo:
-#   1. Netlify → Add new site → Import from Git → este repositorio.
+# To use it:
+#   1. Netlify → Add new site → Import from Git → this repository.
 #   2. Site configuration → Identity → Enable Identity.
-#   3. Identity → Registration → Invite only  (que no se registre cualquiera).
+#   3. Identity → Registration → Invite only  (so not just anyone can sign up).
 #   4. Identity → Services → Git Gateway → Enable.
-#   5. Identity → Invite users → el correo de quien va a mantener el sitio.
+#   5. Identity → Invite users → the email of whoever will maintain the site.
 #
-# El sitio también funciona en Vercel (vercel.json), pero ahí el panel necesita
-# una app OAuth de GitHub aparte; ver el bloque comentado en public/admin/config.yml.
+# The site also works on Vercel (vercel.json), but there the panel needs a separate
+# GitHub OAuth app; see the commented block in public/admin/config.yml.
 
 [build]
   command = "npm run build"
   publish = "dist"
 
-# El sitio es de una sola página: cualquier ruta devuelve index.html. Sin `force`,
-# los archivos que existen de verdad (/admin/index.html, /admin/config.yml, las fotos)
-# se sirven tal cual y no pasan por aquí.
+# The site is a single page: any route returns index.html. Without `force`, files that
+# really exist (/admin/index.html, /admin/config.yml, the photos) are served as-is and
+# don't go through here.
 [[redirects]]
   from = "/*"
   to = "/index.html"

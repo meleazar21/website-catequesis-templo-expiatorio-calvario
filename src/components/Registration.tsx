@@ -1,19 +1,19 @@
-import { inscripciones } from "../data/catequesis";
-import { contacto } from "../data/site";
+import { registration } from "../data/catechesis";
+import { contact } from "../data/site";
 import { Eyebrow, Icon, Provisional, Reveal, Section, Title } from "./ui";
 
 /**
- * Inscripciones: la sección más importante del sitio, por eso va destacada sobre
- * fondo propio y el botón se repite arriba en la barra.
+ * Registration: the most important section of the site, so it stands out on its own
+ * background and its button is repeated up in the navbar.
  *
- * El estado abierto/cerrado se cambia con `inscripciones.abiertas` en el archivo de
- * datos; el botón lleva a `inscripciones.enlace` (Google Forms, formulario propio o
- * WhatsApp) y, si aún no hay enlace, cae a la sección de contacto.
+ * The open/closed state is set with `abiertas` in `content/inscripciones.json`; the
+ * button goes to `enlace` (Google Forms, a custom form or WhatsApp) and, if there is
+ * no link yet, falls back to the contact section.
  */
 export function Registration() {
-  const { abiertas, enlace } = inscripciones;
-  const destino = enlace || "#contacto";
-  const externo = /^https?:\/\//i.test(destino);
+  const { abiertas: isOpen, enlace: link } = registration;
+  const href = link || "#contacto";
+  const isExternal = /^https?:\/\//i.test(href);
 
   return (
     <Section id="inscripciones" className="bg-ivory-deep">
@@ -25,28 +25,28 @@ export function Registration() {
           <div className="mt-8 flex justify-center">
             <span
               className={`inline-flex items-center gap-2.5 rounded-full px-5 py-2.5 text-[0.78rem] font-extrabold uppercase tracking-[0.14em] ${
-                abiertas ? "bg-sage-soft text-sage" : "bg-[#fbe3e3] text-[#b23636]"
+                isOpen ? "bg-sage-soft text-sage" : "bg-[#fbe3e3] text-[#b23636]"
               }`}
             >
-              <span className={`h-2 w-2 rounded-full ${abiertas ? "bg-sage" : "bg-[#b23636]"}`} />
-              {abiertas ? "Inscripciones abiertas" : "Inscripciones cerradas"}
+              <span className={`h-2 w-2 rounded-full ${isOpen ? "bg-sage" : "bg-[#b23636]"}`} />
+              {isOpen ? "Inscripciones abiertas" : "Inscripciones cerradas"}
             </span>
           </div>
         </div>
       </Reveal>
 
       <div className="mt-14 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
-        {/* Datos de la inscripción */}
+        {/* Registration details */}
         <Reveal>
           <div className="h-full rounded-2xl border border-navy/[0.08] bg-white p-8 shadow-card sm:p-10">
             <h3 className="text-[1.5rem] text-navy-deep">Cuándo y dónde</h3>
 
             <dl className="mt-7 grid gap-5 sm:grid-cols-2">
               {[
-                { icon: "calendar" as const, k: "Inicio de inscripciones", v: inscripciones.inicio },
-                { icon: "calendar" as const, k: "Cierre de inscripciones", v: inscripciones.cierre },
-                { icon: "clock" as const, k: "Horario de atención", v: inscripciones.horarioAtencion },
-                { icon: "pin" as const, k: "Lugar", v: inscripciones.lugar },
+                { icon: "calendar" as const, k: "Inicio de inscripciones", v: registration.inicio },
+                { icon: "calendar" as const, k: "Cierre de inscripciones", v: registration.cierre },
+                { icon: "clock" as const, k: "Horario de atención", v: registration.horarioAtencion },
+                { icon: "pin" as const, k: "Lugar", v: registration.lugar },
               ].map((f) => (
                 <div key={f.k} className="flex gap-3">
                   <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-navy-soft text-navy">
@@ -61,24 +61,24 @@ export function Registration() {
             </dl>
 
             <p className="mt-8 border-t border-navy/[0.08] pt-6 text-[0.9rem] leading-relaxed text-ink-soft">
-              {inscripciones.nota}
+              {registration.nota}
             </p>
 
             <a
-              href={destino}
-              {...(externo ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              href={href}
+              {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className={`mt-8 flex w-full items-center justify-center gap-2 rounded-full px-8 py-4 text-[0.9rem] font-extrabold uppercase tracking-[0.14em] transition-transform ${
-                abiertas
+                isOpen
                   ? "bg-navy text-white shadow-lift hover:-translate-y-0.5 hover:bg-navy-light"
                   : "cursor-not-allowed bg-navy/15 text-navy/45"
               }`}
-              aria-disabled={!abiertas}
-              onClick={(e) => { if (!abiertas) e.preventDefault(); }}
+              aria-disabled={!isOpen}
+              onClick={(e) => { if (!isOpen) e.preventDefault(); }}
             >
-              {abiertas ? "Inscribirme" : "Inscripciones cerradas"}
-              {abiertas && <Icon name="arrow" size={18} />}
+              {isOpen ? "Inscribirme" : "Inscripciones cerradas"}
+              {isOpen && <Icon name="arrow" size={18} />}
             </a>
-            {abiertas && !enlace && (
+            {isOpen && !link && (
               <p className="mt-3 text-center text-[0.78rem] text-ink-faint">
                 Por ahora el botón lleva a la sección de contacto.
               </p>
@@ -86,7 +86,7 @@ export function Registration() {
           </div>
         </Reveal>
 
-        {/* Requisitos */}
+        {/* Requirements */}
         <Reveal delay={110}>
           <div className="h-full rounded-2xl border border-navy/[0.08] bg-navy p-8 text-white shadow-card sm:p-10">
             <h3 className="text-[1.5rem] text-white">Requisitos</h3>
@@ -95,7 +95,7 @@ export function Registration() {
             </p>
 
             <ul className="mt-7 space-y-4">
-              {inscripciones.requisitos.map((r, i) => (
+              {registration.requisitos.map((r, i) => (
                 <li key={i} className="flex gap-3">
                   <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold-light">
                     <Icon name="check" size={14} />
@@ -111,11 +111,11 @@ export function Registration() {
               <p className="font-bold uppercase tracking-[0.12em] text-gold-light">¿Dudas?</p>
               <p className="mt-2 flex items-center gap-2">
                 <Icon name="phone" size={16} className="shrink-0 text-gold-light" />
-                <Provisional text={contacto.telefono} />
+                <Provisional text={contact.phone} />
               </p>
               <p className="mt-1.5 flex items-center gap-2">
                 <Icon name="mail" size={16} className="shrink-0 text-gold-light" />
-                <Provisional text={contacto.correo} />
+                <Provisional text={contact.email} />
               </p>
             </div>
           </div>

@@ -1,22 +1,21 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-/* ------------------------------------------------------------------ Iconos
- * Trazos SVG propios: sin librería de iconos y sin emojis (el diseño los excluye).
+/* ------------------------------------------------------------------ Icons
+ * Custom SVG strokes: no icon library and no emojis (the design rules them out).
  */
 export type IconName =
   | "flame" | "book" | "calendar" | "clock" | "pin" | "phone"
   | "mail" | "chat" | "check" | "arrow" | "menu" | "close" | "chevron" | "image"
-  // Misión y visión
-  | "providencia" | "estrella"
-  // Sacramentos
-  | "agua" | "caliz" | "anillos" | "corazon" | "oleo" | "cruz"
-  // Redes sociales
+  // Mission and vision
+  | "providence" | "star"
+  // Sacraments
+  | "water" | "chalice" | "rings" | "heart" | "oil" | "cross"
+  // Social networks
   | "facebook" | "instagram" | "youtube" | "tiktok";
 
 const PATHS: Record<IconName, ReactNode> = {
-  /* Paloma de perfil, en vuelo y descendiendo: cabeza y pico arriba a la derecha,
-     el ala abierta sobre el cuerpo y la cola hacia abajo a la izquierda. La versión
-     anterior, de un solo trazo, se leía como una alubia. */
+  /* A flame with three short rays below it. Also used for Confirmation: the tongues
+     of fire of Pentecost. */
   flame: <><path d="M12 2.6s4.6 4 4.6 8a4.6 4.6 0 1 1-9.2 0c0-1.4.6-2.5 1.2-3.4.3 1.1 1.1 1.8 1.9 1.8C10.7 9 9.6 6 12 2.6z" /><path d="M12 17.2v4.2M8.2 17.4l-1.4 3.4M15.8 17.4l1.4 3.4" /></>,
   book: <><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 0 4 20.5z" /><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 1 1.5 1.5z" /></>,
   calendar: <><rect x="3.5" y="5" width="17" height="15" rx="2" /><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3" /></>,
@@ -32,49 +31,49 @@ const PATHS: Record<IconName, ReactNode> = {
   chevron: <path d="m8 10 4 4 4-4" />,
   image: <><rect x="3.5" y="5" width="17" height="14" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="m4.5 17 4.5-4 3.5 3 3-2.5 4 3.5" /></>,
 
-  /* Ojo de la Providencia: el triángulo es la Trinidad y el ojo, que Dios ve y
-     cuida. Los rayos no son adorno — son lo que distingue la versión cristiana,
-     que representa la gloria divina, del ojo a secas. */
-  providencia: <>
+  /* Eye of Providence: the triangle is the Trinity and the eye is God who sees and
+     cares. The rays aren't decoration — they are what sets the Christian version,
+     which represents divine glory, apart from a plain eye. */
+  providence: <>
     <path d="M12 6.6 21 20.2H3z" />
     <path d="M7.7 15.4c1.4-2 2.9-3 4.3-3s2.9 1 4.3 3c-1.4 2-2.9 3-4.3 3s-2.9-1-4.3-3z" />
     <circle cx="12" cy="15.4" r="1.25" fill="currentColor" stroke="none" />
     <path d="M12 4.4V1.3M8.1 5.3 6.2 2.4M15.9 5.3 17.8 2.4" />
   </>,
-  estrella: <path d="M12.0 2.9 14.2 8.9 20.7 9.2 15.6 13.2 17.3 19.4 12.0 15.8 6.7 19.4 8.4 13.2 3.3 9.2 9.8 8.9z" />,
+  star: <path d="M12.0 2.9 14.2 8.9 20.7 9.2 15.6 13.2 17.3 19.4 12.0 15.8 6.7 19.4 8.4 13.2 3.3 9.2 9.8 8.9z" />,
 
-  /* Bautismo: el agua cayendo sobre la pila. */
-  agua: <>
+  /* Baptism: water falling over the font. */
+  water: <>
     <path d="M12 3.2c2.3 2.7 3.5 4.6 3.5 6a3.5 3.5 0 0 1-7 0c0-1.4 1.2-3.3 3.5-6z" />
     <path d="M3.6 16.4q2.1-1.7 4.2 0t4.2 0 4.2 0 4.2 0" />
     <path d="M3.6 19.8q2.1-1.7 4.2 0t4.2 0 4.2 0 4.2 0" />
   </>,
-  /* Eucaristía: el cáliz y la hostia. */
-  caliz: <>
+  /* Eucharist: the chalice and the host. */
+  chalice: <>
     <circle cx="12" cy="3.9" r="2.1" />
     <path d="M12 3.2v1.4M11.3 3.9h1.4" />
     <path d="M5.9 8.9h12.2c0 3.6-2.7 6.2-6.1 6.2S5.9 12.5 5.9 8.9z" />
     <path d="M12 15.1v3.6M7.9 20.6h8.2" />
   </>,
-  /* Matrimonio: las dos alianzas enlazadas. */
-  anillos: <>
+  /* Marriage: the two interlocked wedding rings. */
+  rings: <>
     <circle cx="9" cy="14.4" r="5.1" />
     <circle cx="15" cy="14.4" r="5.1" />
     <path d="M12 2.4v3.4M10.3 4.1h3.4" />
   </>,
-  /* Reconciliación: la misericordia, no el pecado — un corazón con la cruz. */
-  corazon: <>
+  /* Reconciliation: mercy, not sin — a heart with the cross. */
+  heart: <>
     <path d="M12 20.6s-7.4-4.6-7.4-9.6a4.2 4.2 0 0 1 7.4-2.7 4.2 4.2 0 0 1 7.4 2.7c0 5-7.4 9.6-7.4 9.6z" />
     <path d="M12 9.8v5.4M9.5 12.1h5" />
   </>,
-  /* Unción de los enfermos: la ampolla del óleo. */
-  oleo: <>
+  /* Anointing of the sick: the vial of holy oil. */
+  oil: <>
     <path d="M9.8 2.8h4.4v2.4l1.6 2.2v11a2 2 0 0 1-2 2h-3.6a2 2 0 0 1-2-2v-11l1.6-2.2z" />
     <path d="M8.2 11.6h7.6M12 14.2v3.4M10.3 15.9h3.4" />
   </>,
-  cruz: <path d="M12 2.8v18.4M6.6 8.2h10.8" />,
+  cross: <path d="M12 2.8v18.4M6.6 8.2h10.8" />,
 
-  /* Marcas: se dibujan con su forma reconocible, no con una inicial. */
+  /* Brands: drawn with their recognizable shape, not an initial. */
   facebook: <path d="M13.9 21.4v-8.2h2.8l.5-3.3h-3.3V7.8c0-.9.3-1.6 1.7-1.6h1.7V3.2c-.8-.1-1.7-.2-2.6-.2-2.6 0-4.4 1.6-4.4 4.5v2.4H7.1v3.3h3.2v8.2z" fill="currentColor" stroke="none" />,
   instagram: <>
     <rect x="2.9" y="2.9" width="18.2" height="18.2" rx="5.2" />
@@ -101,9 +100,9 @@ export function Icon({ name, size = 20, className = "" }: { name: IconName; size
 }
 
 /* ------------------------------------------------------------------ Reveal
- * Aparición suave al entrar en pantalla. Usa IntersectionObserver en vez de
- * escuchar el scroll, así no cuesta nada en móvil. Si el navegador no lo
- * soporta, el contenido simplemente se muestra.
+ * Soft fade-in when an element enters the screen. Uses IntersectionObserver instead
+ * of listening to scroll, so it costs nothing on mobile. If the browser doesn't
+ * support it, the content is simply shown.
  */
 export function Reveal({ children, delay = 0, className = "" }: {
   children: ReactNode; delay?: number; className?: string;
@@ -133,7 +132,7 @@ export function Reveal({ children, delay = 0, className = "" }: {
   );
 }
 
-/* ------------------------------------------------------------------ Sección */
+/* ------------------------------------------------------------------ Section */
 export function Section({ id, className = "", children }: {
   id?: string; className?: string; children: ReactNode;
 }) {
@@ -179,9 +178,9 @@ export function Lead({ children, center = false, light = false }: {
 }
 
 /* ------------------------------------------------------------------ Placeholder
- * Marcador de fotografía. Se usa a propósito en vez de fotos de archivo: el sitio
- * no debe mostrar imágenes ajenas como si fueran de esta parroquia. Cada marcador
- * dice qué foto va ahí, y se sustituye poniendo la ruta en el archivo de datos.
+ * Photo placeholder. Used on purpose instead of stock photos: the site must not show
+ * someone else's images as if they were from this parish. Each placeholder says which
+ * photo goes there, and is replaced by setting the photo path in the content file.
  */
 export function PhotoPlaceholder({ label, className = "", compact = false }: {
   label: string; className?: string; compact?: boolean;
@@ -192,7 +191,7 @@ export function PhotoPlaceholder({ label, className = "", compact = false }: {
       role="img"
       aria-label={`Fotografía por definir: ${label}`}
     >
-      {/* Trama diagonal muy tenue, para que no parezca un bloque vacío. */}
+      {/* Very faint diagonal hatching, so it doesn't look like an empty block. */}
       <div
         className="absolute inset-0 opacity-[0.5]"
         style={{
@@ -215,45 +214,46 @@ export function PhotoPlaceholder({ label, className = "", compact = false }: {
   );
 }
 
-/* ------------------------------------------------------------------ Varios */
+/* ------------------------------------------------------------------ Misc */
 /**
- * Visor para ver una imagen en grande. Los carteles de curso llevan texto pequeño que
- * en la tarjeta no se lee; sin esto, la imagen estaría de adorno.
- *
- * Cierra con Escape y tocando el fondo, y mientras está abierto se bloquea el scroll de
- * la página: en el teléfono, si no, se desplaza lo de detrás en vez de la imagen.
+ * What everything that opens on top of the page has in common: it closes with Escape
+ * and locks the background scroll while open (otherwise, on the phone, whatever is
+ * behind scrolls instead of the content). It's a hook because both the image viewer
+ * and the catechist profile need it, and duplicating it guarantees one of them will
+ * forget.
  */
-/**
- * Lo común a todo lo que se abre encima de la página: cierra con Escape y bloquea el
- * scroll del fondo mientras está abierto (en el teléfono, si no, se desplaza lo de
- * detrás en vez del contenido). Va en un hook porque lo necesitan el visor de imagen y
- * el perfil del catequista, y repetirlo es asegurarse de que a uno se le olvide.
- */
-export function useCapaModal(onClose: () => void) {
+export function useModalLayer(onClose: () => void) {
   useEffect(() => {
-    const tecla = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    const previo = document.body.style.overflow;
+    const onKeyDown = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", tecla);
+    window.addEventListener("keydown", onKeyDown);
     return () => {
-      document.body.style.overflow = previo;
-      window.removeEventListener("keydown", tecla);
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
     };
   }, [onClose]);
 }
 
+/**
+ * Viewer for seeing an image large. Course posters carry small text that can't be read
+ * on the card; without this, the image would be mere decoration.
+ *
+ * Closes with Escape or by tapping the backdrop, and page scroll is locked while it's
+ * open: otherwise, on the phone, what's behind scrolls instead of the image.
+ */
 export function Lightbox({ src, alt, onClose }: {
   src: string; alt: string; onClose: () => void;
 }) {
-  useCapaModal(onClose);
-  const [ampliada, setAmpliada] = useState(false);
+  useModalLayer(onClose);
+  const [zoomed, setZoomed] = useState(false);
 
   return (
     <div
       role="dialog" aria-modal="true" aria-label={alt}
       onClick={onClose}
-      /* `overflow-auto` + `touch-pinch-zoom`: ampliada, la imagen se sale de la
-         pantalla y hay que poder recorrerla con el dedo y hacer pellizco. */
+      /* `overflow-auto` + `touch-pinch-zoom`: when zoomed, the image overflows the
+         screen and must be pannable with a finger and pinch-zoomable. */
       className="fixed inset-0 z-[70] flex touch-pinch-zoom items-center justify-center overflow-auto overscroll-contain bg-navy-deep/[0.92] p-4 animate-fade sm:p-8"
     >
       <button
@@ -265,18 +265,18 @@ export function Lightbox({ src, alt, onClose }: {
 
       <img
         src={src} alt={alt}
-        onClick={(e) => { e.stopPropagation(); setAmpliada((v) => !v); }}
+        onClick={(e) => { e.stopPropagation(); setZoomed((v) => !v); }}
         className={
-          ampliada
+          zoomed
             ? "max-w-none cursor-zoom-out rounded-xl shadow-lift [width:220vw] sm:[width:150vw]"
             : "max-h-full max-w-full cursor-zoom-in rounded-xl object-contain shadow-lift"
         }
       />
 
-      {/* En el teléfono, "ajustada" ocupa el ancho de la pantalla y se ve igual que en
-          la tarjeta: sin este aviso, tocar y que no pase nada parece que está rota. */}
+      {/* On the phone, the "fitted" image fills the screen width and looks the same as
+          on the card: without this hint, tapping and seeing nothing happen looks broken. */}
       <p className="pointer-events-none fixed inset-x-0 bottom-5 text-center text-[0.76rem] font-semibold uppercase tracking-[0.12em] text-white/70">
-        {ampliada ? "Toca la imagen para ajustarla" : "Toca la imagen para ampliarla"}
+        {zoomed ? "Toca la imagen para ajustarla" : "Toca la imagen para ampliarla"}
       </p>
     </div>
   );
@@ -298,16 +298,16 @@ export function Pill({ children, tone = "navy" }: {
   );
 }
 
-/** Resalta en ámbar los textos "[CONTENIDO POR DEFINIR]" para que no pasen a producción. */
+/** Highlights "[CONTENIDO POR DEFINIR]" markers in amber so they don't slip into production. */
 export function Provisional({ text }: { text: string }) {
-  const partes = text.split("[CONTENIDO POR DEFINIR]");
-  if (partes.length === 1) return <>{text}</>;
+  const parts = text.split("[CONTENIDO POR DEFINIR]");
+  if (parts.length === 1) return <>{text}</>;
   return (
     <>
-      {partes.map((p, i) => (
+      {parts.map((p, i) => (
         <span key={i}>
           {p}
-          {i < partes.length - 1 && (
+          {i < parts.length - 1 && (
             <mark className="rounded bg-gold-soft px-1.5 py-0.5 text-[0.82em] font-bold uppercase tracking-wide text-[#8a6d22]">
               contenido por definir
             </mark>

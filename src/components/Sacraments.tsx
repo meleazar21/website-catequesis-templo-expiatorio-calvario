@@ -1,35 +1,35 @@
 import { useState } from "react";
-import { sacramentos } from "../data/catequesis";
-import { contacto } from "../data/site";
+import { sacraments } from "../data/catechesis";
+import { contact } from "../data/site";
 import { Eyebrow, Icon, Lead, Provisional, Reveal, Section, Title, type IconName } from "./ui";
 
 /**
- * Sacramentos. Va en acordeón: cada uno trae información, requisitos, fechas y
- * avisos, y mostrarlo todo abierto haría una sección larguísima en el teléfono.
- * El primero arranca desplegado para que se vea de qué va sin tener que tocar nada.
+ * Icon for each sacrament, inferred from its name. It's done this way rather than with
+ * a panel field so whoever maintains the site doesn't have to pick from a list of icons
+ * they can't see: they type "Unción de los enfermos" and get the right one. It matches
+ * keywords, not the exact name, because every parish writes it its own way ("Primera
+ * Comunión", "Eucaristía", "Confesión", "Penitencia"...). Anything unrecognized gets a
+ * cross, which never looks out of place — that's the case for Holy Orders: the stole
+ * and the laying on of hands aren't recognizable at 24px in a single stroke.
  */
-/**
- * Icono de cada sacramento, deducido de su nombre. Se hace así y no con un campo en el
- * panel para que quien mantiene el sitio no tenga que elegir entre una lista de iconos
- * que no ve: escribe "Unción de los enfermos" y le sale el suyo. Se buscan palabras
- * clave, no el nombre exacto, porque cada parroquia lo escribe a su manera ("Primera
- * Comunión", "Eucaristía", "Confesión", "Penitencia"...). Lo que no reconoce sale con
- * una cruz, que nunca desentona — es el caso del Orden sacerdotal: la estola y la
- * imposición de manos, a 24px y a un solo trazo, no se reconocen.
- */
-function iconoDe(nombre: string): IconName {
-  const n = nombre.toLowerCase();
-  if (/bautis|bautiz/.test(n)) return "agua";
-  if (/comuni|eucarist/.test(n)) return "caliz";
-  if (/confirma/.test(n)) return "flame";         // las lenguas de fuego de Pentecostés
-  if (/matrimon|boda/.test(n)) return "anillos";
-  if (/reconcilia|confes|penitenc/.test(n)) return "corazon";
-  if (/unci[oó]n|enfermo/.test(n)) return "oleo";
-  return "cruz";
+function iconFor(name: string): IconName {
+  const n = name.toLowerCase();
+  if (/bautis|bautiz/.test(n)) return "water";
+  if (/comuni|eucarist/.test(n)) return "chalice";
+  if (/confirma/.test(n)) return "flame";         // the tongues of fire of Pentecost
+  if (/matrimon|boda/.test(n)) return "rings";
+  if (/reconcilia|confes|penitenc/.test(n)) return "heart";
+  if (/unci[oó]n|enfermo/.test(n)) return "oil";
+  return "cross";
 }
 
+/**
+ * Sacraments. Shown as an accordion: each one carries information, requirements, dates
+ * and notices, and showing them all open would make a very long section on the phone.
+ * The first one starts expanded so it's clear what this is without tapping anything.
+ */
 export function Sacraments() {
-  const [abierto, setAbierto] = useState<string | null>(sacramentos[0]?.nombre ?? null);
+  const [openName, setOpenName] = useState<string | null>(sacraments[0]?.nombre ?? null);
 
   return (
     <Section id="sacramentos" className="bg-ivory-deep">
@@ -45,8 +45,8 @@ export function Sacraments() {
       </Reveal>
 
       <div className="mx-auto mt-14 max-w-3xl space-y-4">
-        {sacramentos.map((s, i) => {
-          const open = abierto === s.nombre;
+        {sacraments.map((s, i) => {
+          const open = openName === s.nombre;
           return (
             <Reveal key={s.nombre} delay={i * 70}>
               <article className={`overflow-hidden rounded-2xl border bg-white shadow-card transition-colors ${
@@ -55,14 +55,14 @@ export function Sacraments() {
                 <h3>
                   <button
                     type="button"
-                    onClick={() => setAbierto(open ? null : s.nombre)}
+                    onClick={() => setOpenName(open ? null : s.nombre)}
                     aria-expanded={open}
                     className="flex w-full items-center gap-4 px-6 py-5 text-left sm:px-8"
                   >
                     <span className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors ${
                       open ? "bg-gold-soft text-[#8a6d22]" : "bg-navy-soft text-navy"
                     }`}>
-                      <Icon name={iconoDe(s.nombre)} size={20} />
+                      <Icon name={iconFor(s.nombre)} size={20} />
                     </span>
                     <span className="flex-1 font-serif text-[1.3rem] text-navy-deep">{s.nombre}</span>
                     <Icon
@@ -108,7 +108,7 @@ export function Sacraments() {
 
                         <p className="mt-5 flex gap-2 text-[0.88rem] text-ink-soft">
                           <Icon name="phone" size={15} className="mt-1 shrink-0 text-navy/60" />
-                          <span><Provisional text={contacto.telefono} /></span>
+                          <span><Provisional text={contact.phone} /></span>
                         </p>
                       </div>
                     </div>
