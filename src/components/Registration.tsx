@@ -19,7 +19,7 @@ export function Registration() {
     <Section id="inscripciones" className="bg-ivory-deep">
       <Reveal>
         <div className="text-center">
-          <Eyebrow>Nuevo ciclo</Eyebrow>
+          <Eyebrow>Nuevo Ciclo 2027</Eyebrow>
           <Title center>Inscripciones de catequesis</Title>
 
           <div className="mt-8 flex justify-center">

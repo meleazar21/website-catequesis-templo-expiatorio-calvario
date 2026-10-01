@@ -298,22 +298,25 @@ export function Pill({ children, tone = "navy" }: {
   );
 }
 
-/** Highlights "[CONTENIDO POR DEFINIR]" markers in amber so they don't slip into production. */
+/**
+ * Highlights any uppercase bracketed marker — "[CONTENIDO POR DEFINIR]", "[PRÓXIMAMENTE]", etc. —
+ * in amber so they don't slip into production. The text inside the brackets is what shows.
+ */
 export function Provisional({ text }: { text: string }) {
-  const parts = text.split("[CONTENIDO POR DEFINIR]");
+  // The capture group keeps the markers in the array, at odd indexes.
+  const parts = text.split(/\[([A-ZÁÉÍÓÚÜÑ0-9 .,:¡!¿?-]+)\]/);
   if (parts.length === 1) return <>{text}</>;
   return (
     <>
-      {parts.map((p, i) => (
-        <span key={i}>
-          {p}
-          {i < parts.length - 1 && (
-            <mark className="rounded bg-gold-soft px-1.5 py-0.5 text-[0.82em] font-bold uppercase tracking-wide text-[#8a6d22]">
-              contenido por definir
-            </mark>
-          )}
-        </span>
-      ))}
+      {parts.map((p, i) =>
+        i % 2 === 1 ? (
+          <mark key={i} className="rounded bg-gold-soft px-1.5 py-0.5 text-[0.82em] font-bold uppercase tracking-wide text-[#8a6d22]">
+            {p}
+          </mark>
+        ) : (
+          <span key={i}>{p}</span>
+        ),
+      )}
     </>
   );
 }
