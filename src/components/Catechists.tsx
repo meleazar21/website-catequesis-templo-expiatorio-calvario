@@ -2,6 +2,14 @@ import { useState } from "react";
 import { catechists, type Catechist } from "../data/catechesis";
 import { Eyebrow, Icon, Lead, PhotoPlaceholder, Reveal, Section, Title, useModalLayer } from "./ui";
 
+/** Vertical anchor of the card's crop for each `encuadre` option in the panel. */
+const CROP_POSITION: Record<string, string> = {
+  arriba: "0%",
+  normal: "30%",
+  centro: "50%",
+  abajo: "100%",
+};
+
 /**
  * Catechist team. Managed from /admin → Catequistas; the order is set by each entry's
  * `orden` field.
@@ -37,11 +45,13 @@ export function Catechists() {
               className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-navy/[0.08] bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift"
             >
               {c.foto ? (
-                // Anchored to the top: in portraits the head is up there, and centering
-                // the crop cut off the top of it.
-                <img src={c.foto} alt={c.nombre} loading="lazy" className="aspect-[4/5] w-full object-cover object-top" />
+                // 2:3 is the shape of most of the portraits, so they show whole. Taller
+                // ones (9:16) get cropped: "normal" keeps the head and the shirt logo.
+                <img src={c.foto} alt={c.nombre} loading="lazy"
+                  className="aspect-[2/3] w-full object-cover"
+                  style={{ objectPosition: `center ${CROP_POSITION[c.encuadre ?? "normal"] ?? "30%"}` }} />
               ) : (
-                <PhotoPlaceholder label={c.nombre} className="aspect-[4/5] w-full" />
+                <PhotoPlaceholder label={c.nombre} className="aspect-[2/3] w-full" />
               )}
 
               <div className="flex flex-1 flex-col p-6">

@@ -185,6 +185,17 @@ collections:
       - { name: grupo, label: "Curso o grupo", widget: string, hint: "Ej.: Catequista de Primera Comunión" }
       - { name: frase, label: "Frase", widget: text }
       - { name: foto, label: "Fotografía", widget: image, required: false, hint: "Si se deja vacío se muestra un marcador." }
+      - name: encuadre
+        label: "Encuadre de la foto en la tarjeta"
+        widget: select
+        required: false
+        default: normal
+        options:
+          - { label: "Normal (cara y logo de la camisa)", value: normal }
+          - { label: "Más arriba (si se corta la cabeza)", value: arriba }
+          - { label: "Centro", value: centro }
+          - { label: "Más abajo", value: abajo }
+        hint: "Solo cambia algo si la foto es más alta que la tarjeta. En 'Ver perfil' la foto siempre se ve completa."
 
   # ------------------------------------------------------------------ Gallery
   - name: galeria

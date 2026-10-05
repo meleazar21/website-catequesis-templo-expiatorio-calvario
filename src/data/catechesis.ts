@@ -66,6 +66,8 @@ export interface Catechist {
   frase: string;
   /** Photo path. Empty = a "photo to be defined" placeholder is drawn. */
   foto?: string;
+  /** Which part of the photo the card keeps when it has to crop it. Empty = "normal". */
+  encuadre?: "arriba" | "normal" | "centro" | "abajo";
 }
 export const catechists = loadCollection<Catechist>(
   import.meta.glob("../../content/catequistas/*.json", { eager: true })
