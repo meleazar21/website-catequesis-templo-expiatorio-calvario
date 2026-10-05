@@ -37,7 +37,9 @@ export function Catechists() {
               className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-navy/[0.08] bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift"
             >
               {c.foto ? (
-                <img src={c.foto} alt={c.nombre} loading="lazy" className="aspect-[4/5] w-full object-cover" />
+                // Anchored to the top: in portraits the head is up there, and centering
+                // the crop cut off the top of it.
+                <img src={c.foto} alt={c.nombre} loading="lazy" className="aspect-[4/5] w-full object-cover object-top" />
               ) : (
                 <PhotoPlaceholder label={c.nombre} className="aspect-[4/5] w-full" />
               )}

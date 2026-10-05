@@ -19,6 +19,7 @@ import siteJson from "../../content/site.json";
  */
 const raw = siteJson as typeof siteJson & {
   portadaFotoMovil?: string;
+  bienvenidaVideo?: string;
   youtube?: string;
   tiktok?: string;
 };
@@ -125,6 +126,8 @@ export const welcome = {
   /** The CMS stores a single text; double line breaks separate paragraphs. */
   paragraphs: raw.bienvenidaTexto.split(/\n{2,}/).filter(Boolean),
   photo: raw.bienvenidaFoto,
+  /** Takes priority over the photo when set; anything that isn't a video file is ignored. */
+  video: /\.(mp4|webm|ogv)(\?.*)?$/i.test(raw.bienvenidaVideo ?? "") ? raw.bienvenidaVideo! : "",
 };
 
 /**
