@@ -144,29 +144,6 @@ collections:
       - { name: hora, label: "Hora", widget: string }
       - { name: lugar, label: "Lugar", widget: string }
 
-  # ------------------------------------------------------------------ Sacraments
-  - name: sacramentos
-    label: "Sacramentos"
-    label_singular: "Sacramento"
-    folder: "content/sacramentos"
-    extension: json
-    format: json
-    create: true
-    identifier_field: nombre
-    slug: "{{slug}}"
-    summary: "{{orden}} · {{nombre}}"
-    sortable_fields: [orden, nombre]
-    fields:
-      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
-      - { name: nombre, label: "Sacramento", widget: string }
-      - { name: descripcion, label: "Información general", widget: text }
-      - name: requisitos
-        label: "Requisitos"
-        widget: list
-        fields: [{ name: texto, label: "Requisito", widget: string }]
-      - { name: fechas, label: "Fechas importantes", widget: string }
-      - { name: aviso, label: "Aviso", widget: string, required: false, hint: "Opcional. Aparece en un recuadro dorado." }
-
   # ------------------------------------------------------------------ Catechists
   - name: catequistas
     label: "Catequistas"
@@ -259,6 +236,10 @@ collections:
             required: false
             hint: "Si subes un video, se muestra EN LUGAR de la fotografía, y la fotografía queda como portada del video hasta que le den reproducir. MP4, idealmente de menos de 20 MB. Para volver a la fotografía, borra este campo."
             pattern: ['\.(mp4|webm)$|^$', 'Aquí solo va un video .mp4 o .webm. Si es una fotografía, va en el campo de arriba.']
+
+          - { name: papaTitulo, label: "Mensaje del Papa — título", widget: string }
+          - { name: papaTexto, label: "Mensaje del Papa — texto", widget: text, hint: "Deja una línea en blanco entre párrafos." }
+          - { name: papaVideo, label: "Mensaje del Papa — enlace de YouTube", widget: string, required: false, hint: "Pega el enlace del video tal como lo copias de YouTube (botón Compartir). Si se deja vacío, la sección no aparece." }
 
           - { name: misionTitulo, label: "Misión — título", widget: string }
           - { name: misionTexto, label: "Misión — texto", widget: text }

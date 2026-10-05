@@ -20,6 +20,9 @@ import siteJson from "../../content/site.json";
 const raw = siteJson as typeof siteJson & {
   portadaFotoMovil?: string;
   bienvenidaVideo?: string;
+  papaTitulo?: string;
+  papaTexto?: string;
+  papaVideo?: string;
   youtube?: string;
   tiktok?: string;
 };
@@ -118,7 +121,21 @@ export const contact = {
   ] as { name: string; icon: IconName; url: string; background: string }[],
 };
 
-export const mission = { title: raw.misionTitulo, text: raw.misionTexto };
+/**
+ * YouTube video id from any link the panel may receive: youtu.be/ID, watch?v=ID,
+ * /embed/ID or /shorts/ID, with or without the `?si=` tracking that Share adds.
+ */
+const youtubeId = (url: string) =>
+  url.match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/)([\w-]{11})/)?.[1] ?? "";
+
+export const popeMessage = {
+  title: raw.papaTitulo ?? "",
+  paragraphs: (raw.papaTexto ?? "").split(/\n{2,}/).filter(Boolean),
+  /** Empty = the section is hidden. */
+  videoId: youtubeId(raw.papaVideo ?? ""),
+};
+
+export const mission ={ title: raw.misionTitulo, text: raw.misionTexto };
 export const vision = { title: raw.visionTitulo, text: raw.visionTexto };
 
 export const welcome = {
@@ -139,7 +156,6 @@ export const navigation = [
   { id: "nosotros", label: "Nosotros" },
   { id: "catequesis", label: "Catequesis" },
   { id: "inscripciones", label: "Inscripciones" },
-  { id: "sacramentos", label: "Sacramentos" },
   { id: "avisos", label: "Avisos" },
   { id: "contacto", label: "Contacto" },
 ];

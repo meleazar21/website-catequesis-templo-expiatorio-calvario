@@ -1,5 +1,5 @@
 /**
- * Courses, schedules, registration, catechists, sacraments, announcements, events and gallery.
+ * Courses, schedules, registration, catechists, announcements, events and gallery.
  *
  * **The content does not live here**: it lives in `content/`, which is what the admin
  * panel (Decap CMS, at `/admin`) edits. Each item in a collection is its own JSON file,
@@ -72,21 +72,6 @@ export interface Catechist {
 export const catechists = loadCollection<Catechist>(
   import.meta.glob("../../content/catequistas/*.json", { eager: true })
 );
-
-// ---------------------------------------------------------------- Sacraments
-export interface Sacrament {
-  orden?: number;
-  nombre: string;
-  descripcion: string;
-  requisitos: string[];
-  fechas: string;
-  aviso?: string;
-}
-interface SacramentRaw extends Omit<Sacrament, "requisitos"> { requisitos: Line[] }
-
-export const sacraments: Sacrament[] = loadCollection<SacramentRaw>(
-  import.meta.glob("../../content/sacramentos/*.json", { eager: true })
-).map((s) => ({ ...s, requisitos: toLines(s.requisitos) }));
 
 // ---------------------------------------------------------------- Announcements
 /** Values stored in the content files, and shown as-is on the page. */

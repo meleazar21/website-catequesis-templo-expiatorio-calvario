@@ -5,7 +5,7 @@ import { Courses } from "./components/Courses";
 import { Schedules } from "./components/Schedules";
 import { Registration } from "./components/Registration";
 import { Catechists } from "./components/Catechists";
-import { Sacraments } from "./components/Sacraments";
+import { PopeMessage } from "./components/PopeMessage";
 import { Announcements } from "./components/Announcements";
 import { Gallery } from "./components/Gallery";
 import { Contact } from "./components/Contact";
@@ -28,7 +28,7 @@ export default function App() {
         <Schedules />
         <Registration />
         <Announcements />
-        <Sacraments />
+        <PopeMessage />
         <Catechists />
         <Gallery />
         <Contact />
