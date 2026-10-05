@@ -6,5 +6,87 @@
   "lugar": "[PROXIMAMENTE]",
   "enlace": "",
   "nota": "Las fechas y los horarios de inscripción se confirman cada año en el templo y en nuestras redes sociales.",
-  "requisitos": []
+  "requisitos": [
+    {
+      "curso": "Pre-Bautismo",
+      "documentos": [
+        {
+          "texto": "Partida de nacimiento del niño(a)"
+        },
+        {
+          "texto": "Fotocopia de cédula de los padres"
+        },
+        {
+          "texto": "Fe de bautismo de los padrinos"
+        }
+      ]
+    },
+    {
+      "curso": "Pre-Comunión",
+      "documentos": [
+        {
+          "texto": "Datos personales del niño(a)"
+        },
+        {
+          "texto": "Datos personales de los padres o tutor"
+        }
+      ]
+    },
+    {
+      "curso": "Primera Comunión",
+      "documentos": [
+        {
+          "texto": "Fe de bautismo"
+        },
+        {
+          "texto": "Fotocopia de cédula de los padres"
+        }
+      ]
+    },
+    {
+      "curso": "Perseverancia",
+      "documentos": [
+        {
+          "texto": "Certificado de comunión"
+        }
+      ]
+    },
+    {
+      "curso": "Confirmación",
+      "documentos": [
+        {
+          "texto": "Fe de bautismo del confirmando"
+        },
+        {
+          "texto": "Certificado de comunión"
+        },
+        {
+          "texto": "Fotocopia de cédula de los padres"
+        },
+        {
+          "texto": "Fotocopia de cédula de los padrinos"
+        },
+        {
+          "texto": "Fe de bautismo del padrino o de la madrina"
+        }
+      ]
+    },
+    {
+      "curso": "CICA",
+      "documentos": [
+        {
+          "texto": "Cédula o partida de nacimiento"
+        },
+        {
+          "texto": "Fotocopia de cédula de los padres"
+        },
+        {
+          "texto": "Fotocopia de cédula de los padrinos"
+        },
+        {
+          "texto": "Fe de bautismo de los padrinos"
+        }
+      ]
+    }
+  ]
 }

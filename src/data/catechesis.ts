@@ -53,9 +53,15 @@ export interface Schedule { curso: string; dia: string; hora: string; lugar: str
 export const schedules: Schedule[] = schedulesRaw.items;
 
 // ---------------------------------------------------------------- Registration
+/** Documents to bring, grouped by course: each course asks for different ones. */
+export interface RequirementGroup { curso: string; documentos: string[] }
+interface RequirementGroupRaw { curso: string; documentos?: Line[] }
+
 export const registration = {
   ...registrationRaw,
-  requisitos: toLines(registrationRaw.requisitos),
+  requisitos: (registrationRaw.requisitos as RequirementGroupRaw[]).map(
+    (g): RequirementGroup => ({ curso: g.curso, documentos: toLines(g.documentos) })
+  ),
 };
 
 // ---------------------------------------------------------------- Catechists

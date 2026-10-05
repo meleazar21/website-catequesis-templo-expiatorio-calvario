@@ -35,13 +35,15 @@ export function Registration() {
         </div>
       </Reveal>
 
-      <div className="mt-14 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
+      {/* Stacked rather than side by side: the requirements are six course lists, too
+          long for half the width, so they take the full row below. */}
+      <div className="mt-14 grid gap-6">
         {/* Registration details */}
         <Reveal>
           <div className="h-full rounded-2xl border border-navy/[0.08] bg-white p-8 shadow-card sm:p-10">
             <h3 className="text-[1.5rem] text-navy-deep">Cuándo y dónde</h3>
 
-            <dl className="mt-7 grid gap-5 sm:grid-cols-2">
+            <dl className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 { icon: "calendar" as const, k: "Inicio de inscripciones", v: registration.inicio },
                 { icon: "calendar" as const, k: "Cierre de inscripciones", v: registration.cierre },
@@ -94,18 +96,25 @@ export function Registration() {
               Documentos que se presentan al momento de inscribir.
             </p>
 
-            <ul className="mt-7 space-y-4">
-              {registration.requisitos.map((r, i) => (
-                <li key={i} className="flex gap-3">
-                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold-light">
-                    <Icon name="check" size={14} />
-                  </span>
-                  <span className="text-[0.95rem] leading-relaxed text-white/90">
-                    <Provisional text={r} />
-                  </span>
-                </li>
+            <div className="mt-8 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+              {registration.requisitos.map((g) => (
+                <div key={g.curso}>
+                  <h4 className="border-b border-white/15 pb-2 font-serif text-[1.2rem] text-gold-light">{g.curso}</h4>
+                  <ul className="mt-4 space-y-3">
+                    {g.documentos.map((d, i) => (
+                      <li key={i} className="flex gap-3">
+                        <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold-light">
+                          <Icon name="check" size={14} />
+                        </span>
+                        <span className="text-[0.95rem] leading-relaxed text-white/90">
+                          <Provisional text={d} />
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
+            </div>
 
             <div className="mt-8 border-t border-white/15 pt-6 text-[0.88rem] text-white/75">
               <p className="font-bold uppercase tracking-[0.12em] text-gold-light">¿Dudas?</p>

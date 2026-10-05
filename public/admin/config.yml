@@ -57,9 +57,17 @@ collections:
           - { name: enlace, label: "Enlace del botón INSCRIBIRME", widget: string, required: false, hint: "Google Forms, formulario propio o https://wa.me/505... Si se deja vacío, el botón lleva a la sección de contacto." }
           - { name: nota, label: "Nota al pie", widget: text }
           - name: requisitos
-            label: "Requisitos"
+            label: "Requisitos por curso"
+            label_singular: "Curso"
             widget: list
-            fields: [{ name: texto, label: "Requisito", widget: string }]
+            summary: "{{fields.curso}}"
+            fields:
+              - { name: curso, label: "Curso", widget: string, hint: "Ej.: Primera Comunión" }
+              - name: documentos
+                label: "Documentos"
+                label_singular: "Documento"
+                widget: list
+                fields: [{ name: texto, label: "Documento", widget: string }]
 
   # ------------------------------------------------------------------ Courses
   - name: cursos
