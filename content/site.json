@@ -1,11 +1,10 @@
 {
   "marcaLinea1": "Catequesis",
-  "marcaLinea2": "Templo Expiatorio El Calvario",
+  "marcaLinea2": "Templo Expiatorio Parroquia El Calvario Masaya",
   "versiculoCita": "Prov 22, 6",
   "visionTitulo": "Nuestra visión",
   "portadaFoto": "",
   "horarioAtencion": "Domingos 8:00 AM a 12:00 PM",
-  "youtube": "",
   "bienvenidaVideo": "",
   "facebook": "https://www.facebook.com/profile.php?id=61560166110205",
   "misionTitulo": "Nuestra misión",
@@ -26,7 +25,8 @@
   "visionTexto": "Ser una comunidad catequética viva, evangelizadora y comprometida, que forme cristianos con una fe sólida, madura y perseverante, en comunión con la Iglesia y fieles a sus enseñanzas.\n\nAspiramos a acompañar cada etapa del crecimiento en la fe —desde la iniciación cristiana hasta la Confirmación y la vida cristiana adulta— mediante un proceso continuo de encuentro con Jesucristo, iluminado por las Sagradas Escrituras, la Sagrada Tradición, el Magisterio de la Iglesia y el Catecismo de la Iglesia Católica.\n\nQueremos que cada catequizando descubra su vocación cristiana, participe activamente en la vida de la Iglesia y se convierta en un verdadero discípulo y testigo de Cristo, llevando el Evangelio a su familia, comunidad y entorno.",
   "mapaEmbedUrl": "https://www.google.com/maps/place/Templo+Expiatorio+Arquidiocesano,+Parroquia+El+Calvario/@11.977989,-86.0902667,17z/data=!3m1!4b1!4m6!3m5!1s0x8f740898c392e4d7:0x6deff0b1ef2c196c!8m2!3d11.977989!4d-86.0876864!16s%2Fg%2F1tgptp7_?entry=ttu&g_ep=EgoyMDI2MDkyMi4wIKXMDSoASAFQAw%3D%3D",
   "bienvenidaFoto": "/fotos/community.jpeg",
-  "marca": "Catequesis Templo Expiatorio El Calvario",
   "portadaVideo": "/fotos/cover.mp4",
-  "parroquiaLinea2": "Parroquia El Calvario — Masaya"
+  "marca": "Catequesis Templo Expiatorio Parroquia El Calvario Masaya",
+  "parroquiaLinea2": "Parroquia El Calvario — Masaya",
+  "youtube": ""
 }
