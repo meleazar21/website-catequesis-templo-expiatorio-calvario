@@ -233,7 +233,7 @@ collections:
             label: "Portada — video de fondo (opcional)"
             widget: file
             required: false
-            hint: "Solo si quieres que la portada se mueva. MP4 SIN AUDIO, en bucle y de MENOS DE 5 MB. En teléfonos no se reproduce: ahí se ve la fotografía de arriba, así que conviene subir las dos."
+            hint: "Solo si quieres que la portada se mueva. MP4 SIN AUDIO, en bucle y de MENOS DE 5 MB. Si es HORIZONTAL llena toda la portada; si es vertical (grabado con el teléfono parado) se muestra completo a la derecha del texto. En teléfonos no se reproduce: ahí se ve la fotografía de arriba, así que conviene subir las dos."
             # SINGLE quotes: in YAML, "\." inside double quotes is an invalid escape and
             # breaks the whole file, so the panel stops loading.
             pattern: ['\.(mp4|webm)$|^$', 'Aquí solo va un video .mp4 o .webm. Si es una fotografía, va en el campo de arriba.']
@@ -241,6 +241,13 @@ collections:
           - { name: bienvenidaTitulo, label: "Bienvenida — título", widget: string }
           - { name: bienvenidaTexto, label: "Bienvenida — texto", widget: text, hint: "Deja una línea en blanco entre párrafos." }
           - { name: bienvenidaFoto, label: "Bienvenida — fotografía", widget: image, required: false }
+          # Same `pattern` guard as portadaVideo: keeps a photo out of the video field.
+          - name: bienvenidaVideo
+            label: "Bienvenida — video (opcional)"
+            widget: file
+            required: false
+            hint: "Si subes un video, se muestra EN LUGAR de la fotografía, y la fotografía queda como portada del video hasta que le den reproducir. MP4, idealmente de menos de 20 MB. Para volver a la fotografía, borra este campo."
+            pattern: ['\.(mp4|webm)$|^$', 'Aquí solo va un video .mp4 o .webm. Si es una fotografía, va en el campo de arriba.']
 
           - { name: misionTitulo, label: "Misión — título", widget: string }
           - { name: misionTexto, label: "Misión — texto", widget: text }

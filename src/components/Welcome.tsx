@@ -23,7 +23,12 @@ export function Welcome() {
 
           <Reveal delay={120}>
             <div className="relative">
-              {welcome.photo ? (
+              {welcome.video ? (
+                // The photo, if any, is the poster shown until the visitor presses play.
+                <video src={welcome.video} poster={welcome.photo || undefined}
+                  controls playsInline preload="metadata"
+                  className="aspect-[4/3] w-full rounded-2xl bg-navy-deep object-cover shadow-card" />
+              ) : welcome.photo ? (
                 <img src={welcome.photo} alt="" loading="lazy"
                   className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card" />
               ) : (
