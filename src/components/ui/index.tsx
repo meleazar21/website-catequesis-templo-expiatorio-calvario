@@ -221,18 +221,38 @@ export function PhotoPlaceholder({ label, className = "", compact = false }: {
  * behind scrolls instead of the content). It's a hook because both the image viewer
  * and the catechist profile need it, and duplicating it guarantees one of them will
  * forget.
+ *
+ * Layers can stack (the photo viewer opens over the profile), so they're kept in a
+ * stack: Escape closes only the top one, and the scroll is unlocked when the LAST one
+ * closes. Saving and restoring `overflow` per layer broke with stacking: depending on
+ * the order the effects ran, the profile saved "hidden" and restored it on close,
+ * leaving the page unable to scroll.
  */
+const openLayers: { current: () => void }[] = [];
+
+function onLayerKeyDown(e: KeyboardEvent) {
+  if (e.key === "Escape") openLayers[openLayers.length - 1]?.current();
+}
+
 export function useModalLayer(onClose: () => void) {
+  // A ref, so a new `onClose` on every render doesn't close and reopen the layer.
+  const close = useRef(onClose);
+  close.current = onClose;
+
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
+    if (openLayers.length === 0) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", onLayerKeyDown);
+    }
+    openLayers.push(close);
     return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onKeyDown);
+      openLayers.splice(openLayers.indexOf(close), 1);
+      if (openLayers.length === 0) {
+        document.body.style.overflow = "";
+        window.removeEventListener("keydown", onLayerKeyDown);
+      }
     };
-  }, [onClose]);
+  }, []);
 }
 
 /**

@@ -1,11 +1,25 @@
 import { useState } from "react";
 import { catechists, type Catechist } from "../data/catechesis";
-import { Eyebrow, Icon, Lead, PhotoPlaceholder, Reveal, Section, Title, useModalLayer } from "./ui";
+import { Eyebrow, Icon, Lead, Lightbox, PhotoPlaceholder, Reveal, Section, Title, useModalLayer } from "./ui";
 
 /** Vertical anchor of the card's crop for each `encuadre` option in the panel. */
 const CROP_POSITION: Record<string, string> = {
   arriba: "0%",
   normal: "30%",
+  centro: "50%",
+  abajo: "100%",
+};
+
+/**
+ * Same, for the oval photo in the profile on the phone. On a tall portrait (9:16)
+ * "normal" at 30% landed on the chest and cut off the head; portraits have the face
+ * near the top, so the oval anchors close to it. It's a vertical oval, not a circle,
+ * because a circle is as tall as the photo is wide: on close-up portraits only the
+ * face fit, and the oval also shows the shirt with the logo.
+ */
+const AVATAR_POSITION: Record<string, string> = {
+  arriba: "0%",
+  normal: "6%",
   centro: "50%",
   abajo: "100%",
 };
@@ -80,10 +94,12 @@ export function Catechists() {
 
 /** A catechist's full profile: the photo large and the whole bio. */
 function CatechistProfile({ c, onClose }: { c: Catechist; onClose: () => void }) {
+  const [enlarged, setEnlarged] = useState(false);
   useModalLayer(onClose);
   const paragraphs = c.frase.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
 
   return (
+    <>
     <div
       role="dialog" aria-modal="true" aria-label={c.nombre}
       onClick={onClose}
@@ -100,30 +116,36 @@ function CatechistProfile({ c, onClose }: { c: Catechist; onClose: () => void })
           <Icon name="close" size={20} />
         </button>
 
-        {/* On the phone the photo is shown WHOLE (object-contain, over a soft
-            background): cropping it cut off half a face, and these are photos of
-            people. It stays height-limited because, if it fills the whole screen, you
-            have to scroll to discover there was text below. On desktop the column is
-            narrow and vertical, like the photos, so cropping there removes almost
-            nothing and filling the column looks better. */}
+        {/* On the phone the photo is an oval avatar above the name: it takes little
+            height, so the bio starts on the first screen. Tapping it opens the photo
+            whole and large. On desktop the column is narrow and vertical, like the
+            photos, so the photo is shown WHOLE beside the text (`self-start`:
+            stretching it to fill the column cut off a third of the sides). */}
         {c.foto ? (
-          <img
-            src={c.foto} alt={c.nombre}
-            /* The photo is shown WHOLE at both sizes, uncropped and without bars:
-               `w-auto` on the phone (at full width, a portrait photo left half-width
-               bars) and `self-start` on desktop (stretching it to fill the column cut
-               off a third of the sides). The element IS the photo. */
-            className="mx-auto max-h-[42vh] w-auto shrink-0 object-contain sm:mx-0 sm:max-h-[80vh] sm:w-64 sm:self-start md:w-72"
-          />
+          <button
+            type="button" onClick={() => setEnlarged(true)} aria-label={`Ver la foto de ${c.nombre} en grande`}
+            className="mx-auto mt-8 shrink-0 cursor-zoom-in rounded-[50%] sm:mx-0 sm:mt-0 sm:w-64 sm:self-start sm:rounded-none md:w-72"
+          >
+            <img
+              src={c.foto} alt={c.nombre}
+              className="h-[15.5rem] w-48 rounded-[50%] object-cover shadow-card ring-4 ring-gold/40 sm:h-auto sm:max-h-[80vh] sm:w-full sm:rounded-none sm:object-contain sm:shadow-none sm:ring-0"
+              style={{ objectPosition: `center ${AVATAR_POSITION[c.encuadre ?? "normal"] ?? "6%"}` }}
+            />
+          </button>
         ) : (
-          <PhotoPlaceholder label={c.nombre} className="h-48 w-full shrink-0 sm:h-auto sm:w-64 md:w-72" />
+          <PhotoPlaceholder label={c.nombre} className="mx-auto mt-8 h-[15.5rem] w-48 shrink-0 rounded-[50%] sm:mx-0 sm:mt-0 sm:h-auto sm:w-64 sm:rounded-none md:w-72" />
         )}
 
         <div className="flex-1 overflow-y-auto p-7 sm:p-9">
-          <h3 className="font-serif text-[1.8rem] leading-tight text-navy-deep">{c.nombre}</h3>
-          <p className="mt-2 text-[0.72rem] font-extrabold uppercase tracking-[0.14em] text-gold">
+          <h3 className="text-center font-serif text-[1.8rem] leading-tight text-navy-deep sm:text-left">{c.nombre}</h3>
+          <p className="mt-2 text-center text-[0.72rem] font-extrabold uppercase tracking-[0.14em] text-gold sm:text-left">
             {c.grupo}
           </p>
+          {c.foto && (
+            <p className="mt-2 text-center text-[0.72rem] text-ink-faint sm:hidden">
+              Toca la foto para verla en grande
+            </p>
+          )}
           <div className="mt-6 space-y-4 leading-relaxed text-ink-soft">
             {paragraphs.map((p, k) => (
               <p key={k}>{p}</p>
@@ -132,5 +154,12 @@ function CatechistProfile({ c, onClose }: { c: Catechist; onClose: () => void })
         </div>
       </div>
     </div>
+
+    {/* Outside the profile: its `animate-reveal` leaves a transform on the panel, which
+        would trap a `position: fixed` viewer inside it instead of covering the screen. */}
+    {enlarged && c.foto && (
+      <Lightbox src={c.foto} alt={c.nombre} onClose={() => setEnlarged(false)} />
+    )}
+    </>
   );
 }
