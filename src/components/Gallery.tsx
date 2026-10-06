@@ -38,6 +38,7 @@ export function Gallery() {
                 src={f.foto}
                 alt={f.titulo}
                 loading="lazy"
+                decoding="async"
                 className={`w-full break-inside-avoid rounded-2xl object-cover shadow-card ${TILE_HEIGHT[f.alto]}`}
               />
             ) : (

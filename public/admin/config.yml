@@ -129,7 +129,7 @@ collections:
       - { name: titulo, label: "Título", widget: string }
       - { name: categoria, label: "Categoría", widget: select, options: [INSCRIPCIONES, SACRAMENTOS, REUNIONES, ACTIVIDADES, AVISOS] }
       - { name: fecha, label: "Fecha", widget: string }
-      - { name: descripcion, label: "Descripción", widget: text }
+      - { name: descripcion, label: "Descripción", widget: text, hint: "Los saltos de línea se respetan en la página: deja una línea en blanco para separar párrafos." }
       - { name: destacado, label: "Destacar", widget: boolean, default: false, hint: "Lo resalta con borde dorado." }
 
   # ------------------------------------------------------------------ Events
@@ -169,7 +169,7 @@ collections:
       - { name: nombre, label: "Nombre", widget: string }
       - { name: grupo, label: "Curso o grupo", widget: string, hint: "Ej.: Catequista de Primera Comunión" }
       - { name: frase, label: "Frase", widget: text }
-      - { name: foto, label: "Fotografía", widget: image, required: false, hint: "Si se deja vacío se muestra un marcador." }
+      - { name: foto, label: "Fotografía", widget: image, required: false, hint: "Si se deja vacío se muestra un marcador. Sube JPG (no PNG) de menos de 300 KB: una foto de 2 MB por catequista hace que la sección cargue muy lento." }
       - name: encuadre
         label: "Encuadre de la foto en la tarjeta"
         widget: select
@@ -197,7 +197,7 @@ collections:
     fields:
       - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
       - { name: titulo, label: "Título", widget: string }
-      - { name: foto, label: "Fotografía", widget: image, required: false }
+      - { name: foto, label: "Fotografía", widget: image, required: false, hint: "Sube JPG de menos de 300 KB y no más de 1600 px de ancho. Las fotos directas de la cámara (5 MB o más) hacen que la galería cargue muy lento." }
       - { name: alto, label: "Tamaño en el mosaico", widget: select, options: [corto, medio, alto], default: medio }
 
   # ------------------------------------------------------------------ Site
@@ -256,7 +256,6 @@ collections:
 
           - { name: telefono, label: "Teléfono", widget: string }
           - { name: whatsapp, label: "WhatsApp", widget: string, required: false, hint: "Solo dígitos con código de país. Ej.: 50588887777" }
-          - { name: correo, label: "Correo electrónico", widget: string }
           - { name: direccion, label: "Dirección", widget: string }
           - { name: horarioAtencion, label: "Horario de atención", widget: string }
           # Accepts the browser's long URL, coordinates or an address; the site

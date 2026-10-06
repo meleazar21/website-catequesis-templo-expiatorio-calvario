@@ -98,7 +98,6 @@ export const contact = {
   phone: raw.telefono,
   /** Digits only, with country code, for the wa.me link. E.g. "50588887777". */
   whatsapp: raw.whatsapp,
-  email: raw.correo,
   address: raw.direccion,
   officeHours: raw.horarioAtencion,
   /** Already converted to an embeddable link. Empty = the placeholder is shown. */

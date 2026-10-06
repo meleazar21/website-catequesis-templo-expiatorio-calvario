@@ -1,6 +1,12 @@
 {
   "items": [
     {
+      "curso": "Pre-Bautismo",
+      "dia": "Domingo",
+      "hora": "8:30 am - 11:00 am",
+      "lugar": "Templo Expiatorio El Calvario"
+    },
+    {
       "curso": "Pre-Comunion",
       "dia": "Domingo",
       "hora": "8:30 am - 11:00 am",
@@ -20,12 +26,6 @@
     },
     {
       "curso": "Confirmación",
-      "dia": "Domingo",
-      "hora": "8:30 am - 11:00 am",
-      "lugar": "Templo Expiatorio El Calvario"
-    },
-    {
-      "curso": "Pre-Bautismo",
       "dia": "Domingo",
       "hora": "8:30 am - 11:00 am",
       "lugar": "Templo Expiatorio El Calvario"

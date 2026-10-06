@@ -44,7 +44,8 @@ export function Announcements() {
                     </span>
                   </div>
                   <h4 className="mt-4 font-serif text-[1.35rem] leading-tight text-navy-deep">{a.titulo}</h4>
-                  <p className="mt-3 leading-relaxed text-ink-soft">
+                  {/* pre-line keeps the line breaks typed in the panel's text box. */}
+                  <p className="mt-3 whitespace-pre-line leading-relaxed text-ink-soft">
                     <Provisional text={a.descripcion} />
                   </p>
                 </article>

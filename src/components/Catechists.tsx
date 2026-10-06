@@ -36,7 +36,9 @@ export function Catechists() {
 
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {catechists.map((c, i) => (
-          <Reveal key={c.nombre} delay={i * 80} className="h-full">
+          // Stagger within a row only: `i * 80` made the 20th card wait 1.6s after
+          // scrolling into view, which read as the section loading slowly.
+          <Reveal key={c.nombre} delay={(i % 4) * 80} className="h-full">
             {/* The whole card opens the profile: on the phone, a small button at the
                 bottom is an awkward target, and there's nothing else to tap in here. */}
             <button
@@ -47,7 +49,7 @@ export function Catechists() {
               {c.foto ? (
                 // 2:3 is the shape of most of the portraits, so they show whole. Taller
                 // ones (9:16) get cropped: "normal" keeps the head and the shirt logo.
-                <img src={c.foto} alt={c.nombre} loading="lazy"
+                <img src={c.foto} alt={c.nombre} loading="lazy" decoding="async"
                   className="aspect-[2/3] w-full object-cover"
                   style={{ objectPosition: `center ${CROP_POSITION[c.encuadre ?? "normal"] ?? "30%"}` }} />
               ) : (

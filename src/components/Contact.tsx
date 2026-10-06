@@ -2,18 +2,16 @@ import { contact } from "../data/site";
 import { Eyebrow, Icon, Lead, Provisional, Reveal, Section, Title, type IconName } from "./ui";
 
 /**
- * Contact. Each item becomes a link (tel:, mailto:, wa.me) **only** when it exists;
+ * Contact. Each item becomes a link (tel:, wa.me) **only** when it exists;
  * while it's provisional it's shown as text, so no broken links are generated.
  */
 export function Contact() {
   const hasPhone = contact.phone && !contact.phone.startsWith("[");
-  const hasEmail = contact.email && !contact.email.startsWith("[");
   const socials = contact.socials.filter((r) => r.url);
 
   const details: { icon: IconName; k: string; v: string; href?: string }[] = [
     { icon: "phone", k: "Teléfono", v: contact.phone, href: hasPhone ? `tel:${contact.phone}` : undefined },
     { icon: "chat", k: "WhatsApp", v: contact.whatsapp || "[CONTENIDO POR DEFINIR]", href: contact.whatsapp ? `https://wa.me/${contact.whatsapp}` : undefined },
-    { icon: "mail", k: "Correo electrónico", v: contact.email, href: hasEmail ? `mailto:${contact.email}` : undefined },
     { icon: "pin", k: "Dirección", v: contact.address },
     { icon: "clock", k: "Horario de atención", v: contact.officeHours },
   ];

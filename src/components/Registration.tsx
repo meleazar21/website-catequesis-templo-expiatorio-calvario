@@ -41,7 +41,7 @@ export function Registration() {
         {/* Registration details */}
         <Reveal>
           <div className="h-full rounded-2xl border border-navy/[0.08] bg-white p-8 shadow-card sm:p-10">
-            <h3 className="text-[1.5rem] text-navy-deep">Cuándo y dónde</h3>
+            <h3 className="text-[1.5rem] text-navy-deep">¿Cuándo y dónde?</h3>
 
             <dl className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {[
@@ -121,10 +121,6 @@ export function Registration() {
               <p className="mt-2 flex items-center gap-2">
                 <Icon name="phone" size={16} className="shrink-0 text-gold-light" />
                 <Provisional text={contact.phone} />
-              </p>
-              <p className="mt-1.5 flex items-center gap-2">
-                <Icon name="mail" size={16} className="shrink-0 text-gold-light" />
-                <Provisional text={contact.email} />
               </p>
             </div>
           </div>
