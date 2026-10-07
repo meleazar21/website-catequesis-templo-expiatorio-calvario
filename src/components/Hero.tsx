@@ -141,12 +141,13 @@ export function Hero() {
           {/* The logo used to be here too. It sat almost on the same vertical as the
               navbar's, a few centimeters away: it read as repetition, not hierarchy.
               The logo lives in the navbar. */}
-          <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.3em] text-gold-light">
-            {site.brandLine1}
-          </p>
-
-          <h1 className="mt-5 text-[2.5rem] leading-[1.08] text-white sm:text-[3.6rem] lg:text-[4.2rem]">
-            {site.parish}
+          {/* "Catequesis" is part of the h1 (styled as an eyebrow) so the page's main
+              heading carries what people search for: "catequesis" + "El Calvario". */}
+          <h1 className="text-[2.5rem] leading-[1.08] text-white sm:text-[3.6rem] lg:text-[4.2rem]">
+            <span className="block font-sans text-[0.72rem] font-extrabold uppercase leading-normal tracking-[0.3em] text-gold-light">
+              {site.brandLine1}
+            </span>
+            <span className="mt-5 block">{site.parish}</span>
             <span className="mt-2 block text-[1.6rem] font-normal text-white/85 sm:text-[2.1rem]">
               {site.parishLine2}
             </span>

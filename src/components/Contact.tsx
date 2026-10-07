@@ -10,8 +10,8 @@ export function Contact() {
   const socials = contact.socials.filter((r) => r.url);
 
   const details: { icon: IconName; k: string; v: string; href?: string }[] = [
-    { icon: "phone", k: "Teléfono", v: contact.phone, href: hasPhone ? `tel:${contact.phone}` : undefined },
-    { icon: "chat", k: "WhatsApp", v: contact.whatsapp || "[CONTENIDO POR DEFINIR]", href: contact.whatsapp ? `https://wa.me/${contact.whatsapp}` : undefined },
+    { icon: "phone", k: "Teléfono", v: contact.phone, href: hasPhone ? `tel:+${contact.phone.replace(/\D/g, "")}` : undefined },
+    { icon: "chat", k: "WhatsApp", v: contact.whatsapp || "[CONTENIDO POR DEFINIR]", href: contact.whatsapp ? `https://wa.me/${contact.whatsapp.replace(/\D/g, "")}` : undefined },
     { icon: "pin", k: "Dirección", v: contact.address },
     { icon: "clock", k: "Horario de atención", v: contact.officeHours },
   ];

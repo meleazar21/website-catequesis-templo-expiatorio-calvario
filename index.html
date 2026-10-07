@@ -6,14 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#1e3a8a" />
 
-    <title>Catequesis Templo Expiatorio El Calvario · Masaya</title>
-    <meta name="description" content="Catequesis del Templo Expiatorio Arquidiocesano Parroquia El Calvario, Masaya. Cursos, horarios, inscripciones, sacramentos y avisos para niños, jóvenes y familias." />
+    <!-- SEO. The title and description carry the searches the site should answer:
+         "catequesis calvario", "catequesis templo expiatorio el calvario" and
+         "parroquia el calvario masaya". If the site moves to its own domain, replace
+         the vercel.app address in this file, in public/robots.txt and public/sitemap.xml. -->
+    <title>Catequesis Templo Expiatorio El Calvario Masaya</title>
+    <meta name="description" content="Catequesis del Templo Expiatorio Arquidiocesano Parroquia El Calvario, Masaya, Nicaragua. Pre-Bautismo, Pre-Comunión, Primera Comunión, Perseverancia, Confirmación y CICA: horarios, inscripciones, requisitos y avisos." />
+    <link rel="canonical" href="https://website-catequesis-templo-expiatori.vercel.app/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_NI" />
+    <meta property="og:url" content="https://website-catequesis-templo-expiatori.vercel.app/" />
     <meta property="og:site_name" content="Catequesis Templo Expiatorio El Calvario" />
-    <meta property="og:title" content="Catequesis Templo Expiatorio El Calvario · Masaya" />
-    <meta property="og:description" content="Formando corazones para Cristo. Cursos, horarios, inscripciones y sacramentos." />
-    <meta property="og:image" content="/logo.png" />
+    <meta property="og:title" content="Catequesis Templo Expiatorio El Calvario Masaya" />
+    <meta property="og:description" content="Formando corazones para Cristo. Cursos, horarios, inscripciones y sacramentos de la catequesis de la Parroquia El Calvario, Masaya." />
+    <meta property="og:image" content="https://website-catequesis-templo-expiatori.vercel.app/logo.png" />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Structured data: tells search engines this is the catechesis of a Catholic
+         church in Masaya, with the other names people use to look for it. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Church",
+            "@id": "https://website-catequesis-templo-expiatori.vercel.app/#parroquia",
+            "name": "Templo Expiatorio Arquidiocesano Parroquia El Calvario",
+            "alternateName": [
+              "Parroquia El Calvario Masaya",
+              "Templo Expiatorio El Calvario",
+              "Iglesia El Calvario Masaya"
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Masaya",
+              "addressCountry": "NI"
+            },
+            "telephone": "+505 83525200",
+            "sameAs": ["https://www.facebook.com/profile.php?id=61560166110205"]
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://website-catequesis-templo-expiatori.vercel.app/#catequesis",
+            "name": "Catequesis Templo Expiatorio El Calvario",
+            "alternateName": [
+              "Catequesis El Calvario",
+              "Catequesis Calvario Masaya",
+              "Catequesis Parroquia El Calvario"
+            ],
+            "url": "https://website-catequesis-templo-expiatori.vercel.app/",
+            "logo": "https://website-catequesis-templo-expiatori.vercel.app/logo.png",
+            "telephone": "+505 83525200",
+            "parentOrganization": { "@id": "https://website-catequesis-templo-expiatori.vercel.app/#parroquia" },
+            "areaServed": { "@type": "City", "name": "Masaya" },
+            "sameAs": ["https://www.facebook.com/profile.php?id=61560166110205"]
+          },
+          {
+            "@type": "WebSite",
+            "url": "https://website-catequesis-templo-expiatori.vercel.app/",
+            "name": "Catequesis Templo Expiatorio El Calvario",
+            "inLanguage": "es",
+            "publisher": { "@id": "https://website-catequesis-templo-expiatori.vercel.app/#catequesis" }
+          }
+        ]
+      }
+    </script>
 
     <!-- Manrope is self-hosted (same file as the management system); the serif
          comes from Google Fonts. The preconnect saves an extra wait on mobile. -->
@@ -25,7 +84,19 @@
     />
   </head>
   <body>
-    <div id="root"></div>
+    <!-- React replaces this on load. It's the same content in plain HTML, for search
+         engines and link previews that don't run JavaScript. -->
+    <div id="root">
+      <div style="padding:2rem;font-family:sans-serif;color:#1e3a8a">
+        <h1>Catequesis · Templo Expiatorio Arquidiocesano Parroquia El Calvario — Masaya</h1>
+        <p>
+          Catequesis del Templo Expiatorio Arquidiocesano Parroquia El Calvario, Masaya,
+          Nicaragua. Cursos de Pre-Bautismo, Pre-Comunión, Primera Comunión, Perseverancia,
+          Confirmación y CICA (catequesis para adultos): horarios, inscripciones,
+          requisitos, sacramentos y avisos.
+        </p>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

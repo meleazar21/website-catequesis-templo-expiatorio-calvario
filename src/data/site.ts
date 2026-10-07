@@ -96,7 +96,8 @@ function toMapEmbedUrl(value: string): string {
 
 export const contact = {
   phone: raw.telefono,
-  /** Digits only, with country code, for the wa.me link. E.g. "50588887777". */
+  /** With country code, as it should be displayed. E.g. "+505 88887777". The links
+   *  (wa.me, tel:) strip everything but the digits. */
   whatsapp: raw.whatsapp,
   address: raw.direccion,
   officeHours: raw.horarioAtencion,

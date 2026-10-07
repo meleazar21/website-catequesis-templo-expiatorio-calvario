@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://website-catequesis-templo-expiatori.vercel.app/sitemap.xml

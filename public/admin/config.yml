@@ -255,7 +255,7 @@ collections:
           - { name: visionTexto, label: "Visión — texto", widget: text }
 
           - { name: telefono, label: "Teléfono", widget: string }
-          - { name: whatsapp, label: "WhatsApp", widget: string, required: false, hint: "Solo dígitos con código de país. Ej.: 50588887777" }
+          - { name: whatsapp, label: "WhatsApp", widget: string, required: false, hint: "Con código de país. Ej.: +505 88887777" }
           - { name: direccion, label: "Dirección", widget: string }
           - { name: horarioAtencion, label: "Horario de atención", widget: string }
           # Accepts the browser's long URL, coordinates or an address; the site
