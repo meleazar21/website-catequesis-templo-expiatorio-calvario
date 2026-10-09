@@ -25,3 +25,21 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Security headers. Same values as in vercel.json: keep both in sync.
+#
+# The Content-Security-Policy only lets the browser load what the site really uses:
+# its own files, Google Fonts, and the YouTube (Pope's message) and Google Maps
+# (contact) embeds. If a new external service is added someday (another video host,
+# analytics...), its domain must be added here or the browser will block it.
+# 'unsafe-inline' in style-src is needed for the inline styles in index.html and the
+# animation delays; scripts stay strict.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; frame-src https://www.youtube-nocookie.com https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains"
