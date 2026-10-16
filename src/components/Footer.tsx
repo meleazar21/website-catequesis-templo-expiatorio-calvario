@@ -1,9 +1,7 @@
-import { contact, navigation, site } from "../data/site";
-import { Icon } from "./ui";
+import { navigation, site } from "../data/site";
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const socials = contact.socials.filter((r) => r.url);
 
   return (
     <footer className="bg-navy-deep text-white">
@@ -51,42 +49,15 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Social networks */}
+          {/* Registration: social links live in the Contact section, under the office hours. */}
           <div>
             <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.18em] text-gold-light">
-              Síguenos
+              Inscríbete
             </p>
-            {socials.length > 0 ? (
-              /* Round buttons instead of a list of names: an icon is recognized at a
-                 glance and takes less room in a footer that's already busy. */
-              <ul className="mt-5 flex flex-wrap gap-3">
-                {socials.map((r) => (
-                  <li key={r.name}>
-                    <a
-                      href={r.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={r.name}
-                      title={r.name}
-                      style={{ background: r.background }}
-                      /* The faint white ring lifts TikTok's circle off the footer's
-                         blue; it's nearly black and would get lost otherwise. */
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white ring-1 ring-inset ring-white/25 transition-transform hover:-translate-y-0.5"
-                    >
-                      <Icon name={r.icon} size={19} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-5 text-[0.88rem] text-white/45">
-                Enlaces de redes sociales por definir.
-              </p>
-            )}
 
             <a
               href="#inscripciones"
-              className="mt-8 inline-block rounded-full bg-gold px-6 py-3 text-[0.78rem] font-extrabold uppercase tracking-[0.13em] text-navy-deep transition-colors hover:bg-gold-light"
+              className="mt-5 inline-block rounded-full bg-gold px-6 py-3 text-[0.78rem] font-extrabold uppercase tracking-[0.13em] text-navy-deep transition-colors hover:bg-gold-light"
             >
               Inscripciones
             </a>

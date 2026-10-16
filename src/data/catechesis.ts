@@ -74,10 +74,14 @@ export interface Catechist {
   foto?: string;
   /** Which part of the photo the card keeps when it has to crop it. Empty = "normal". */
   encuadre?: "arriba" | "normal" | "centro" | "abajo";
+  /** Future catechist (a catechist's child): shown in the "Semillero" section, not the team. */
+  semillero?: boolean;
 }
-export const catechists = loadCollection<Catechist>(
+const allCatechists = loadCollection<Catechist>(
   import.meta.glob("../../content/catequistas/*.json", { eager: true })
 );
+export const catechists = allCatechists.filter((c) => !c.semillero);
+export const seedlings = allCatechists.filter((c) => c.semillero);
 
 // ---------------------------------------------------------------- Announcements
 /** Values stored in the content files, and shown as-is on the page. */

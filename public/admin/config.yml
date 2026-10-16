@@ -181,6 +181,7 @@ collections:
           - { label: "Centro", value: centro }
           - { label: "Más abajo", value: abajo }
         hint: "Solo cambia algo si la foto es más alta que la tarjeta. En 'Ver perfil' la foto siempre se ve completa."
+      - { name: semillero, label: "Semillero (futuro catequista)", widget: boolean, default: false, required: false, hint: "Actívalo para los hijos de catequistas: aparecen en la sección 'Semillero', debajo del equipo." }
 
   # ------------------------------------------------------------------ Gallery
   - name: galeria

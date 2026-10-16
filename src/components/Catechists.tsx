@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { catechists, type Catechist } from "../data/catechesis";
+import { catechists, seedlings, type Catechist } from "../data/catechesis";
 import { Eyebrow, Icon, Lead, Lightbox, PhotoPlaceholder, Reveal, Section, Title, useModalLayer } from "./ui";
 
 /** Vertical anchor of the card's crop for each `encuadre` option in the panel. */
@@ -31,64 +31,102 @@ const AVATAR_POSITION: Record<string, string> = {
  * The bios are multi-paragraph. Expanding them inside the card stretched the column
  * and left a long text in a 270px box, which is exactly where it reads worst. They open
  * in a separate profile instead, with the photo large beside them.
+ *
+ * Right after the team comes the "Semillero": the catechists' children, future
+ * catechists, marked with `semillero` in the panel. It's its own section so they aren't
+ * counted as part of the team.
  */
 export function Catechists() {
   const [profile, setProfile] = useState<Catechist | null>(null);
 
   return (
-    <Section>
-      <Reveal>
-        <div className="text-center">
-          <Eyebrow>Quiénes acompañan</Eyebrow>
-          <Title center>Nuestros catequistas</Title>
-          <Lead center>
-            Un equipo de servidores que dedica su tiempo a acompañar a niños, jóvenes
-            y familias en su camino de fe.
-          </Lead>
+    <>
+      <Section>
+        <Reveal>
+          <div className="text-center">
+            <Eyebrow>Quiénes acompañan</Eyebrow>
+            <Title center>Nuestros catequistas</Title>
+            <Lead center>
+              Un equipo de servidores que dedica su tiempo a acompañar a niños, jóvenes
+              y familias en su camino de fe.
+            </Lead>
+          </div>
+        </Reveal>
+
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {catechists.map((c, i) => (
+            // Stagger within a row only: `i * 80` made the 20th card wait 1.6s after
+            // scrolling into view, which read as the section loading slowly.
+            <Reveal key={c.nombre} delay={(i % 4) * 80} className="h-full">
+              <CatechistCard c={c} onOpen={setProfile} />
+            </Reveal>
+          ))}
         </div>
-      </Reveal>
+      </Section>
 
-      <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {catechists.map((c, i) => (
-          // Stagger within a row only: `i * 80` made the 20th card wait 1.6s after
-          // scrolling into view, which read as the section loading slowly.
-          <Reveal key={c.nombre} delay={(i % 4) * 80} className="h-full">
-            {/* The whole card opens the profile: on the phone, a small button at the
-                bottom is an awkward target, and there's nothing else to tap in here. */}
-            <button
-              type="button"
-              onClick={() => setProfile(c)}
-              className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-navy/[0.08] bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift"
-            >
-              {c.foto ? (
-                // 2:3 is the shape of most of the portraits, so they show whole. Taller
-                // ones (9:16) get cropped: "normal" keeps the head and the shirt logo.
-                <img src={c.foto} alt={c.nombre} loading="lazy" decoding="async"
-                  className="aspect-[2/3] w-full object-cover"
-                  style={{ objectPosition: `center ${CROP_POSITION[c.encuadre ?? "normal"] ?? "30%"}` }} />
-              ) : (
-                <PhotoPlaceholder label={c.nombre} className="aspect-[2/3] w-full" />
-              )}
-
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-[1.2rem] leading-tight text-navy-deep">{c.nombre}</h3>
-                <p className="mt-1.5 text-[0.72rem] font-extrabold uppercase tracking-[0.13em] text-gold">
-                  {c.grupo}
-                </p>
-                <p className="mt-4 line-clamp-3 text-[0.92rem] leading-relaxed text-ink-soft">
-                  {c.frase}
-                </p>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-[0.75rem] font-extrabold uppercase tracking-[0.13em] text-navy transition-colors group-hover:text-gold">
-                  Ver perfil <Icon name="arrow" size={15} />
-                </span>
-              </div>
-            </button>
+      {seedlings.length > 0 && (
+        // No top padding: it continues the team section on the same background.
+        <Section className="!pt-0">
+          <Reveal>
+            <div className="border-t border-navy/[0.08] pt-16 text-center md:pt-20">
+              <Title center>Semillero</Title>
+              <Lead center>
+                Los más pequeños de nuestra familia catequética, que crecen en la fe
+                y un día acompañarán a otros en su camino.
+              </Lead>
+            </div>
           </Reveal>
-        ))}
-      </div>
+
+          {/* Centered flex instead of the 4-column grid: with one or two cards, a grid
+              left them stuck to the left. Same card width as the team's. */}
+          <div className="mt-14 flex flex-wrap justify-center gap-6">
+            {seedlings.map((c, i) => (
+              <Reveal key={c.nombre} delay={(i % 4) * 80}
+                className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)]">
+                <CatechistCard c={c} onOpen={setProfile} />
+              </Reveal>
+            ))}
+          </div>
+        </Section>
+      )}
 
       {profile && <CatechistProfile c={profile} onClose={() => setProfile(null)} />}
-    </Section>
+    </>
+  );
+}
+
+/** A catechist's card. The whole card opens the profile: on the phone, a small button at
+ *  the bottom is an awkward target, and there's nothing else to tap in here. */
+function CatechistCard({ c, onOpen }: { c: Catechist; onOpen: (c: Catechist) => void }) {
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(c)}
+      className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-navy/[0.08] bg-white text-left shadow-card transition-all hover:-translate-y-1 hover:shadow-lift"
+    >
+      {c.foto ? (
+        // 2:3 is the shape of most of the portraits, so they show whole. Taller
+        // ones (9:16) get cropped: "normal" keeps the head and the shirt logo.
+        <img src={c.foto} alt={c.nombre} loading="lazy" decoding="async"
+          className="aspect-[2/3] w-full object-cover"
+          style={{ objectPosition: `center ${CROP_POSITION[c.encuadre ?? "normal"] ?? "30%"}` }} />
+      ) : (
+        <PhotoPlaceholder label={c.nombre} className="aspect-[2/3] w-full" />
+      )}
+
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="text-[1.2rem] leading-tight text-navy-deep">{c.nombre}</h3>
+        <p className="mt-1.5 text-[0.72rem] font-extrabold uppercase tracking-[0.13em] text-gold">
+          {c.grupo}
+        </p>
+        <p className="mt-4 line-clamp-3 text-[0.92rem] leading-relaxed text-ink-soft">
+          {c.frase}
+        </p>
+        <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-[0.75rem] font-extrabold uppercase tracking-[0.13em] text-navy transition-colors group-hover:text-gold">
+          Ver perfil <Icon name="arrow" size={15} />
+        </span>
+      </div>
+    </button>
   );
 }
 
