@@ -36,6 +36,9 @@
       "curso": "Primera Comunión",
       "documentos": [
         {
+          "texto": "Certificado de nacimiento del niño(a)"
+        },
+        {
           "texto": "Fe de bautismo"
         },
         {
