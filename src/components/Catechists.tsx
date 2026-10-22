@@ -156,22 +156,28 @@ function CatechistProfile({ c, onClose }: { c: Catechist; onClose: () => void })
 
         {/* On the phone the photo is an oval avatar above the name: it takes little
             height, so the bio starts on the first screen. Tapping it opens the photo
-            whole and large. On desktop the column is narrow and vertical, like the
-            photos, so the photo is shown WHOLE beside the text (`self-start`:
-            stretching it to fill the column cut off a third of the sides). */}
+            whole and large. From `sm` up the column is narrow and vertical, like the
+            photos, so the photo is shown WHOLE beside the text (covering the column
+            cut off a third of the sides). The column still spans the panel's full
+            height, filled with a blurred copy of the same photo: with a long bio, a
+            photo sitting at the top left a white block under it that read as cut off. */}
         {c.foto ? (
           <button
             type="button" onClick={() => setEnlarged(true)} aria-label={`Ver la foto de ${c.nombre} en grande`}
-            className="mx-auto mt-8 shrink-0 cursor-zoom-in rounded-[50%] sm:mx-0 sm:mt-0 sm:w-64 sm:self-start sm:rounded-none md:w-72"
+            className="mx-auto mt-8 shrink-0 cursor-zoom-in rounded-[50%] sm:relative sm:mx-0 sm:mt-0 sm:flex sm:w-64 sm:items-center sm:justify-center sm:overflow-hidden sm:rounded-none sm:bg-navy-deep md:w-72"
           >
             <img
+              src={c.foto} alt="" aria-hidden="true"
+              className="absolute inset-0 hidden h-full w-full scale-110 object-cover opacity-50 blur-2xl sm:block"
+            />
+            <img
               src={c.foto} alt={c.nombre}
-              className="h-[15.5rem] w-48 rounded-[50%] object-cover shadow-card ring-4 ring-gold/40 sm:h-auto sm:max-h-[80vh] sm:w-full sm:rounded-none sm:object-contain sm:shadow-none sm:ring-0"
+              className="h-[15.5rem] w-48 rounded-[50%] object-cover shadow-card ring-4 ring-gold/40 sm:relative sm:h-auto sm:max-h-[88vh] sm:w-full sm:rounded-none sm:object-contain sm:shadow-none sm:ring-0"
               style={{ objectPosition: `center ${AVATAR_POSITION[c.encuadre ?? "normal"] ?? "6%"}` }}
             />
           </button>
         ) : (
-          <PhotoPlaceholder label={c.nombre} className="mx-auto mt-8 h-[15.5rem] w-48 shrink-0 rounded-[50%] sm:mx-0 sm:mt-0 sm:h-auto sm:w-64 sm:rounded-none md:w-72" />
+          <PhotoPlaceholder label={c.nombre} className="mx-auto mt-8 h-[15.5rem] w-48 shrink-0 rounded-[50%] sm:mx-0 sm:mt-0 sm:h-auto sm:w-64 sm:self-stretch sm:rounded-none md:w-72" />
         )}
 
         <div className="flex-1 overflow-y-auto p-7 sm:p-9">
