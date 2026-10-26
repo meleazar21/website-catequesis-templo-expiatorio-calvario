@@ -12,45 +12,32 @@ esperaría casi un minuto. Aquí todo se sirve desde el CDN: carga instantánea.
 
 ## Cómo editar el contenido
 
-El sitio trae un **panel de administración** que se usa **en esta computadora**, no en
-línea: se edita en local, se revisa y se publica con un `git push`. Cada push redespliega
-el sitio solo.
+El sitio trae un **panel de administración** (Decap CMS) que se usa de dos formas:
 
-### Levantar el panel
+**En línea (los catequistas).** En **https://catequesis-templo-expiatorio-calvario.com/admin**
+se entra con correo y contraseña; esa dirección lleva al panel, que vive en Netlify.
+Las cuentas se crean por invitación desde Netlify (Identity → Invite users): llega un
+correo, se elige la contraseña y listo. No hace falta cuenta de GitHub. Cada vez que se
+guarda, el cambio se publica solo en uno o dos minutos. Los pasos para activarlo están en
+`netlify.toml`.
 
-Dos terminales, ambas en la carpeta del proyecto:
+**En esta computadora (el desarrollador).** Dos terminales, ambas en la carpeta del
+proyecto:
 
 ```bash
 npm run admin     # terminal 1 — el backend del panel (déjalo corriendo)
 npm run dev       # terminal 2 — el sitio
 ```
 
-Y se abre **http://localhost:5173/admin/**. No pide usuario ni contraseña. Lo que se
-guarda **escribe directo en `content/`**: no toca GitHub hasta que tú lo subas. Si
-`npm run admin` no está corriendo, el panel intentará iniciar sesión y no podrá entrar —
-ese es el síntoma de que falta levantar el proxy.
+Y se abre **http://localhost:5173/admin/**. No pide usuario ni contraseña: lo que se
+guarda escribe directo en `content/` y se publica con un `git push`. **Antes, haz
+`git pull`**: alguien puede haber guardado cambios en línea.
 
-### Publicar los cambios
-
-```bash
-git add -A
-git commit -m "Actualiza los horarios de catequesis"
-git push
-```
-
-Conviene mirar antes `git status` o `git diff`, que es justo la ventaja de editar en
-local: nada se publica sin que lo veas.
-
-> **Por qué en local y no en línea.** Un panel en línea necesita un servicio de identidad.
-> El de Netlify (Git Gateway) está **deprecado** —sigue funcionando donde ya está activado,
-> pero Netlify solo le arregla fallos graves de seguridad— y las alternativas implican o un
-> tercero custodiando un token con escritura sobre el repositorio, o montar una app OAuth
-> propia. Editar en local no depende de nada de eso.
->
-> **El build borra `/admin`**, así que el panel no llega al sitio publicado: allí solo
-> enseñaría un inicio de sesión que no puede funcionar. Para ponerlo en línea algún día,
-> hay que quitar el plugin `excludeAdminFromBuild` de `vite.config.ts` y dar un `backend` de
-> verdad en `public/admin/config.yml`, donde están anotadas las opciones.
+> **Dónde vive cada cosa.** El sitio público está en **Vercel**, con el dominio propio.
+> **Netlify** solo aloja el panel, su inicio de sesión (Identity) y Git Gateway: cualquier
+> otra página que se abra allí redirige al dominio propio, así no hay dos copias del sitio.
+> Git Gateway está deprecado (Netlify solo le corrige fallos graves de seguridad), pero
+> sigue funcionando.
 
 ### Qué se puede editar
 
@@ -150,14 +137,11 @@ Para abrir el panel en local hay que levantar además `npm run admin` (ver más 
 
 ## Publicación
 
-Sitio **estático**: sirve cualquier hosting que despliegue desde Git. Hay configuración
-lista para los dos habituales y en ambos basta importar el repositorio y desplegar, sin
-tocar ajustes:
+- **Vercel** (`vercel.json`) — el sitio público, en https://catequesis-templo-expiatorio-calvario.com.
+  `/admin` redirige al panel en Netlify.
+- **Netlify** (`netlify.toml`) — solo el panel: https://admin-catequesis-templo-calvario.netlify.app/admin/
 
-- **Vercel** — `vercel.json`
-- **Netlify** — `netlify.toml`
-
-Cada `git push` a `master` redespliega.
+Cada `git push` a `master` (y cada cambio guardado en el panel) redespliega los dos.
 
 ---
 
@@ -166,7 +150,7 @@ Cada `git push` a `master` redespliega.
 ```
 content/             ← todo el contenido editable (lo que edita /admin)
 public/
-├── admin/           ← panel de administración (solo local; el build lo borra)
+├── admin/           ← panel de administración (en línea en Netlify, o en local)
 ├── fotos/           ← imágenes subidas desde el panel
 └── video/           ← video de la portada
 src/

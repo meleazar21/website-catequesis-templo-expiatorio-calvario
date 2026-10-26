@@ -5,33 +5,28 @@
 #  Field `name`s are the JSON keys in content/; `label`s and `hint`s are what editors
 #  see in the panel, so they stay in Spanish.
 #
-#  USED LOCALLY ONLY: `npm run admin` starts the proxy that writes to content/, and
-#  `npm run dev` serves the panel at http://localhost:5173/admin/. It asks for no
-#  password and doesn't touch GitHub: changes stay in the working tree and are pushed
-#  with a commit. The build DELETES /admin, so the panel never reaches the published site.
+#  ONLINE (the catechists): https://catequesis-templo-expiatorio-calvario.com/admin
+#  redirects to the panel on Netlify. Editors sign in with Netlify Identity (invited by
+#  email, no GitHub account needed) and each save is a commit to `master` through Git
+#  Gateway; Vercel then republishes the site on its own. Setup steps: see netlify.toml.
 #
-#  The `backend` block below is NOT used in that mode (`local_backend` takes over), but
-#  Decap requires it to exist. If the panel is ever wanted online, give it a real
-#  backend and remove the `excludeAdminFromBuild` plugin from vite.config.ts:
+#  LOCAL (the developer): `npm run admin` + `npm run dev`, then
+#  http://localhost:5173/admin/. `local_backend` takes over only on localhost: no
+#  password, and it writes straight to content/ in the working tree.
 #
-#    - Git Gateway (Netlify) is DEPRECATED: it works on sites that already have it,
-#      but Netlify no longer fixes its bugs, only serious security issues.
-#    - Alternatives: DecapBridge (free, no proxy of your own, but a third party holds a
-#      token with write access to the repository) or your own GitHub OAuth app.
+#  Changes are published as soon as they're saved (no drafts): simpler for editors.
+#  Before editing locally, `git pull` first: someone may have saved changes online.
 ####################################################################################
 
 backend:
-  name: git-gateway      # placeholder: locally, `local_backend` takes over
+  name: git-gateway
   branch: master
 
-# Edit content ON THIS COMPUTER, without publishing anything and without logging in.
-# If `npm run admin` isn't running, the panel tries to use the `backend` above and
-# can't get in: that's the sign the proxy needs to be started.
-local_backend: true
+local_backend: true      # only on localhost
 
-# Changes are saved as drafts and published with a button... except locally, where
-# the proxy only supports direct saves and the CMS falls back to "simple" mode.
-publish_mode: editorial_workflow
+# The public site, on Vercel: the panel's "view site" link points here.
+site_url: https://catequesis-templo-expiatorio-calvario.com
+display_url: https://catequesis-templo-expiatorio-calvario.com
 
 locale: es
 
