@@ -14,7 +14,7 @@ esperaría casi un minuto. Aquí todo se sirve desde el CDN: carga instantánea.
 
 El sitio trae un **panel de administración** (Decap CMS) que se usa de dos formas:
 
-**En línea (los catequistas).** En **https://catequesis-templo-expiatorio-calvario.com/admin**
+**En línea (los catequistas).** En **https://www.catequesis-templo-expiatorio-calvario.com/admin**
 se entra con correo y contraseña; esa dirección lleva al panel, que vive en Netlify.
 Las cuentas se crean por invitación desde Netlify (Identity → Invite users): llega un
 correo, se elige la contraseña y listo. No hace falta cuenta de GitHub. Cada vez que se
@@ -137,7 +137,7 @@ Para abrir el panel en local hay que levantar además `npm run admin` (ver más 
 
 ## Publicación
 
-- **Vercel** (`vercel.json`) — el sitio público, en https://catequesis-templo-expiatorio-calvario.com.
+- **Vercel** (`vercel.json`) — el sitio público, en https://www.catequesis-templo-expiatorio-calvario.com.
   `/admin` redirige al panel en Netlify.
 - **Netlify** (`netlify.toml`) — solo el panel: https://admin-catequesis-templo-calvario.netlify.app/admin/
 

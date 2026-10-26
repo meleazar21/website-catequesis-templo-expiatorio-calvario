@@ -5,7 +5,7 @@
 #  Field `name`s are the JSON keys in content/; `label`s and `hint`s are what editors
 #  see in the panel, so they stay in Spanish.
 #
-#  ONLINE (the catechists): https://catequesis-templo-expiatorio-calvario.com/admin
+#  ONLINE (the catechists): https://www.catequesis-templo-expiatorio-calvario.com/admin
 #  redirects to the panel on Netlify. Editors sign in with Netlify Identity (invited by
 #  email, no GitHub account needed) and each save is a commit to `master` through Git
 #  Gateway; Vercel then republishes the site on its own. Setup steps: see netlify.toml.
@@ -25,8 +25,8 @@ backend:
 local_backend: true      # only on localhost
 
 # The public site, on Vercel: the panel's "view site" link points here.
-site_url: https://catequesis-templo-expiatorio-calvario.com
-display_url: https://catequesis-templo-expiatorio-calvario.com
+site_url: https://www.catequesis-templo-expiatorio-calvario.com
+display_url: https://www.catequesis-templo-expiatorio-calvario.com
 
 locale: es
 

@@ -1,7 +1,7 @@
 # Netlify deployment.
 #
 # Netlify hosts ONLY the admin panel: https://admin-catequesis-templo-calvario.netlify.app/admin/
-# The public site is on Vercel (https://catequesis-templo-expiatorio-calvario.com); every
+# The public site is on Vercel (https://www.catequesis-templo-expiatorio-calvario.com); every
 # save in the panel is a commit to `master`, and Vercel republishes from it. The panel
 # uses `git-gateway`, the sign-in Netlify ships built in: the catechists edit online
 # without a GitHub account.
@@ -32,13 +32,13 @@
 # sends it on to the panel.
 [[redirects]]
   from = "/"
-  to = "https://catequesis-templo-expiatorio-calvario.com/"
+  to = "https://www.catequesis-templo-expiatorio-calvario.com/"
   status = 301
   force = true
 
 [[redirects]]
   from = "/*"
-  to = "https://catequesis-templo-expiatorio-calvario.com/:splat"
+  to = "https://www.catequesis-templo-expiatorio-calvario.com/:splat"
   status = 301
 
 # Security headers. Same values as in vercel.json: keep both in sync.
