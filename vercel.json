@@ -6,12 +6,12 @@
   "redirects": [
     {
       "source": "/admin",
-      "destination": "https://admin-catequesis-templo-calvario.netlify.app/admin/",
+      "destination": "https://admin-catequesis-templo-expiatorio.netlify.app/admin/",
       "permanent": false
     },
     {
       "source": "/admin/(.*)",
-      "destination": "https://admin-catequesis-templo-calvario.netlify.app/admin/",
+      "destination": "https://admin-catequesis-templo-expiatorio.netlify.app/admin/",
       "permanent": false
     }
   ],

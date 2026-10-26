@@ -5,7 +5,7 @@ import App from "./App";
 import "./index.css";
 
 /** The admin panel: published on Netlify, where its sign-in (Netlify Identity) lives. */
-const ADMIN_URL = "https://admin-catequesis-templo-calvario.netlify.app/admin/";
+const ADMIN_URL = "https://admin-catequesis-templo-expiatorio.netlify.app/admin/";
 
 // Netlify Identity's emails (invitation, password reset) link to the site's root with a
 // token in the hash; the sign-in widget lives in the panel, so pass the token on to it.

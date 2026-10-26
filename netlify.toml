@@ -1,6 +1,6 @@
 # Netlify deployment.
 #
-# Netlify hosts ONLY the admin panel: https://admin-catequesis-templo-calvario.netlify.app/admin/
+# Netlify hosts ONLY the admin panel: https://admin-catequesis-templo-expiatorio.netlify.app/admin/
 # The public site is on Vercel (https://www.catequesis-templo-expiatorio-calvario.com); every
 # save in the panel is a commit to `master`, and Vercel republishes from it. The panel
 # uses `git-gateway`, the sign-in Netlify ships built in: the catechists edit online
@@ -8,7 +8,7 @@
 #
 # To set it up (once):
 #   1. Netlify → Add new site → Import from Git → this repository (branch `master`),
-#      named `admin-catequesis-templo-calvario` (the address above). If that name is
+#      named `admin-catequesis-templo-expiatorio` (the address above). If that name is
 #      taken, use another and replace the address in vercel.json and src/main.tsx.
 #   2. Site configuration → Identity → Enable Identity.
 #   3. Identity → Registration → Invite only  (so not just anyone can sign up).

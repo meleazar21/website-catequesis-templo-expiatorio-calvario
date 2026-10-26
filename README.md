@@ -139,7 +139,7 @@ Para abrir el panel en local hay que levantar además `npm run admin` (ver más 
 
 - **Vercel** (`vercel.json`) — el sitio público, en https://www.catequesis-templo-expiatorio-calvario.com.
   `/admin` redirige al panel en Netlify.
-- **Netlify** (`netlify.toml`) — solo el panel: https://admin-catequesis-templo-calvario.netlify.app/admin/
+- **Netlify** (`netlify.toml`) — solo el panel: https://admin-catequesis-templo-expiatorio.netlify.app/admin/
 
 Cada `git push` a `master` (y cada cambio guardado en el panel) redespliega los dos.
 
