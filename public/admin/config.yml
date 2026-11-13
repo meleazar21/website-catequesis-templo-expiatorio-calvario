@@ -157,10 +157,11 @@ collections:
     create: true
     identifier_field: nombre
     slug: "{{slug}}"
-    summary: "{{orden}} · {{nombre}}"
-    sortable_fields: [orden, nombre]
+    summary: "{{nombre}}"
+    sortable_fields: [nombre, orden]
     fields:
-      - { name: orden, label: "Orden en que aparece", widget: number, value_type: int, default: 1 }
+      - { name: directiva, label: "Es parte de la directiva", widget: boolean, required: false, default: false, hint: "La directiva aparece primero, en el orden de abajo. El resto de catequistas se ordena solo por nombre." }
+      - { name: orden, label: "Orden (solo para la directiva)", widget: number, value_type: int, default: 1, required: false }
       - { name: nombre, label: "Nombre", widget: string }
       - { name: grupo, label: "Curso o grupo", widget: string, hint: "Ej.: Catequista de Primera Comunión" }
       - { name: frase, label: "Frase", widget: text }

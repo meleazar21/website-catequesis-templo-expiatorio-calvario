@@ -76,12 +76,20 @@ export interface Catechist {
   encuadre?: "arriba" | "normal" | "centro" | "abajo";
   /** Future catechist (a catechist's child): shown in the "Semillero" section, not the team. */
   semillero?: boolean;
+  /** Board member: listed first, in `orden`. Everyone else goes alphabetically. */
+  directiva?: boolean;
 }
 const allCatechists = loadCollection<Catechist>(
   import.meta.glob("../../content/catequistas/*.json", { eager: true })
 );
-export const catechists = allCatechists.filter((c) => !c.semillero);
-export const seedlings = allCatechists.filter((c) => c.semillero);
+/** Spanish collation, so "Á" sorts with "A" instead of after "Z". */
+const byName = (a: Catechist, b: Catechist) => a.nombre.localeCompare(b.nombre, "es");
+const team = allCatechists.filter((c) => !c.semillero);
+export const catechists = [
+  ...team.filter((c) => c.directiva),
+  ...team.filter((c) => !c.directiva).sort(byName),
+];
+export const seedlings = allCatechists.filter((c) => c.semillero).sort(byName);
 
 // ---------------------------------------------------------------- Announcements
 /** Values stored in the content files, and shown as-is on the page. */
