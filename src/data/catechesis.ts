@@ -78,10 +78,13 @@ export interface Catechist {
   semillero?: boolean;
   /** Board member: listed first, in `orden`. Everyone else goes alphabetically. */
   directiva?: boolean;
+  /** Unchecked = hidden from the site but kept in the panel. Missing counts as active,
+   *  so entries saved before the field existed stay visible. */
+  activo?: boolean;
 }
 const allCatechists = loadCollection<Catechist>(
   import.meta.glob("../../content/catequistas/*.json", { eager: true })
-);
+).filter((c) => c.activo !== false);
 /** Spanish collation, so "Á" sorts with "A" instead of after "Z". */
 const byName = (a: Catechist, b: Catechist) => a.nombre.localeCompare(b.nombre, "es");
 const team = allCatechists.filter((c) => !c.semillero);

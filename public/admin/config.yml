@@ -160,6 +160,7 @@ collections:
     summary: "{{nombre}}"
     sortable_fields: [nombre, orden]
     fields:
+      - { name: activo, label: "Activo", widget: boolean, required: false, default: true, hint: "Desmárcalo para ocultarlo del sitio sin borrar su ficha. Se puede volver a activar cuando quieras." }
       - { name: directiva, label: "Es parte de la directiva", widget: boolean, required: false, default: false, hint: "La directiva aparece primero, en el orden de abajo. El resto de catequistas se ordena solo por nombre." }
       - { name: orden, label: "Orden (solo para la directiva)", widget: number, value_type: int, default: 1, required: false }
       - { name: nombre, label: "Nombre", widget: string }
